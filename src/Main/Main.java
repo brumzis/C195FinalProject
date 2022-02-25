@@ -27,6 +27,6 @@ public class Main extends Application {
 
     @Override
     public void init() {
-        System.out.println("starting up - called from init in main");
+        System.out.println("starting up - called from init in main, in the new file");
     }
 }

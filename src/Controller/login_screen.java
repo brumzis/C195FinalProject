@@ -14,10 +14,10 @@ public class login_screen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("called from initialize on login screen load page");
+        System.out.println("called from initialize on login screen load page - from new screen");
     }
 
     public void onLoginButtonClick(ActionEvent actionEvent) {
-        loginLabel.setText("button has been clicked!");
+        loginLabel.setText("button has been newly clicked!");
     }
 }
