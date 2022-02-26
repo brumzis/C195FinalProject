@@ -13,8 +13,9 @@ public class Main extends Application {
 
 
         JDBC.openConnection();
-        JDBC.closeConnection();
         launch(args);
+        JDBC.closeConnection();
+
     }
 
     @Override
