@@ -19,12 +19,9 @@ public class Main extends Application {
 
         //Locale.setDefault(new Locale("fr"));   //for testing purposes.
         JDBC.openConnection();
-        //launch(args);
-        int rowsAffected = FruitsQuery.insert("Cherries", 1);
-        if (rowsAffected > 0)
-            System.out.println(rowsAffected + " rows successfully inserted");
-        else
-            System.out.println("unsuccessful insert");
+        launch(args);
+
+
 
         JDBC.closeConnection();
 
