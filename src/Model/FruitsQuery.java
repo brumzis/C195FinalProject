@@ -1,6 +1,5 @@
-package helper;
+package Model;
 
-import javax.naming.ldap.PagedResultsResponseControl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

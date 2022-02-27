@@ -1,7 +1,6 @@
 package Main;
 
-import helper.FruitsQuery;
-import helper.JDBC;
+import Model.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-
-import java.util.Locale;
 
 public class Main extends Application {
 
@@ -39,4 +36,10 @@ public class Main extends Application {
     public void init() {
         System.out.println("starting up - called from init in main, in the new file");
     }
+
+    @Override
+    public void stop() {
+        System.out.println("called from the stop in main");
+    }
+
 }
