@@ -33,7 +33,7 @@ public class login_screen implements Initializable {
         passwordTextBox.setText(rb.getString("pwd2"));
         loginLabel.setText(String.valueOf(ZoneId.systemDefault()));
         loginButton.setText(rb.getString("button"));
-        loginLabel.setText(rb.getString("userid1"));
+        loginLabel.setText(String.valueOf(ZoneId.systemDefault()));
         passwordLabel.setText(rb.getString("pwd"));
         screenTitle.setText(rb.getString("title"));
         locationLabel.setText(rb.getString("loc"));
@@ -47,7 +47,7 @@ public class login_screen implements Initializable {
 
     public void onLoginButtonClick(ActionEvent actionEvent) {
 
-
+        System.out.println("button pressed");
     }
 
 
