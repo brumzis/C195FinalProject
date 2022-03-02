@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import org.w3c.dom.ls.LSOutput;
 
 import java.net.URL;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class login_screen implements Initializable {
@@ -16,17 +18,37 @@ public class login_screen implements Initializable {
     public Label loginLabel;
     public TextField userIDTextBox;
     public TextField passwordTextBox;
+    public Label locationLabel;
+    public Label userIdLabel;
+    public Label passwordLabel;
+    public Label screenTitle;
+    ResourceBundle rb = ResourceBundle.getBundle("Main/C195Bundle");
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle rb) {
         System.out.println("called from initialize on login screen load page - from new screen");
-        loginLabel.setText("screen just loaded");
+        System.out.println(Locale.getDefault());
+        userIDTextBox.setText(rb.getString("userid2"));
+        passwordTextBox.setText(rb.getString("pwd2"));
+        loginLabel.setText(String.valueOf(ZoneId.systemDefault()));
+        loginButton.setText(rb.getString("button"));
+        loginLabel.setText(rb.getString("userid1"));
+        passwordLabel.setText(rb.getString("pwd"));
+        screenTitle.setText(rb.getString("title"));
+        locationLabel.setText(rb.getString("loc"));
+
+
+
+
+
     }
 
     public void onLoginButtonClick(ActionEvent actionEvent) {
-        loginLabel.setText("button has been newly clicked!");
+
+
     }
+
 
 
 }
