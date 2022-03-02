@@ -15,7 +15,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
 
-        Locale.setDefault(new Locale("fr"));   //for testing purposes.
+        //Locale.setDefault(new Locale("fr"));   //for testing purposes.
         JDBC.openConnection();
         launch(args);
         JDBC.closeConnection();
@@ -28,6 +28,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login_screen.fxml"));
         loader.setResources(rb);
         Parent root = loader.load();
+        primaryStage.setTitle(rb.getString("title"));
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
     }

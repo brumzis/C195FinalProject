@@ -22,7 +22,7 @@ public class login_screen implements Initializable {
     public Label userIdLabel;
     public Label passwordLabel;
     public Label screenTitle;
-    ResourceBundle rb = ResourceBundle.getBundle("Main/C195Bundle");
+
 
 
     @Override
@@ -37,6 +37,7 @@ public class login_screen implements Initializable {
         passwordLabel.setText(rb.getString("pwd"));
         screenTitle.setText(rb.getString("title"));
         locationLabel.setText(rb.getString("loc"));
+        userIdLabel.setText(rb.getString("userid1"));
 
 
 
