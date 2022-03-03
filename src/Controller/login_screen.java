@@ -52,7 +52,7 @@ public class login_screen implements Initializable {
         int userID = getUserID(userNameInput);
 
         if(userID != 0 && (validPassword(getUserID(userNameInput), passwordInput)))
-            System.out.println("username and password are good");
+            System.out.println("username and password are good - go to main page");
         else
             loadPasswordErrorBox();
 
