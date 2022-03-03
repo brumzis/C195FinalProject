@@ -4,6 +4,7 @@ import Model.JDBC;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -50,21 +51,21 @@ public class login_screen implements Initializable {
         String passwordInput = passwordTextBox.getText();
         int userID = getUserID(userNameInput);
 
-        if(userID == 0)
-            System.out.println("invalid username");
+        if(userID != 0 && (validPassword(getUserID(userNameInput), passwordInput)))
+            System.out.println("username and password are good");
         else
-            System.out.println("username accepted");
-        if(validPassword(getUserID(userNameInput), passwordInput))
-            System.out.println("password is valid");
-        else
-            System.out.println("invalid password");
+            loadPasswordErrorBox();
 
 
 
     }
 
-    private void sendErrorBox() {
-
+    private void loadPasswordErrorBox() {
+        ResourceBundle rb = ResourceBundle.getBundle("Main/C195Bundle");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(rb.getString("errorTitle"));
+        alert.setContentText(rb.getString("errorContent"));
+        alert.showAndWait();
     }
 
 
