@@ -44,9 +44,6 @@ public class login_screen implements Initializable {
         userIdLabel.setText(rb.getString("userid1"));
 
 
-
-
-
     }
 
     public void onLoginButtonClick(ActionEvent actionEvent) throws SQLException {
@@ -56,6 +53,10 @@ public class login_screen implements Initializable {
             System.out.println("invalid username");
         else
             System.out.println("username accepted");
+        if(validPassword(getUserID(userNameInput), passwordInput))
+            System.out.println("password is valid");
+        else
+            System.out.println("invalid password");
 
 
 
@@ -75,6 +76,17 @@ public class login_screen implements Initializable {
         return userID;
     }
 
+
+    private boolean validPassword(int userID, String password) throws SQLException {
+        String sql = "SELECT Password FROM users WHERE User_ID = '" + userID + "'";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            if (rs.getString("Password").equals(password))
+                return true;
+        }
+        return false;
+    }
 
 
 }
