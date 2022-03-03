@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="399.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.login_screen">
    <children>
       <Button fx:id="loginButton" layoutX="490.0" layoutY="158.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="44.0" prefWidth="116.0" text="Login" AnchorPane.leftAnchor="490.0" />
-      <Label fx:id="loginLabel" layoutX="443.0" layoutY="342.0" prefHeight="27.0" prefWidth="221.0" text="show some text" AnchorPane.rightAnchor="0.0" />
+      <Label fx:id="loginLabel" layoutX="443.0" layoutY="342.0" prefHeight="27.0" prefWidth="221.0" AnchorPane.rightAnchor="0.0" />
       <Label fx:id="locationLabel" layoutX="443.0" layoutY="305.0" prefHeight="37.0" prefWidth="150.0" text="Current Location:" underline="true" AnchorPane.rightAnchor="70.0" />
       <TextField fx:id="userIDTextBox" layoutX="191.0" layoutY="143.0" prefHeight="37.0" prefWidth="230.0" promptText="Enter userID" AnchorPane.leftAnchor="191.0" />
       <TextField fx:id="passwordTextBox" layoutX="191.0" layoutY="199.0" prefHeight="37.0" prefWidth="230.0" promptText="Enter password" AnchorPane.leftAnchor="191.0" />

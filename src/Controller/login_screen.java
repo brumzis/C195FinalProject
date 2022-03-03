@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.JDBC;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -9,6 +10,9 @@ import javafx.scene.control.TextField;
 import org.w3c.dom.ls.LSOutput;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -29,8 +33,8 @@ public class login_screen implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("called from initialize on login screen load page - from new screen");
         System.out.println(Locale.getDefault());
-        userIDTextBox.setText(rb.getString("userid2"));
-        passwordTextBox.setText(rb.getString("pwd2"));
+        userIDTextBox.setPromptText(rb.getString("userid2"));
+        passwordTextBox.setPromptText(rb.getString("pwd2"));
         loginLabel.setText(String.valueOf(ZoneId.systemDefault()));
         loginButton.setText(rb.getString("button"));
         loginLabel.setText(String.valueOf(ZoneId.systemDefault()));
@@ -45,9 +49,30 @@ public class login_screen implements Initializable {
 
     }
 
-    public void onLoginButtonClick(ActionEvent actionEvent) {
+    public void onLoginButtonClick(ActionEvent actionEvent) throws SQLException {
+        String userNameInput = userIDTextBox.getText();
+        String passwordInput = passwordTextBox.getText();
+        if(getUserID(userNameInput) == 0)
+            System.out.println("invalid username");
+        else
+            System.out.println("username accepted");
 
-        System.out.println("button pressed");
+
+
+    }
+
+
+
+    private int getUserID(String inputName) throws SQLException {
+        int userID = 0;
+        String sql = "SELECT User_ID FROM users WHERE User_Name = '" + inputName + "'";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            userID = rs.getInt("User_ID");
+        }
+        return userID;
     }
 
 
