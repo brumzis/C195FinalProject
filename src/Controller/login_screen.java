@@ -31,8 +31,7 @@ public class login_screen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("called from initialize on login screen load page - from new screen");
-        System.out.println(Locale.getDefault());
+
         userIDTextBox.setPromptText(rb.getString("userid2"));
         passwordTextBox.setPromptText(rb.getString("pwd2"));
         loginLabel.setText(String.valueOf(ZoneId.systemDefault()));
@@ -64,6 +63,9 @@ public class login_screen implements Initializable {
 
     }
 
+    private void sendErrorBox() {
+
+    }
 
 
     private int getUserID(String inputName) throws SQLException {

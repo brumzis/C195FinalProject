@@ -35,12 +35,12 @@ public class Main extends Application {
 
     @Override
     public void init() {
-        System.out.println("starting up - called from init in main, in the new file");
+
     }
 
     @Override
     public void stop() {
-        System.out.println("called from the stop in main");
+
     }
 
 }
