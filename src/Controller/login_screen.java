@@ -49,7 +49,9 @@ public class login_screen implements Initializable {
     public void onLoginButtonClick(ActionEvent actionEvent) throws SQLException {
         String userNameInput = userIDTextBox.getText();
         String passwordInput = passwordTextBox.getText();
-        if(getUserID(userNameInput) == 0)
+        int userID = getUserID(userNameInput);
+
+        if(userID == 0)
             System.out.println("invalid username");
         else
             System.out.println("username accepted");
