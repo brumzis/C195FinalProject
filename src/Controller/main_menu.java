@@ -35,7 +35,13 @@ public class main_menu {
         editCustomerStage.show();
     }
 
-    public void deleteCustomerButtonClick(ActionEvent actionEvent) {
+    public void deleteCustomerButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/delete_customer.fxml"));
+        Stage delCustomerStage = (Stage)customerUpdateButton.getScene().getWindow();
+        Scene delCustomerScene = new Scene(root, 400, 200);
+        delCustomerStage.setTitle("Delete Customer");
+        delCustomerStage.setScene(delCustomerScene);
+        delCustomerStage.show();
     }
 
     public void newApptButtonClick(ActionEvent actionEvent) {
