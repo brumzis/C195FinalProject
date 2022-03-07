@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.add_customer">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.add_customer">
    <children>
-      <BorderPane layoutX="180.0" layoutY="81.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="180.0" layoutY="81.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <Label alignment="TOP_CENTER" prefHeight="38.0" prefWidth="398.0" text="Add New Customer" BorderPane.alignment="CENTER">
                <font>
@@ -103,14 +103,14 @@
          <bottom>
             <HBox prefHeight="69.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Add Customer">
+                  <Button fx:id="addCustomerAddButton" mnemonicParsing="false" onAction="#addCustomerButtonClick" prefHeight="25.0" prefWidth="104.0" text="Add Customer">
                      <HBox.margin>
-                        <Insets left="300.0" right="30.0" top="15.0" />
+                        <Insets left="430.0" right="30.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Cancel">
+                  <Button fx:id="addCustomerCancelButton" alignment="CENTER" mnemonicParsing="false" onAction="#AddCustomerCancelButtonClick" prefHeight="25.0" prefWidth="60.0" text="Cancel">
                      <HBox.margin>
-                        <Insets top="15.0" />
+                        <Insets top="20.0" />
                      </HBox.margin>
                   </Button>
                </children>
