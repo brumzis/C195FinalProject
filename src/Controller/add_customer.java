@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Country;
 import Model.Division;
+import Model.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static Model.Country.countryObjectList;
@@ -41,6 +43,15 @@ public class add_customer {
 
 
     public void addCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
+        String sql = "INSERT INTO Customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";  //excluded primary key column
+        PreparedStatement ps =  JDBC.connection.prepareStatement(sql);
+        ps.setString(1, customerNameTbox.getText());
+        ps.setString(2, customerAddressTbox.getText());
+        ps.setString(3, postalCodeTbox.getText());
+        ps.setString(4, phoneNumberTbox.getText());
+        ps.setInt(5, Division.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
+        int rowsAffected = ps.executeUpdate();
+        System.out.println(rowsAffected + " Customer successfully added");
 
 
     }

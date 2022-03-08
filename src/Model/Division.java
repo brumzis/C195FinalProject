@@ -66,4 +66,14 @@ public class Division {
         return specificDivisionList;
     }
 
+    public static int returnDivisionID(String name) throws SQLException {
+        int i = 0;
+        String sql = "SELECT Division_ID FROM First_Level_Divisions WHERE Division = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            i = rs.getInt(1);
+        return i;
+    }
 }
