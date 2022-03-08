@@ -1,5 +1,6 @@
 package Main;
 
+import Model.FruitsQuery;
 import Model.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ public class Main extends Application {
         //Locale.setDefault(new Locale("fr"));   //for testing purposes.
         JDBC.openConnection();
         launch(args);
+
         JDBC.closeConnection();
 
     }

@@ -1,5 +1,9 @@
 package Controller;
 
+import Model.Countries;
+import Model.JDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,6 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+
 
 public class add_customer {
     public TextField customerNameTbox;
@@ -22,7 +32,18 @@ public class add_customer {
     public Button addCustomerAddButton;
     public Button addCustomerCancelButton;
 
-    public void addCustomerButtonClick(ActionEvent actionEvent) {
+
+
+    public void initialize () throws SQLException {
+        countryComboBox.setItems(Countries.loadCountries());
+
+
+    }
+
+
+    public void addCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
+
+
     }
 
     public void AddCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {

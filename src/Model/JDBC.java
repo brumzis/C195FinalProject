@@ -1,7 +1,6 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 public abstract class JDBC {
 
@@ -14,6 +13,7 @@ public abstract class JDBC {
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
+
 
     public static void openConnection()
     {
@@ -28,6 +28,7 @@ public abstract class JDBC {
         }
     }
 
+
     public static void closeConnection() {
         try {
             connection.close();
@@ -39,7 +40,13 @@ public abstract class JDBC {
         }
     }
 
-    public static void checkPassword() {
 
-    }
+    //public static int insertCustomer() throws SQLException {}
+
+
+
+
+
+
+
 }
