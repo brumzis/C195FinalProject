@@ -1,19 +1,11 @@
 package Model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Division {
 
     private int division_ID;
     private String divisionName;
     private int country_ID;
-    static ObservableList<String> divisionList = FXCollections.observableArrayList();
-    static ObservableList<String> specificDivisionList = FXCollections.observableArrayList();
 
 
     Division(int division_ID, String divisionName, int country_ID) {

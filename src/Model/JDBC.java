@@ -2,9 +2,8 @@ package Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-
 import java.sql.*;
+
 
 public abstract class JDBC {
 
