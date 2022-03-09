@@ -49,7 +49,12 @@ public class add_customer {
             ps.setString(4, phoneNumberTbox.getText());
             ps.setInt(5, JDBC.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
             int rowsAffected = ps.executeUpdate();
-            System.out.println(rowsAffected + " Customer successfully added");
+            if (rowsAffected > 0) {
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Addition Successful");
+                alert2.setHeaderText("Customer added to DB!");
+                alert2.showAndWait();
+            }
         } catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Data Entry Error");
