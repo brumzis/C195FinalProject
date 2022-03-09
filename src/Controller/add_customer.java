@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -39,15 +40,23 @@ public class add_customer {
 
 
     public void addCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
-        String sql = "INSERT INTO Customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";  //excluded primary key column
-        PreparedStatement ps =  JDBC.connection.prepareStatement(sql);
-        ps.setString(1, customerNameTbox.getText());
-        ps.setString(2, customerAddressTbox.getText());
-        ps.setString(3, postalCodeTbox.getText());
-        ps.setString(4, phoneNumberTbox.getText());
-        ps.setInt(5, JDBC.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
-        int rowsAffected = ps.executeUpdate();
-        System.out.println(rowsAffected + " Customer successfully added");
+        try {
+            String sql = "INSERT INTO Customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";  //excluded primary key column
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setString(1, customerNameTbox.getText());
+            ps.setString(2, customerAddressTbox.getText());
+            ps.setString(3, postalCodeTbox.getText());
+            ps.setString(4, phoneNumberTbox.getText());
+            ps.setInt(5, JDBC.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
+            int rowsAffected = ps.executeUpdate();
+            System.out.println(rowsAffected + " Customer successfully added");
+        } catch(Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Data Entry Error");
+            alert.setHeaderText("Data Entry Error");
+            alert.setContentText("Please make sure all fields are filled in with correct data types");
+            alert.showAndWait();
+        }
     }
 
 

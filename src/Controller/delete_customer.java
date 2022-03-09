@@ -35,18 +35,30 @@ public class delete_customer {
     }
 
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Customer?");
-        alert.setContentText("All customer appointments must be deleted before deleting customer! " + "Do you wish to continue?");
-        alert.showAndWait();
-        int customerID = Integer.parseInt(deleteCustomerIDTbox.getText());
-        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1, customerID);
-        int rowsAffected = ps.executeUpdate();
-        if (rowsAffected > 0)
-            System.out.println(rowsAffected + " row deleted from table");
-        else
-            System.out.println("error - customer not found");
+        try {
+            int customerID = Integer.parseInt(deleteCustomerIDTbox.getText());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Customer?");
+            alert.setContentText("All customer appointments must be deleted before deleting customer! " + "Do you wish to continue?");
+            alert.showAndWait();
+
+            String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setInt(1, customerID);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0)
+                System.out.println(rowsAffected + " row deleted from table");
+            else {
+                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                alert1.setTitle("Deletion Error:");
+                alert1.setHeaderText("Customer not found");
+                alert1.showAndWait();
+            }
+        } catch (NumberFormatException e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Deletion Error:");
+            alert2.setHeaderText("Please enter a valid Customer ID");
+            alert2.showAndWait();
+        }
     }
 }
