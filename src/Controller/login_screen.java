@@ -35,7 +35,6 @@ public class login_screen implements Initializable {
     public Label screenTitle;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -49,8 +48,8 @@ public class login_screen implements Initializable {
         locationLabel.setText(rb.getString("loc"));
         userIdLabel.setText(rb.getString("userid1"));
 
-
     }
+
 
     public void onLoginButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         String userNameInput = userIDTextBox.getText();
@@ -68,10 +67,8 @@ public class login_screen implements Initializable {
         }
         else
             loadPasswordErrorBox();
-
-
-
     }
+
 
     private void loadPasswordErrorBox() {
         ResourceBundle rb = ResourceBundle.getBundle("Main/C195Bundle");
