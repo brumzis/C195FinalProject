@@ -16,6 +16,7 @@ public class main_menu {
     public Button appointmentNewButton;
     public Button appointmentEditButton;
     public Button appointmentDeleteButton;
+    public Button customerViewButton;
 
     public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
@@ -51,5 +52,9 @@ public class main_menu {
     }
 
     public void deleteApptButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void viewCustomerTableButtonClick(ActionEvent actionEvent) {
+        System.out.println("button pressed");
     }
 }

@@ -22,6 +22,7 @@ public class Division {
         this.country_ID = country_ID;
     }
 
+
     public int getDivision_ID() {
         return division_ID;
     }
@@ -46,34 +47,9 @@ public class Division {
         this.country_ID = country_ID;
     }
 
-    public static ObservableList<String> loadDivisions() throws SQLException {
-        String sql = "SELECT Division FROM First_Level_Divisions";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next())
-            divisionList.add(rs.getString(1));
-        return divisionList;
-    }
 
-    public static ObservableList<String> loadSpecificDivisions(int country_ID) throws SQLException {
-        specificDivisionList.clear();
-        String sql = "SELECT Division FROM First_Level_Divisions WHERE Country_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1, country_ID);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next())
-            specificDivisionList.add(rs.getString(1));
-        return specificDivisionList;
-    }
 
-    public static int returnDivisionID(String name) throws SQLException {
-        int i = 0;
-        String sql = "SELECT Division_ID FROM First_Level_Divisions WHERE Division = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, name);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next())
-            i = rs.getInt(1);
-        return i;
-    }
+
+
+
 }

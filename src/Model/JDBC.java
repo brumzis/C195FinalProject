@@ -1,5 +1,9 @@
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+
 import java.sql.*;
 
 public abstract class JDBC {
@@ -34,14 +38,71 @@ public abstract class JDBC {
             connection.close();
             System.out.println("Connection closed!");
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
     }
 
 
-    //public static int insertCustomer() throws SQLException {}
+    public static ObservableList<Country> getCountryObjects() throws SQLException {
+        ObservableList<Country> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM countries";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Country c = new Country(rs.getInt(1), rs.getString(2));
+            myList.add(c);
+        }
+        return myList;
+    }
+
+
+    public static ObservableList<String> getCountryNames() throws SQLException {
+        ObservableList<String> myList = FXCollections.observableArrayList();
+        String sql = "SELECT Country FROM countries";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            myList.add(rs.getString(1));
+        return myList;
+    }
+
+
+    public static ObservableList<String> getAllDivisionNames() throws SQLException {
+        ObservableList<String> myList = FXCollections.observableArrayList();
+        String sql = "SELECT Division FROM First_Level_Divisions";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            myList.add(rs.getString(1));
+        return myList;
+    }
+
+
+    public static ObservableList<String> getCountrySpecificDivisionNames(int country_ID) throws SQLException {
+        ObservableList<String> myList = FXCollections.observableArrayList();
+        String sql = "SELECT Division FROM First_Level_Divisions WHERE Country_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, country_ID);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            myList.add(rs.getString(1));
+        return myList;
+    }
+
+
+    public static int returnDivisionID(String name) throws SQLException {
+        int i = 0;
+        String sql = "SELECT Division_ID FROM First_Level_Divisions WHERE Division = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            i = rs.getInt(1);
+        return i;
+    }
+
+
 
 
 

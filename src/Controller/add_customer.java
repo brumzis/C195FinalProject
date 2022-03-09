@@ -1,10 +1,7 @@
 package Controller;
 
 import Model.Country;
-import Model.Division;
 import Model.JDBC;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +15,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static Model.Country.countryObjectList;
+
 
 
 public class add_customer {
@@ -30,14 +27,13 @@ public class add_customer {
     public ComboBox divisionComboBox;
     public Button addCustomerAddButton;
     public Button addCustomerCancelButton;
-    private ObservableList<String> emptyList = FXCollections.observableArrayList();
+
 
 
     public void initialize () throws SQLException {
-        Country.loadCountryObjects();
-        countryComboBox.setItems(Country.loadCountryNames());
-        divisionComboBox.setItems(Division.loadDivisions());
 
+        countryComboBox.setItems(JDBC.getCountryNames());
+        divisionComboBox.setItems(JDBC.getAllDivisionNames());
 
     }
 
@@ -49,12 +45,11 @@ public class add_customer {
         ps.setString(2, customerAddressTbox.getText());
         ps.setString(3, postalCodeTbox.getText());
         ps.setString(4, phoneNumberTbox.getText());
-        ps.setInt(5, Division.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
+        ps.setInt(5, JDBC.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
         int rowsAffected = ps.executeUpdate();
         System.out.println(rowsAffected + " Customer successfully added");
-
-
     }
+
 
     public void AddCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
@@ -65,11 +60,12 @@ public class add_customer {
         menuStage.show();
     }
 
+
     public void selection(ActionEvent actionEvent) throws SQLException {
         String str = countryComboBox.getSelectionModel().getSelectedItem().toString();
-        for (Country c : countryObjectList) {
+        for (Country c : JDBC.getCountryObjects()) {
             if (c.getCountryName().equals(str))
-                divisionComboBox.setItems(Division.loadSpecificDivisions(c.getCountryID()));
+                divisionComboBox.setItems(JDBC.getCountrySpecificDivisionNames(c.getCountryID()));
         }
     }
 }
