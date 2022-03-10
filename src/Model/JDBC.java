@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.edit_customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -132,6 +133,36 @@ public abstract class JDBC {
         return rowsAffected;
     }
 
+
+    public static int updateCustomer(Customer cust) throws SQLException {
+        int rowsAffected = 0;
+        try {
+            String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+
+            ps.setString(1, cust.getCustomerName());
+            ps.setString(2, cust.getCustomerAddress());
+            ps.setString(3, cust.getCustomerPostalCode() );
+            ps.setString(4, cust.getCustomerPhone());
+            ps.setInt(5, cust.getCustomerDivision());
+            ps.setInt(6, cust.getCustomerID());
+            rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                Alert updateAlert = new Alert(Alert.AlertType.INFORMATION);
+                updateAlert.setTitle("Update successful!");
+                updateAlert.setHeaderText("Customer updated successfully!");
+                updateAlert.showAndWait();
+                return rowsAffected;
+            }
+
+        } catch (Exception e) {
+            Alert errorBox = new Alert(Alert.AlertType.ERROR);
+            errorBox.setTitle("error");
+            errorBox.setHeaderText("All fields must have valid data");
+            errorBox.showAndWait();
+        }
+        return rowsAffected;
+    }
 
 
 

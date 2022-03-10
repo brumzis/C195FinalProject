@@ -12,13 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static Model.JDBC.createCustomerList;
+
 
 public class view_customer implements Initializable {
 
@@ -35,18 +39,25 @@ public class view_customer implements Initializable {
     public Button exitButton;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         tableIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("customerID"));
         tableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerName"));
+        tableNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         tableAddressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerAddress"));
+        tableAddressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         tablePostalColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerPostalCode"));
+        tablePostalColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         tablePhoneColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerPhone"));
+        tablePhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         tableDivisionColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("customerDivision"));
+        tableDivisionColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
+        customerTable.setEditable(true);
         try {customerTable.setItems(createCustomerList());} catch (SQLException e) {e.printStackTrace();}
     }
+
 
     public void createCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
@@ -57,14 +68,32 @@ public class view_customer implements Initializable {
         addCustomerStage.show();
     }
 
-    public void updateCustomerButtonClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/edit_customer.fxml"));
+
+    public void updateCustomerButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
+        if (customerTable.getSelectionModel().getSelectedItem() == null) {
+            Alert noSelection = new Alert(Alert.AlertType.ERROR);
+            noSelection.setTitle("Error");
+            noSelection.setHeaderText("No customer selected");
+            noSelection.showAndWait();
+        }
+
+        Customer c = customerTable.getSelectionModel().getSelectedItem();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/edit_customer.fxml"));
+        Parent root = loader.load();
+
+        edit_customer controller = loader.getController();
+        controller.getSelectedCustomer(c);
+
         Stage editCustomerStage = (Stage)updateCustomerButton.getScene().getWindow();
         Scene editCustomerScene = new Scene(root, 700, 500);
         editCustomerStage.setTitle("Edit Customer");
         editCustomerStage.setScene(editCustomerScene);
         editCustomerStage.show();
     }
+
+
 
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
@@ -93,6 +122,7 @@ public class view_customer implements Initializable {
         }
     }
 
+
     public void exitButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)deleteCustomerButton.getScene().getWindow();
@@ -100,5 +130,18 @@ public class view_customer implements Initializable {
         menuStage.setTitle("Main Menu");
         menuStage.setScene(menuScene);
         menuStage.show();
+    }
+
+    public Customer sendSelectedCustomer(Customer c) {
+        return c;
+    }
+
+    public void editCancel(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+    }
+
+    public void editCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+    }
+
+    public void editStart(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
     }
 }

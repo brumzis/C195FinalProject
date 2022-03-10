@@ -11,15 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.view_customer">
    <children>
       <BorderPane layoutX="118.0" layoutY="58.0" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <TableView fx:id="customerTable" prefHeight="353.0" prefWidth="637.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="tableIDColumn" prefWidth="45.0" text="ID" />
-                <TableColumn fx:id="tableNameColumn" prefWidth="150.0" text="Name" />
+                <TableColumn fx:id="tableIDColumn" editable="false" prefWidth="45.0" text="ID" />
+                <TableColumn fx:id="tableNameColumn" onEditCancel="#editCancel" onEditCommit="#editCommit" onEditStart="#editStart" prefWidth="150.0" text="Name" />
                   <TableColumn fx:id="tableAddressColumn" prefWidth="171.0" text="Address" />
                   <TableColumn fx:id="tablePostalColumn" prefWidth="91.0" text="Postal Code" />
                   <TableColumn fx:id="tablePhoneColumn" prefWidth="104.0" text="Phone #" />

@@ -1,5 +1,9 @@
 package Model;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Customer {
 
     private int customerID;
@@ -59,6 +63,18 @@ public class Customer {
 
     public int getCustomerDivision() {
         return customerDivision;
+    }
+
+    public String getCustomerDivisionName() throws SQLException {
+        int i = getCustomerDivision();
+        String s = null;
+        String str = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(str);
+        ps.setInt(1, i);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next())
+            s = rs.getString(1);
+        return s;
     }
 
     public void setCustomerDivision(int customerDivision) {

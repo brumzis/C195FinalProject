@@ -1,6 +1,5 @@
 package Main;
 
-import Model.FruitsQuery;
 import Model.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
