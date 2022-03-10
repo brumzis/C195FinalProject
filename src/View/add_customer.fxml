@@ -63,7 +63,7 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="customerNameTbox" prefHeight="35.0" prefWidth="312.0">
+                  <TextField fx:id="customerNameTbox" prefHeight="35.0" prefWidth="328.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -73,22 +73,22 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="postalCodeTbox" layoutX="10.0" layoutY="45.0" prefHeight="35.0" prefWidth="312.0">
+                  <TextField fx:id="postalCodeTbox" layoutX="10.0" layoutY="45.0" maxWidth="100.0" prefHeight="35.0" prefWidth="312.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="phoneNumberTbox" layoutX="10.0" layoutY="80.0" prefHeight="35.0" prefWidth="312.0">
+                  <TextField fx:id="phoneNumberTbox" layoutX="10.0" layoutY="80.0" maxWidth="150.0" prefHeight="35.0" prefWidth="312.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <ComboBox fx:id="countryComboBox" onAction="#selection" prefHeight="35.0" prefWidth="313.0">
+                  <ComboBox fx:id="countryComboBox" onAction="#selection" prefHeight="35.0" prefWidth="150.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <ComboBox fx:id="divisionComboBox" layoutX="10.0" layoutY="190.0" prefHeight="35.0" prefWidth="313.0">
+                  <ComboBox fx:id="divisionComboBox" layoutX="10.0" layoutY="190.0" prefHeight="35.0" prefWidth="150.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

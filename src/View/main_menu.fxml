@@ -37,11 +37,6 @@
                         <Insets left="20.0" right="20.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="customerUpdateButton" layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onAction="#updateCustomerButtonClick" prefHeight="25.0" prefWidth="287.0" text="Update Existing Customer">
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="20.0" />
-                     </VBox.margin>
-                  </Button>
                   <Button fx:id="customerDeleteButton" layoutX="10.0" layoutY="82.0" mnemonicParsing="false" onAction="#deleteCustomerButtonClick" prefHeight="25.0" prefWidth="287.0" text="Delete Customer">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="20.0" />

@@ -2,6 +2,8 @@ package Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
 import java.sql.*;
 
 
@@ -102,7 +104,33 @@ public abstract class JDBC {
     }
 
 
+    public static ObservableList<Customer> createCustomerList() throws SQLException {
+        ObservableList<Customer> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM customers";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+             Customer c = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(10));
+             myList.add(c);
+        }
+        return myList;
+    }
 
+    public static int deleteCustomer(int customerID) throws SQLException {
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        int rowsAffected = ps.executeUpdate();
+        if (rowsAffected > 0)
+            System.out.println(rowsAffected + " row deleted from table");
+        else {
+            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            alert1.setTitle("Deletion Error:");
+            alert1.setHeaderText("Customer not found");
+            alert1.showAndWait();
+        }
+        return rowsAffected;
+    }
 
 
 

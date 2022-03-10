@@ -27,18 +27,10 @@ public class main_menu {
         addCustomerStage.show();
     }
 
-    public void updateCustomerButtonClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/edit_customer.fxml"));
-        Stage editCustomerStage = (Stage)customerUpdateButton.getScene().getWindow();
-        Scene editCustomerScene = new Scene(root, 700, 500);
-        editCustomerStage.setTitle("Edit Customer");
-        editCustomerStage.setScene(editCustomerScene);
-        editCustomerStage.show();
-    }
 
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/delete_customer.fxml"));
-        Stage delCustomerStage = (Stage)customerUpdateButton.getScene().getWindow();
+        Stage delCustomerStage = (Stage)customerDeleteButton.getScene().getWindow();
         Scene delCustomerScene = new Scene(root, 400, 200);
         delCustomerStage.setTitle("Delete Customer");
         delCustomerStage.setScene(delCustomerScene);
@@ -54,7 +46,12 @@ public class main_menu {
     public void deleteApptButtonClick(ActionEvent actionEvent) {
     }
 
-    public void viewCustomerTableButtonClick(ActionEvent actionEvent) {
-        System.out.println("button pressed");
+    public void viewCustomerTableButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
+        Stage viewCustomerStage = (Stage)customerViewButton.getScene().getWindow();
+        Scene viewCustomerScene = new Scene(root, 800, 500);
+        viewCustomerStage.setTitle("Delete Customer");
+        viewCustomerStage.setScene(viewCustomerScene);
+        viewCustomerStage.show();
     }
 }
