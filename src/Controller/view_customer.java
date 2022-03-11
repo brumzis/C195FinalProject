@@ -76,21 +76,21 @@ public class view_customer implements Initializable {
             noSelection.setHeaderText("No customer selected");
             noSelection.showAndWait();
         }
+        else {
+            Customer c = customerTable.getSelectionModel().getSelectedItem();
 
-        Customer c = customerTable.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/edit_customer.fxml"));
+            Parent root = loader.load();
+            edit_customer controller = loader.getController();
+            controller.getSelectedCustomer(c);                         //passing customer object to edit_customer.java
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/edit_customer.fxml"));
-        Parent root = loader.load();
-
-        edit_customer controller = loader.getController();
-        controller.getSelectedCustomer(c);
-
-        Stage editCustomerStage = (Stage)updateCustomerButton.getScene().getWindow();
-        Scene editCustomerScene = new Scene(root, 700, 500);
-        editCustomerStage.setTitle("Edit Customer");
-        editCustomerStage.setScene(editCustomerScene);
-        editCustomerStage.show();
+            Stage editCustomerStage = (Stage) updateCustomerButton.getScene().getWindow();
+            Scene editCustomerScene = new Scene(root, 700, 500);
+            editCustomerStage.setTitle("Edit Customer");
+            editCustomerStage.setScene(editCustomerScene);
+            editCustomerStage.show();
+        }
     }
 
 

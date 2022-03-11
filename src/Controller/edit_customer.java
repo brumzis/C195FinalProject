@@ -39,17 +39,17 @@ public class edit_customer implements Initializable {
 
     }
     public void editCustomerUpdateButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
-
+        try {
             int i = Integer.parseInt(editCustomerIDTbox.getText());
-            Customer c = new Customer(i, editCustomerNameTbox.getText(), editCustomerAddressTbox.getText(), editPhoneNumberTbox.getText(), editPostalCodeTbox.getText(), JDBC.returnDivisionID((String)editDivisionComboBox.getValue()));
+            Customer c = new Customer(i, editCustomerNameTbox.getText(), editCustomerAddressTbox.getText(), editPostalCodeTbox.getText(), editPhoneNumberTbox.getText(), JDBC.returnDivisionID((String) editDivisionComboBox.getValue()));
             JDBC.updateCustomer(c);
+        } catch (Exception e) { }
             Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
             Stage viewCustomerStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene viewCustomerScene = new Scene(root, 800, 500);
             viewCustomerStage.setTitle("Delete Customer");
             viewCustomerStage.setScene(viewCustomerScene);
             viewCustomerStage.show();
-
 
     }
 
