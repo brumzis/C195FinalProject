@@ -43,14 +43,12 @@ public class edit_customer implements Initializable {
             int i = Integer.parseInt(editCustomerIDTbox.getText());
             Customer c = new Customer(i, editCustomerNameTbox.getText(), editCustomerAddressTbox.getText(), editPostalCodeTbox.getText(), editPhoneNumberTbox.getText(), JDBC.returnDivisionID((String) editDivisionComboBox.getValue()));
             JDBC.updateCustomer(c);
-        } catch (Exception e) { }
-            Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
-            Stage viewCustomerStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene viewCustomerScene = new Scene(root, 800, 500);
-            viewCustomerStage.setTitle("Delete Customer");
-            viewCustomerStage.setScene(viewCustomerScene);
-            viewCustomerStage.show();
-
+        } catch (Exception e) {
+            Alert errorBox = new Alert(Alert.AlertType.ERROR);
+            errorBox.setTitle("Error");
+            errorBox.setHeaderText("All fields require valid data");
+            errorBox.showAndWait();
+        }
     }
 
     public void editCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {
