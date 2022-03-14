@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
@@ -52,7 +49,21 @@ public class view_customer implements Initializable {
         tablePhoneColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerPhone"));
         tablePhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         tableDivisionColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("customerDivision"));
-        tableDivisionColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tableDivisionColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
+            @Override
+            public Integer fromString(String val) {
+                try {
+                    return super.fromString(val);
+                } catch(NumberFormatException ex) {
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                    alert2.setTitle("Update Error:");
+                    alert2.setHeaderText("Please enter a valid values");
+                    alert2.showAndWait();
+                    return 0;
+                }
+            }
+        }));
+
 
         customerTable.setEditable(true);
         try {customerTable.setItems(createCustomerList());} catch (SQLException e) {e.printStackTrace();}
@@ -132,16 +143,101 @@ public class view_customer implements Initializable {
         menuStage.show();
     }
 
-    public Customer sendSelectedCustomer(Customer c) {
-        return c;
+
+    public void nameEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) throws SQLException {
+
+        Customer c = customerTable.getSelectionModel().getSelectedItem();
+        try {
+            c.setCustomerName(customerStringCellEditEvent.getNewValue());
+            int i = JDBC.updateCustomer(c);
+        } catch (Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Update Error:");
+            alert2.setHeaderText("Please enter a valid values");
+            alert2.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    public void editCancel(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+    public void addressEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+
+        Customer c = customerTable.getSelectionModel().getSelectedItem();
+        try {
+            c.setCustomerAddress(customerStringCellEditEvent.getNewValue());
+            int i = JDBC.updateCustomer(c);
+        } catch (Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Update Error:");
+            alert2.setHeaderText("Please enter a valid values");
+            alert2.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    public void editCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+    public void postalEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+
+        Customer c = customerTable.getSelectionModel().getSelectedItem();
+        try {
+            c.setCustomerPostalCode(customerStringCellEditEvent.getNewValue());
+            int i = JDBC.updateCustomer(c);
+        } catch (Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Update Error:");
+            alert2.setHeaderText("Please enter a valid values");
+            alert2.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    public void editStart(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+    public void phoneEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
+
+        Customer c = customerTable.getSelectionModel().getSelectedItem();
+        try {
+            c.setCustomerPhone(customerStringCellEditEvent.getNewValue());
+            int i = JDBC.updateCustomer(c);
+        } catch (Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Update Error:");
+            alert2.setHeaderText("Please enter a valid values");
+            alert2.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
+
+    public void divisionEditCommit(TableColumn.CellEditEvent<Customer, Integer> customerIntegerCellEditEvent){
+        System.out.println("got here");
+        try {
+            Customer c = customerTable.getSelectionModel().getSelectedItem();
+            c.setCustomerDivision(customerIntegerCellEditEvent.getNewValue());
+            int i = JDBC.updateCustomer(c);
+            System.out.println(i);
+            if (i < 1) {
+                Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                alert2.setTitle("Update Error:");
+                alert2.setHeaderText("Please enter a valid values");
+                alert2.showAndWait();
+            }
+
+        } catch (Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Update Error:");
+            alert2.setHeaderText("Please enter a valid values");
+            alert2.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
 }

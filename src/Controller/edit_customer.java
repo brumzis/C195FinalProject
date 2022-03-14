@@ -42,7 +42,15 @@ public class edit_customer implements Initializable {
         try {
             int i = Integer.parseInt(editCustomerIDTbox.getText());
             Customer c = new Customer(i, editCustomerNameTbox.getText(), editCustomerAddressTbox.getText(), editPostalCodeTbox.getText(), editPhoneNumberTbox.getText(), JDBC.returnDivisionID((String) editDivisionComboBox.getValue()));
-            JDBC.updateCustomer(c);
+            int j = JDBC.updateCustomer(c);
+            if (j > 0) {
+                Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
+                Stage viewCustomerStage = (Stage)editCustomerButton.getScene().getWindow();
+                Scene viewCustomerScene = new Scene(root, 800, 500);
+                viewCustomerStage.setTitle("Delete Customer");
+                viewCustomerStage.setScene(viewCustomerScene);
+                viewCustomerStage.show();
+            }
         } catch (Exception e) {
             Alert errorBox = new Alert(Alert.AlertType.ERROR);
             errorBox.setTitle("Error");
