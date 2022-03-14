@@ -37,14 +37,6 @@ public class main_menu {
         delCustomerStage.show();
     }
 
-    public void newApptButtonClick(ActionEvent actionEvent) {
-    }
-
-    public void editApptButtonClick(ActionEvent actionEvent) {
-    }
-
-    public void deleteApptButtonClick(ActionEvent actionEvent) {
-    }
 
     public void viewCustomerTableButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
@@ -53,5 +45,20 @@ public class main_menu {
         viewCustomerStage.setTitle("Delete Customer");
         viewCustomerStage.setScene(viewCustomerScene);
         viewCustomerStage.show();
+    }
+
+    public void newApptButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/add_appointment.fxml"));
+        Stage addApptStage = (Stage)appointmentNewButton.getScene().getWindow();
+        Scene addApptScene = new Scene(root, 800, 600);
+        addApptStage.setTitle("Add Appointment");
+        addApptStage.setScene(addApptScene);
+        addApptStage.show();
+    }
+
+    public void deleteAppointmentButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void viewAppointmentButtonClick(ActionEvent actionEvent) {
     }
 }

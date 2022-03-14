@@ -66,12 +66,12 @@
                         <Insets left="20.0" right="20.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="appointmentEditButton" layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onAction="#editApptButtonClick" prefHeight="25.0" prefWidth="287.0" text="Edit Existing Appointment">
+                  <Button fx:id="appointmentDeleteButton" layoutX="10.0" layoutY="57.0" mnemonicParsing="false" onAction="#deleteAppointmentButtonClick" prefHeight="25.0" prefWidth="287.0" text="Delete Appointment">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="appointmentDeleteButton" layoutX="10.0" layoutY="82.0" mnemonicParsing="false" onAction="#deleteApptButtonClick" prefHeight="25.0" prefWidth="287.0" text="Delete Appointment">
+                  <Button fx:id="appointmentViewButton" layoutX="10.0" layoutY="82.0" mnemonicParsing="false" onAction="#viewAppointmentButtonClick" prefHeight="25.0" prefWidth="287.0" text="View Appointments">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="20.0" />
                      </VBox.margin>
