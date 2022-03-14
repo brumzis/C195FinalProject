@@ -55,14 +55,9 @@ public class view_customer implements Initializable {
                 try {
                     return super.fromString(val);
                 } catch(NumberFormatException ex) {
-                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                    alert2.setTitle("Update Error:");
-                    alert2.setHeaderText("Please enter a valid values");
-                    alert2.showAndWait();
                     return 0;
                 }
-            }
-        }));
+            }}));
 
 
         customerTable.setEditable(true);
