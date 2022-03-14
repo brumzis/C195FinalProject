@@ -56,7 +56,13 @@ public class main_menu {
         addApptStage.show();
     }
 
-    public void deleteAppointmentButtonClick(ActionEvent actionEvent) {
+    public void deleteAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/delete_appointment.fxml"));
+        Stage delCustomerStage = (Stage)appointmentDeleteButton.getScene().getWindow();
+        Scene delCustomerScene = new Scene(root, 400, 200);
+        delCustomerStage.setTitle("Delete Appointment");
+        delCustomerStage.setScene(delCustomerScene);
+        delCustomerStage.show();
     }
 
     public void viewAppointmentButtonClick(ActionEvent actionEvent) {
