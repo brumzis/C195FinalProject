@@ -105,6 +105,18 @@ public abstract class JDBC {
     }
 
 
+    public static int returnContactID(String name) throws SQLException {
+        int i = 0;
+        String sql = "SELECT Contact_ID FROM contacts WHERE Contact_Name = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            i = rs.getInt(1);
+        return i;
+    }
+
+
     public static ObservableList<Customer> createCustomerList() throws SQLException {
         ObservableList<Customer> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM customers";
@@ -164,6 +176,37 @@ public abstract class JDBC {
         return rowsAffected;
     }
 
+
+    public static ObservableList<String> getContacts() throws SQLException {
+        ObservableList<String> myList = FXCollections.observableArrayList();
+        String sql = "SELECT Contact_Name FROM contacts";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            myList.add(rs.getString(1));
+        return myList;
+    }
+
+    public static ObservableList<Integer> getHours() {
+        ObservableList myList = FXCollections.observableArrayList();
+        for (int i = 1; i < 13; i++)
+            myList.add(i);
+        return myList;
+    }
+
+    public static ObservableList<Integer> getMinutes() {
+        ObservableList myList = FXCollections.observableArrayList();
+        myList.add(0);
+        myList.add(30);
+        return myList;
+    }
+
+    public static ObservableList<String> getAMPM() {
+        ObservableList myList = FXCollections.observableArrayList();
+        myList.add("AM");
+        myList.add("PM");
+        return myList;
+    }
 
 
 

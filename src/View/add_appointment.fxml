@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.add_appointment">
    <children>
       <BorderPane layoutX="186.0" layoutY="174.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -88,7 +87,7 @@
          <center>
             <VBox prefHeight="454.0" prefWidth="593.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="apptIDTbox" maxWidth="60.0" prefHeight="35.0" prefWidth="61.0">
+                  <TextField fx:id="apptIDTbox" disable="true" maxWidth="50.0" prefHeight="35.0" prefWidth="50.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -140,12 +139,12 @@
                         <ComboBox fx:id="endAMComboBox" prefHeight="35.0" prefWidth="91.0" promptText="AM/PM:" />
                      </children>
                   </HBox>
-                  <TextField fx:id="customerIDTbox" layoutX="10.0" layoutY="255.0" maxWidth="60.0" prefHeight="35.0" prefWidth="583.0">
+                  <TextField fx:id="customerIDTbox" layoutX="10.0" layoutY="255.0" maxWidth="50.0" prefHeight="35.0" prefWidth="583.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="userIDTbox" layoutX="10.0" layoutY="290.0" maxWidth="60.0" prefHeight="35.0" prefWidth="583.0">
+                  <TextField fx:id="userIDTbox" layoutX="10.0" layoutY="290.0" maxWidth="50.0" prefHeight="35.0" prefWidth="583.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
