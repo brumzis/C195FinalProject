@@ -48,8 +48,6 @@ public class add_appointment {
         endHourComboBox.setItems(JDBC.getHours());
         startMinComboBox.setItems(JDBC.getMinutes());
         endMinComboBox.setItems(JDBC.getMinutes());
-        startAMComboBox.setItems(JDBC.getAMPM());
-        endAMComboBox.setItems(JDBC.getAMPM());
 
 
     }
@@ -58,19 +56,24 @@ public class add_appointment {
         try {
             LocalDate startDay = startDateBox.getValue();
             LocalDate endDay = endDateBox.getValue();
-            LocalTime startTime = LocalTime.of((Integer)startHourComboBox.getSelectionModel().getSelectedItem(), (Integer)startMinComboBox.getSelectionModel().getSelectedItem());
-            LocalTime endTime = LocalTime.of((Integer)endHourComboBox.getSelectionModel().getSelectedItem(), (Integer)endMinComboBox.getSelectionModel().getSelectedItem());
-            LocalDateTime startApptTime = LocalDateTime.of(startDay, startTime);
-            LocalDateTime endApptTime = LocalDateTime.of(endDay, endTime);
-            String sql = "INSERT INTO appointments (Title, Description, Location, Type, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, ?)";  //excluded primary key column
+            String startHour = startHourComboBox.getValue().toString();
+            String endHour = endHourComboBox.getValue().toString();
+            String startMinute = startMinComboBox.getValue().toString();
+            String endMinute = endMinComboBox.getValue().toString();
+            LocalDateTime startApptTime = LocalDateTime.of(startDay.getYear(), startDay.getMonthValue(), startDay.getDayOfMonth(), Integer.parseInt(startHour), Integer.parseInt(startMinute));
+            LocalDateTime endApptTime = LocalDateTime.of(endDay.getYear(), endDay.getMonthValue(), endDay.getDayOfMonth(), Integer.parseInt(endHour), Integer.parseInt(endMinute));
+
+            String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";  //excluded primary key column
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, titleTbox.getText());
             ps.setString(2, descriptionTbox.getText());
             ps.setString(3, locationTbox.getText());
             ps.setString(4, typeTbox.getText());
-            ps.setInt(5, Integer.parseInt(customerIDTbox.getText()));
-            ps.setInt(6, Integer.parseInt(userIDTbox.getText()));
-            ps.setInt(7, JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()));
+            ps.setObject(5, startApptTime);
+            ps.setObject(6, endApptTime);
+            ps.setInt(7, Integer.parseInt(customerIDTbox.getText()));
+            ps.setInt(8, Integer.parseInt(userIDTbox.getText()));
+            ps.setInt(9, JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()));
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);

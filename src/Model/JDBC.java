@@ -187,26 +187,45 @@ public abstract class JDBC {
         return myList;
     }
 
-    public static ObservableList<Integer> getHours() {
+    public static ObservableList<String> getHours() {
         ObservableList myList = FXCollections.observableArrayList();
-        for (int i = 1; i < 13; i++)
-            myList.add(i);
+        myList.add("00");
+        myList.add("01");
+        myList.add("02");
+        myList.add("03");
+        myList.add("04");
+        myList.add("05");
+        myList.add("06");
+        myList.add("07");
+        myList.add("08");
+        myList.add("09");
+        myList.add("10");
+        myList.add("11");
+        myList.add("12");
+        myList.add("13");
+        myList.add("14");
+        myList.add("15");
+        myList.add("16");
+        myList.add("17");
+        myList.add("18");
+        myList.add("19");
+        myList.add("20");
+        myList.add("21");
+        myList.add("22");
+        myList.add("23");
         return myList;
     }
 
-    public static ObservableList<Integer> getMinutes() {
+    public static ObservableList<String> getMinutes() {
         ObservableList myList = FXCollections.observableArrayList();
-        myList.add(0);
-        myList.add(30);
+        myList.add("0");
+        myList.add("15");
+        myList.add("30");
+        myList.add("45");
         return myList;
     }
 
-    public static ObservableList<String> getAMPM() {
-        ObservableList myList = FXCollections.observableArrayList();
-        myList.add("AM");
-        myList.add("PM");
-        return myList;
-    }
+
 
 
 

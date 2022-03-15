@@ -125,7 +125,6 @@
                         <DatePicker fx:id="startDateBox" prefHeight="35.0" />
                         <ComboBox fx:id="startHourComboBox" prefHeight="35.0" prefWidth="73.0" promptText="Hour:" />
                         <ComboBox fx:id="startMinComboBox" layoutX="184.0" layoutY="10.0" prefHeight="35.0" prefWidth="88.0" promptText="Minutes:" />
-                        <ComboBox fx:id="startAMComboBox" layoutX="257.0" layoutY="10.0" prefHeight="35.0" prefWidth="91.0" promptText="AM/PM:" />
                      </children>
                   </HBox>
                   <HBox>
@@ -136,7 +135,6 @@
                         <DatePicker fx:id="endDateBox" prefHeight="35.0" />
                         <ComboBox fx:id="endHourComboBox" prefHeight="35.0" prefWidth="73.0" promptText="Hour:" />
                         <ComboBox fx:id="endMinComboBox" prefHeight="35.0" prefWidth="88.0" promptText="Minutes:" />
-                        <ComboBox fx:id="endAMComboBox" prefHeight="35.0" prefWidth="91.0" promptText="AM/PM:" />
                      </children>
                   </HBox>
                   <TextField fx:id="customerIDTbox" layoutX="10.0" layoutY="255.0" maxWidth="50.0" prefHeight="35.0" prefWidth="583.0">
