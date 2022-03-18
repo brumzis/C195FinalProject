@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 
 public abstract class JDBC {
@@ -222,6 +223,18 @@ public abstract class JDBC {
         myList.add("15");
         myList.add("30");
         myList.add("45");
+        return myList;
+    }
+
+    public static ObservableList<Appointment> createAppointmentList() throws SQLException {
+        ObservableList<Appointment> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), (LocalDateTime)rs.getObject("Start"), (LocalDateTime)rs.getObject("End"), rs.getInt(12), rs.getInt(13));
+            myList.add(app);
+        }
         return myList;
     }
 
