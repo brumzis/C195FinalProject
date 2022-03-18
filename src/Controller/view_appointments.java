@@ -15,8 +15,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static Model.JDBC.createCustomerList;
 
 
 public class view_appointments implements Initializable {
@@ -89,7 +92,36 @@ public class view_appointments implements Initializable {
         }
     }
 
-    public void deleteApptButtonClick(ActionEvent actionEvent) {
+    public void deleteApptButtonClick(ActionEvent actionEvent) throws SQLException {
+        if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
+            Alert noSelection = new Alert(Alert.AlertType.ERROR);
+            noSelection.setTitle("Error");
+            noSelection.setHeaderText("No appointment selected");
+            noSelection.showAndWait();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Appointment?");
+            alert.setContentText("Are you sure?");
+            alert.showAndWait();
+            Appointment a = appointmentTable.getSelectionModel().getSelectedItem();
+
+            String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setInt(1, a.getApptID());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0)
+                System.out.println(rowsAffected + " appointment deleted from table");
+            else {
+                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                alert1.setTitle("Deletion Error:");
+                alert1.setHeaderText("Appointment not found");
+                alert1.showAndWait();
+            }
+            appointmentTable.getSelectionModel().clearSelection();
+            appointmentTable.getItems().clear();
+            appointmentTable.setItems(JDBC.createAppointmentList());
+        }
     }
 
     public void monthRadioButtonChecked(ActionEvent actionEvent) {
