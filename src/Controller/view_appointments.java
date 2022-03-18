@@ -1,16 +1,19 @@
 package Controller;
 
 import Model.Appointment;
-import Model.DateTime;
+import Model.Customer;
+import Model.DateTimeUtility;
 import Model.JDBC;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -25,8 +28,8 @@ public class view_appointments implements Initializable {
     public TableColumn<Appointment, String> apptLocationColumn;
     public TableColumn<Appointment, Integer> apptContactColumn;
     public TableColumn<Appointment, String> apptTypeColumn;
-    public TableColumn<Appointment, DateTime> apptStartTimeColumn;
-    public TableColumn<Appointment, DateTime> apptEndTimeColumn;
+    public TableColumn<Appointment, DateTimeUtility> apptStartTimeColumn;
+    public TableColumn<Appointment, DateTimeUtility> apptEndTimeColumn;
     public TableColumn<Appointment, Integer> apptCustomerID;
     public TableColumn<Appointment, Integer> apptUserID;
     public Button scheduleNewButton;
@@ -45,8 +48,8 @@ public class view_appointments implements Initializable {
         apptLocationColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("apptLocation"));
         apptContactColumn.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptContact"));
         apptTypeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("apptType"));
-        apptStartTimeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, DateTime>("apptStart"));
-        apptEndTimeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, DateTime>("apptEnd"));
+        apptStartTimeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, DateTimeUtility>("apptStart"));
+        apptEndTimeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, DateTimeUtility>("apptEnd"));
         apptCustomerID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptCustomerID"));
         apptUserID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptUserID"));
 
@@ -56,40 +59,34 @@ public class view_appointments implements Initializable {
             e.printStackTrace();
         }
 
-
     }
 
-    public void titleEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
 
-    public void descriptionEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
-
-    public void locationEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
-
-    public void contactEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
-
-    public void typeEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
-
-    public void startTimeEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
-
-    public void endTimeEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
-
-    public void customerIDEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
-
-    public void userIDEditCommit(TableColumn.CellEditEvent cellEditEvent) {
-    }
 
     public void scheduleNewApptClick(ActionEvent actionEvent) {
     }
 
-    public void updateApptButtonClick(ActionEvent actionEvent) {
+    public void updateApptButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
+        if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
+            Alert noSelection = new Alert(Alert.AlertType.ERROR);
+            noSelection.setTitle("Error");
+            noSelection.setHeaderText("No appointment selected");
+            noSelection.showAndWait();
+        }
+        else {
+            Appointment a = appointmentTable.getSelectionModel().getSelectedItem();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/update_appointment.fxml"));
+            Parent root = loader.load();
+            update_appointment controller = loader.getController();
+            controller.getSelectedAppointment(a);                         //passing appointment object to update_appointment.java
+            Stage myStage = (Stage) updateApptButton.getScene().getWindow();
+            Scene myScene = new Scene(root, 800, 600);
+            myStage.setTitle("Edit Appointment");
+            myStage.setScene(myScene);
+            myStage.show();
+        }
     }
 
     public void deleteApptButtonClick(ActionEvent actionEvent) {
@@ -102,6 +99,12 @@ public class view_appointments implements Initializable {
     }
 
 
-    public void exitButtonClick(ActionEvent actionEvent) {
+    public void exitButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
+        Stage menuStage = (Stage)exitButton.getScene().getWindow();
+        Scene menuScene = new Scene(root, 600, 400);
+        menuStage.setTitle("Main Menu");
+        menuStage.setScene(menuScene);
+        menuStage.show();
     }
 }

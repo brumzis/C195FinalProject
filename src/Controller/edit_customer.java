@@ -47,7 +47,7 @@ public class edit_customer implements Initializable {
                 Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
                 Stage viewCustomerStage = (Stage)editCustomerButton.getScene().getWindow();
                 Scene viewCustomerScene = new Scene(root, 800, 500);
-                viewCustomerStage.setTitle("Delete Customer");
+                viewCustomerStage.setTitle("View Customers");
                 viewCustomerStage.setScene(viewCustomerScene);
                 viewCustomerStage.show();
             }

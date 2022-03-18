@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class Contact {
 
-    private String contactID;
+    private int contactID;
     private String contactName;
     private String contactEmail;
 
@@ -19,7 +19,7 @@ public class Contact {
         this.contactEmail = contactEmail;
     }
 
-    public String getContactID() {
+    public int getContactID() {
         return contactID;
     }
 

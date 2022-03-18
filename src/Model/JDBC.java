@@ -232,12 +232,49 @@ public abstract class JDBC {
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), (LocalDateTime)rs.getObject("Start"), (LocalDateTime)rs.getObject("End"), rs.getInt(12), rs.getInt(13));
+            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));
             myList.add(app);
         }
         return myList;
     }
 
+
+
+
+    public static int updateAppointment(Appointment appt) throws SQLException {
+        int rowsAffected = 0;
+        try {
+            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+
+            ps.setString(1, appt.getApptTitle());
+            ps.setString(2, appt.getApptDescription());
+            ps.setString(3, appt.getApptLocation());
+            ps.setString(4, appt.getApptType());
+            ps.setObject(5, DateTimeUtility.convertToUTC(appt.getApptStart()));
+            ps.setObject(6, DateTimeUtility.convertToUTC(appt.getApptEnd()));
+            ps.setInt(7, appt.getApptCustomerID());
+            ps.setInt(8, appt.getApptUserID());
+            ps.setInt(9, appt.getApptContact());
+            ps.setInt(10, appt.getApptID());
+            rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                Alert updateAlert = new Alert(Alert.AlertType.INFORMATION);
+                updateAlert.setTitle("Update successful!");
+                updateAlert.setHeaderText("Appointment updated successfully!");
+                updateAlert.showAndWait();
+                return rowsAffected;
+            }
+
+        } catch (Exception e) {
+            Alert errorBox = new Alert(Alert.AlertType.ERROR);
+            errorBox.setTitle("error");
+            errorBox.setHeaderText("All fields must have valid data");
+            errorBox.showAndWait();
+            System.out.println(e.getMessage());
+        }
+        return rowsAffected;
+    }
 
 
 

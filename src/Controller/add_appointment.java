@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DateTimeUtility;
 import Model.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -24,11 +25,9 @@ public class add_appointment {
     public DatePicker startDateBox;
     public ComboBox startHourComboBox;
     public ComboBox startMinComboBox;
-    public ComboBox startAMComboBox;
     public DatePicker endDateBox;
     public ComboBox endHourComboBox;
     public ComboBox endMinComboBox;
-    public ComboBox endAMComboBox;
     public TextField customerIDTbox;
     public TextField userIDTbox;
     public Button addNewButton;
@@ -69,8 +68,8 @@ public class add_appointment {
             ps.setString(2, descriptionTbox.getText());
             ps.setString(3, locationTbox.getText());
             ps.setString(4, typeTbox.getText());
-            ps.setObject(5, startApptTime);
-            ps.setObject(6, endApptTime);
+            ps.setObject(5, DateTimeUtility.convertToUTC(startApptTime));
+            ps.setObject(6, DateTimeUtility.convertToUTC(endApptTime));
             ps.setInt(7, Integer.parseInt(customerIDTbox.getText()));
             ps.setInt(8, Integer.parseInt(userIDTbox.getText()));
             ps.setInt(9, JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()));

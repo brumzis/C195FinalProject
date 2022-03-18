@@ -41,7 +41,7 @@ public class main_menu {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
         Stage viewCustomerStage = (Stage)customerViewButton.getScene().getWindow();
         Scene viewCustomerScene = new Scene(root, 800, 500);
-        viewCustomerStage.setTitle("Delete Customer");
+        viewCustomerStage.setTitle("View Customers");
         viewCustomerStage.setScene(viewCustomerScene);
         viewCustomerStage.show();
     }
@@ -67,7 +67,7 @@ public class main_menu {
     public void viewAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
         Stage myStage = (Stage)appointmentViewButton.getScene().getWindow();
-        Scene myScene = new Scene(root, 1200, 500);
+        Scene myScene = new Scene(root, 1300, 500);
         myStage.setTitle("Appointment Screen");
         myStage.setScene(myScene);
         myStage.show();

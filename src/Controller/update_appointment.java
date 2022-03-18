@@ -1,10 +1,19 @@
 package Controller;
 
+import Model.Appointment;
+import Model.Customer;
+import Model.JDBC;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 public class update_appointment {
     public TextField apptIDTbox;
@@ -25,8 +34,68 @@ public class update_appointment {
     public Button cancelButton;
 
     public void updateButtonClick(ActionEvent actionEvent) {
+        try {
+            int i = Integer.parseInt(apptIDTbox.getText());
+            LocalDate startDay = startDateBox.getValue();
+            LocalDate endDay = endDateBox.getValue();
+            String startHour = startHourComboBox.getValue().toString();
+            String endHour = endHourComboBox.getValue().toString();
+            String startMinute = startMinComboBox.getValue().toString();
+            String endMinute = endMinComboBox.getValue().toString();
+            LocalDateTime startApptTime = LocalDateTime.of(startDay.getYear(), startDay.getMonthValue(), startDay.getDayOfMonth(), Integer.parseInt(startHour), Integer.parseInt(startMinute));
+            LocalDateTime endApptTime = LocalDateTime.of(endDay.getYear(), endDay.getMonthValue(), endDay.getDayOfMonth(), Integer.parseInt(endHour), Integer.parseInt(endMinute));
+
+            Appointment a = new Appointment(i, titleTbox.getText(), descriptionTbox.getText(), locationTbox.getText(), (Integer)contactComboBox.getSelectionModel().getSelectedItem(), typeTbox.getText(), startApptTime, endApptTime, Integer.parseInt(customerIDTbox.getText()), Integer.parseInt(userIDTbox.getText()));
+            int j = JDBC.updateAppointment(a);
+
+            if (j > 0) {
+                Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
+                Stage myStage = (Stage)updateButton.getScene().getWindow();
+                Scene myScene = new Scene(root, 1300, 500);
+                myStage.setTitle("View Appointments");
+                myStage.setScene(myScene);
+                myStage.show();
+            }
+        } catch (Exception e) {
+            Alert errorBox = new Alert(Alert.AlertType.ERROR);
+            errorBox.setTitle("Error");
+            errorBox.setHeaderText("All fields require valid data");
+            errorBox.showAndWait();
+            System.out.println(e.getMessage());
+        }
+
     }
 
-    public void cancelButtonClick(ActionEvent actionEvent) {
+    public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
+        Stage myStage = (Stage)cancelButton.getScene().getWindow();
+        Scene myScene = new Scene(root, 1300, 500);
+        myStage.setTitle("Appointment Screen");
+        myStage.setScene(myScene);
+        myStage.show();
+    }
+
+    public Appointment getSelectedAppointment(Appointment a) throws SQLException {
+
+        apptIDTbox.setText(String.valueOf(a.getApptID()));
+        titleTbox.setText(a.getApptTitle());
+        descriptionTbox.setText(a.getApptDescription());
+        locationTbox.setText(a.getApptLocation());
+        contactComboBox.setItems(JDBC.getContacts());
+        contactComboBox.setValue(a.getApptContact());
+        typeTbox.setText(a.getApptType());
+        startHourComboBox.setItems(JDBC.getHours());
+        startHourComboBox.setValue(a.getApptStart().getHour());
+        startMinComboBox.setValue(a.getApptStart().getMinute());
+        startMinComboBox.setItems(JDBC.getMinutes());
+        endHourComboBox.setItems(JDBC.getHours());
+        endHourComboBox.setValue(a.getApptEnd().getHour());
+        endMinComboBox.setItems(JDBC.getMinutes());
+        endMinComboBox.setValue(a.getApptEnd().getMinute());
+        startDateBox.setValue(a.getApptStart().toLocalDate());
+        endDateBox.setValue(a.getApptEnd().toLocalDate());
+        customerIDTbox.setText(String.valueOf(a.getApptCustomerID()));
+        userIDTbox.setText(String.valueOf(a.getApptUserID()));
+        return a;
     }
 }
