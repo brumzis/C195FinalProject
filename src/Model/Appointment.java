@@ -6,6 +6,7 @@ public class Appointment {
     private String apptTitle;
     private String apptDescription;
     private String apptLocation;
+    private int apptContact;
     private String apptType;
     private DateTime apptStart;
     private DateTime apptEnd;
@@ -13,11 +14,12 @@ public class Appointment {
     private int apptUserID;
 
 
-    public Appointment(int apptID, String apptTitle, String apptDescription, String apptLocation, String apptType, DateTime apptStart, DateTime apptEnd, int apptCustomerID, int apptUserID) {
+    public Appointment(int apptID, String apptTitle, String apptDescription, String apptLocation, int apptContact, String apptType, DateTime apptStart, DateTime apptEnd, int apptCustomerID, int apptUserID) {
         this.apptID = apptID;
         this.apptTitle = apptTitle;
         this.apptDescription = apptDescription;
         this.apptLocation = apptLocation;
+        this.apptContact = apptContact;
         this.apptType = apptType;
         this.apptStart = apptStart;
         this.apptEnd = apptEnd;
@@ -52,6 +54,10 @@ public class Appointment {
     public void setApptLocation(String apptLocation) {
         this.apptLocation = apptLocation;
     }
+
+    public int getApptContact() { return apptContact; }
+
+    public void setApptContact(int apptContact) { this.apptContact = apptContact; }
 
     public String getApptType() {
         return apptType;

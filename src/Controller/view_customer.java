@@ -36,6 +36,7 @@ public class view_customer implements Initializable {
     public Button exitButton;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -226,12 +227,6 @@ public class view_customer implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
 
 
 

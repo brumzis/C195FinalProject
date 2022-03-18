@@ -11,12 +11,11 @@ import java.io.IOException;
 
 public class main_menu {
     public Button customerAddButton;
-    public Button customerUpdateButton;
     public Button customerDeleteButton;
     public Button appointmentNewButton;
-    public Button appointmentEditButton;
     public Button appointmentDeleteButton;
     public Button customerViewButton;
+    public Button appointmentViewButton;
 
     public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
@@ -65,6 +64,12 @@ public class main_menu {
         delCustomerStage.show();
     }
 
-    public void viewAppointmentButtonClick(ActionEvent actionEvent) {
+    public void viewAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
+        Stage myStage = (Stage)appointmentViewButton.getScene().getWindow();
+        Scene myScene = new Scene(root, 1200, 500);
+        myStage.setTitle("Appointment Screen");
+        myStage.setScene(myScene);
+        myStage.show();
     }
 }
