@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -324,7 +325,15 @@ public abstract class JDBC {
     }
 
 
-
-
-
+    public static boolean checkForCustomerAppointments(int customerID) throws SQLException {
+        int rowsAffected = 0;
+        String sql = "SELECT Appointment_ID FROM appointments WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        boolean hasAppointments = ps.execute();
+        if (hasAppointments)
+            return true;
+        else
+            return false;
+    }
 }

@@ -116,12 +116,20 @@ public class view_customer implements Initializable {
                 alert.setContentText("All customer appointments must be deleted before deleting customer! " + "Do you wish to continue?");
                 alert.showAndWait();
                 Customer c = customerTable.getSelectionModel().getSelectedItem();
+                if(JDBC.checkForCustomerAppointments(c.getCustomerID()))
+                    throw new IllegalStateException("Cannot have appointments");
                 JDBC.deleteCustomer(c.getCustomerID());
                 customerTable.getSelectionModel().clearSelection();
                 customerTable.getItems().clear();
                 customerTable.setItems(createCustomerList());
             }
-        } catch (Exception e) {
+        } catch (IllegalStateException e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Deletion Error:");
+            alert2.setHeaderText("Customer cannot have appointments");
+            alert2.showAndWait();
+
+        } catch(Exception e) {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
             alert2.setTitle("Deletion Error:");
             alert2.setHeaderText("Please enter a valid Customer ID");

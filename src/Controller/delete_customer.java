@@ -42,6 +42,9 @@ public class delete_customer {
             alert.setContentText("All customer appointments must be deleted before deleting customer! " + "Do you wish to continue?");
             alert.showAndWait();
 
+            if(JDBC.checkForCustomerAppointments(customerID))
+                throw new IndexOutOfBoundsException("can't have any appointments");
+
             String sql = "DELETE FROM customers WHERE Customer_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, customerID);
@@ -54,7 +57,14 @@ public class delete_customer {
                 alert1.setHeaderText("Customer not found");
                 alert1.showAndWait();
             }
-        } catch (NumberFormatException e) {
+
+        } catch (IndexOutOfBoundsException e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Deletion Error:");
+            alert2.setHeaderText("Customer cannot have any appointments. Delete customer appointments first");
+            alert2.showAndWait();
+
+        } catch(NumberFormatException e) {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
             alert2.setTitle("Deletion Error:");
             alert2.setHeaderText("Please enter a valid Customer ID");
