@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Appointment;
-import Model.Customer;
+import Model.DateTimeUtility;
 import Model.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +35,7 @@ public class update_appointment {
 
     public void updateButtonClick(ActionEvent actionEvent) {
         try {
+            Appointment myAppointment = null;
             int i = Integer.parseInt(apptIDTbox.getText());
             LocalDate startDay = startDateBox.getValue();
             LocalDate endDay = endDateBox.getValue();
@@ -45,8 +46,23 @@ public class update_appointment {
             LocalDateTime startApptTime = LocalDateTime.of(startDay.getYear(), startDay.getMonthValue(), startDay.getDayOfMonth(), Integer.parseInt(startHour), Integer.parseInt(startMinute));
             LocalDateTime endApptTime = LocalDateTime.of(endDay.getYear(), endDay.getMonthValue(), endDay.getDayOfMonth(), Integer.parseInt(endHour), Integer.parseInt(endMinute));
 
-            Appointment a = new Appointment(i, titleTbox.getText(), descriptionTbox.getText(), locationTbox.getText(), (Integer)contactComboBox.getSelectionModel().getSelectedItem(), typeTbox.getText(), startApptTime, endApptTime, Integer.parseInt(customerIDTbox.getText()), Integer.parseInt(userIDTbox.getText()));
-            int j = JDBC.updateAppointment(a);
+            //make sure user entered times do not fall outside US/Eastern business hours per specs
+            if(!DateTimeUtility.validateAppointmentTime(startApptTime))
+                throw new ArithmeticException("invalid time");
+            if(!DateTimeUtility.validateAppointmentTime(endApptTime))
+                throw new ArithmeticException("invalid time");
+
+            //make sure start time comes before end time
+            if(!DateTimeUtility.compareTimes(startApptTime, endApptTime))
+                throw new NumberFormatException("start time must come before end time");
+
+            if (contactComboBox.getSelectionModel().getSelectedItem() instanceof String) {
+                myAppointment = new Appointment(i, titleTbox.getText(), descriptionTbox.getText(), locationTbox.getText(), JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()), typeTbox.getText(), startApptTime, endApptTime, Integer.parseInt(customerIDTbox.getText()), Integer.parseInt(userIDTbox.getText()));
+            } else {
+                myAppointment = new Appointment(i, titleTbox.getText(), descriptionTbox.getText(), locationTbox.getText(), (Integer) contactComboBox.getSelectionModel().getSelectedItem(), typeTbox.getText(), startApptTime, endApptTime, Integer.parseInt(customerIDTbox.getText()), Integer.parseInt(userIDTbox.getText()));
+            }
+
+            int j = JDBC.updateAppointment(myAppointment);
 
             if (j > 0) {
                 Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
@@ -56,6 +72,20 @@ public class update_appointment {
                 myStage.setScene(myScene);
                 myStage.show();
             }
+        } catch (ArithmeticException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Scheduling Error");
+            alert.setHeaderText("Invalid Time/Date Values");
+            alert.setContentText("Appointments can only be made Mon - Fri from 8AM to 10PM Eastern Time!");
+            alert.showAndWait();
+
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Scheduling Error");
+            alert.setHeaderText("Invalid Time/Date Values");
+            alert.setContentText("Start time must come before end time");
+            alert.showAndWait();
+
         } catch (Exception e) {
             Alert errorBox = new Alert(Alert.AlertType.ERROR);
             errorBox.setTitle("Error");
@@ -63,7 +93,6 @@ public class update_appointment {
             errorBox.showAndWait();
             System.out.println(e.getMessage());
         }
-
     }
 
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {

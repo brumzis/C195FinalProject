@@ -53,6 +53,7 @@ public class add_appointment {
 
     public void addButtonClick(ActionEvent actionEvent) {
         try {
+            //Convert user entered time values to LocalDateTime objects
             LocalDate startDay = startDateBox.getValue();
             LocalDate endDay = endDateBox.getValue();
             String startHour = startHourComboBox.getValue().toString();
@@ -62,6 +63,18 @@ public class add_appointment {
             LocalDateTime startApptTime = LocalDateTime.of(startDay.getYear(), startDay.getMonthValue(), startDay.getDayOfMonth(), Integer.parseInt(startHour), Integer.parseInt(startMinute));
             LocalDateTime endApptTime = LocalDateTime.of(endDay.getYear(), endDay.getMonthValue(), endDay.getDayOfMonth(), Integer.parseInt(endHour), Integer.parseInt(endMinute));
 
+            //make sure user entered times do not fall outside US/Eastern business hours per specs
+            if(!DateTimeUtility.validateAppointmentTime(startApptTime))
+                throw new ArithmeticException("invalid time");
+            if(!DateTimeUtility.validateAppointmentTime(endApptTime))
+                throw new ArithmeticException("invalid time");
+
+            //make sure start time comes before end time
+            if(!DateTimeUtility.compareTimes(startApptTime, endApptTime))
+                throw new NumberFormatException("start time must come before end time");
+
+            //insert user entered fields into the SQL Table
+            //the times are first converted to utc time from the system time
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";  //excluded primary key column
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, titleTbox.getText());
@@ -74,11 +87,14 @@ public class add_appointment {
             ps.setInt(8, Integer.parseInt(userIDTbox.getText()));
             ps.setInt(9, JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()));
             int rowsAffected = ps.executeUpdate();
+
+            //if addition was successful, show alertbox and go back to main menu
             if (rowsAffected > 0) {
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                 alert2.setTitle("Addition Successful");
                 alert2.setHeaderText("Appointment added to DB!");
                 alert2.showAndWait();
+
                 Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
                 Stage menuStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
                 Scene menuScene = new Scene(root, 600, 400);
@@ -86,7 +102,21 @@ public class add_appointment {
                 menuStage.setScene(menuScene);
                 menuStage.show();
             }
-        } catch(Exception e) {
+        } catch (ArithmeticException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Scheduling Error");
+            alert.setHeaderText("Invalid Time/Date Values");
+            alert.setContentText("Appointments can only be made Mon - Fri from 8AM to 10PM Eastern Time!");
+            alert.showAndWait();
+
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Scheduling Error");
+            alert.setHeaderText("Invalid Time/Date Values");
+            alert.setContentText("Start time must come before end time");
+            alert.showAndWait();
+
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Data Entry Error");
             alert.setHeaderText("Data Entry Error");
@@ -94,9 +124,8 @@ public class add_appointment {
             alert.showAndWait();
             System.out.println(e.getMessage());
         }
-
-
     }
+
 
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));

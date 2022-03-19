@@ -66,7 +66,13 @@ public class view_appointments implements Initializable {
 
 
 
-    public void scheduleNewApptClick(ActionEvent actionEvent) {
+    public void scheduleNewApptClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/add_appointment.fxml"));
+        Stage addApptStage = (Stage)scheduleNewButton.getScene().getWindow();
+        Scene addApptScene = new Scene(root, 800, 600);
+        addApptStage.setTitle("Add Appointment");
+        addApptStage.setScene(addApptScene);
+        addApptStage.show();
     }
 
     public void updateApptButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
