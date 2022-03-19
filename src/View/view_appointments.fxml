@@ -6,6 +6,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -69,7 +70,7 @@
          <top>
             <HBox prefHeight="73.0" prefWidth="599.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" prefHeight="73.0" prefWidth="710.0" text="Appointments Table">
+                  <Label alignment="CENTER" prefHeight="73.0" prefWidth="619.0" text="Appointments Table">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -77,8 +78,12 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <RadioButton fx:id="monthRadioButton" mnemonicParsing="false" onAction="#monthRadioButtonChecked" prefHeight="73.0" prefWidth="171.0" text="View by Month" />
-                  <RadioButton fx:id="weekRadioButton" mnemonicParsing="false" onAction="#weekRadioButtonChecked" prefHeight="73.0" prefWidth="169.0" text="View by Week" />
+                  <RadioButton fx:id="allRadioButton" mnemonicParsing="false" onAction="#allRadioButtonChecked" prefHeight="73.0" prefWidth="171.0" selected="true" text="View All">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group1" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="weekRadioButton" mnemonicParsing="false" onAction="#weekRadioButtonChecked" prefHeight="73.0" prefWidth="169.0" text="Current Week" toggleGroup="$group1" />
+                  <RadioButton fx:id="monthRadioButton" layoutX="921.0" layoutY="10.0" mnemonicParsing="false" onAction="#monthRadioButtonChecked" prefHeight="73.0" prefWidth="169.0" text="Current Month" toggleGroup="$group1" />
                </children>
             </HBox>
          </top>

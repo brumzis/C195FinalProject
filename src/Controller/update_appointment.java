@@ -124,7 +124,7 @@ public class update_appointment {
         descriptionTbox.setText(a.getApptDescription());
         locationTbox.setText(a.getApptLocation());
         contactComboBox.setItems(JDBC.getContacts());
-        contactComboBox.setValue(a.getApptContact());
+        contactComboBox.setValue(a.getApptContactName(a.getApptContact()));
         typeTbox.setText(a.getApptType());
         startHourComboBox.setItems(JDBC.getHours());
         startHourComboBox.setValue(a.getApptStart().getHour());

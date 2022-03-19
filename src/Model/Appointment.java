@@ -1,5 +1,8 @@
 package Model;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Appointment {
@@ -58,6 +61,17 @@ public class Appointment {
     }
 
     public int getApptContact() { return apptContact; }
+
+    public String getApptContactName(int id) throws SQLException {
+        String str = "";
+        String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            str = rs.getString(1);
+        return str;
+    }
 
     public void setApptContact(int apptContact) { this.apptContact = apptContact; }
 

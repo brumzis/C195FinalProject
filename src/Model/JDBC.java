@@ -243,6 +243,37 @@ public abstract class JDBC {
     }
 
 
+    public static ObservableList<Appointment> createAppointmentListCurrentWeek() throws SQLException {
+        ObservableList<Appointment> myList = FXCollections.observableArrayList();
+        LocalDateTime myDate = LocalDateTime.now();
+        LocalDateTime myEndDate = myDate.plusWeeks(1);
+        LocalDateTime myStartDate = myDate.minusDays(1);
+        String sql = "SELECT * FROM appointments WHERE Start > ? AND End < ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, myStartDate.toString());
+        ps.setString(2, myEndDate.toString());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));
+            myList.add(app);
+        }
+        return myList;
+    }
+
+
+    public static ObservableList<Appointment> createAppointmentListCurrentMonth() throws SQLException {
+        ObservableList<Appointment> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments WHERE MONTH(Start) = MONTH(CURRENT_DATE()) AND YEAR(Start) = YEAR(CURRENT_DATE())";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));
+            myList.add(app);
+        }
+        return myList;
+    }
+
+
     public static void deleteAppointment(int appointmentID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

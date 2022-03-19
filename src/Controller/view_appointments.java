@@ -130,10 +130,22 @@ public class view_appointments implements Initializable {
         }
     }
 
-    public void monthRadioButtonChecked(ActionEvent actionEvent) {
+    public void monthRadioButtonChecked(ActionEvent actionEvent) throws SQLException {
+        appointmentTable.getSelectionModel().clearSelection();
+        appointmentTable.getItems().clear();
+        appointmentTable.setItems(JDBC.createAppointmentListCurrentMonth());
     }
 
-    public void weekRadioButtonChecked(ActionEvent actionEvent) {
+    public void weekRadioButtonChecked(ActionEvent actionEvent) throws SQLException {
+        appointmentTable.getSelectionModel().clearSelection();
+        appointmentTable.getItems().clear();
+        appointmentTable.setItems(JDBC.createAppointmentListCurrentWeek());
+    }
+
+    public void allRadioButtonChecked(ActionEvent actionEvent) throws SQLException {
+        appointmentTable.getSelectionModel().clearSelection();
+        appointmentTable.getItems().clear();
+        appointmentTable.setItems(JDBC.createAppointmentList());
     }
 
 
