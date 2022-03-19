@@ -326,14 +326,14 @@ public abstract class JDBC {
 
 
     public static boolean checkForCustomerAppointments(int customerID) throws SQLException {
-        int rowsAffected = 0;
+
         String sql = "SELECT Appointment_ID FROM appointments WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, customerID);
-        boolean hasAppointments = ps.execute();
-        if (hasAppointments)
-            return true;
-        else
+        ResultSet rs = ps.executeQuery();
+        if(!rs.next())
             return false;
+        else
+            return true;
     }
 }
