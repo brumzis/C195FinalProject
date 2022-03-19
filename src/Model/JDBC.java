@@ -3,7 +3,11 @@ package Model;
 import Controller.edit_customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -239,6 +243,18 @@ public abstract class JDBC {
     }
 
 
+    public static void deleteAppointment(int appointmentID) throws SQLException {
+        String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, appointmentID);
+        int rowsAffected = ps.executeUpdate();
+        if (rowsAffected > 0) {
+            Alert del = new Alert(Alert.AlertType.INFORMATION);
+            del.setTitle("Deletion Successful");
+            del.setHeaderText("Appointment deleted");
+            del.showAndWait();
+        }
+    }
 
 
     public static int updateAppointment(Appointment appt) throws SQLException {

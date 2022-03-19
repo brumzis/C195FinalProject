@@ -145,7 +145,7 @@ public class login_screen implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Appointment Alert");
         alert.setHeaderText("Appointment reminder");
-        alert.setContentText("Upcomming appointment ID: " + a.getApptCustomerID() + "\nAppointment type: " + a.getApptType());
+        alert.setContentText("Upcomming appointment ID: " + a.getApptCustomerID() + "\nAppointment date: " + a.getApptStart().toLocalDate() + "\nAppointment time: " + a.getApptStart().toLocalTime());
         alert.showAndWait();
     }
 }

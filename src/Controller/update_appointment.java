@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.InputMismatchException;
 
 
 public class update_appointment {
@@ -57,6 +58,10 @@ public class update_appointment {
             if(!DateTimeUtility.compareTimes(startApptTime, endApptTime))
                 throw new NumberFormatException("start time must come before end time");
 
+            if(!DateTimeUtility.checkOverlap(Integer.parseInt(customerIDTbox.getText()), DateTimeUtility.convertToUTC(startApptTime), DateTimeUtility.convertToUTC(endApptTime)))
+                throw new InputMismatchException("appointments are overlapping");
+
+
             if (contactComboBox.getSelectionModel().getSelectedItem() instanceof String) {
                 myAppointment = new Appointment(i, titleTbox.getText(), descriptionTbox.getText(), locationTbox.getText(), JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()), typeTbox.getText(), startApptTime, endApptTime, Integer.parseInt(customerIDTbox.getText()), Integer.parseInt(userIDTbox.getText()));
             } else {
@@ -85,6 +90,13 @@ public class update_appointment {
             alert.setTitle("Scheduling Error");
             alert.setHeaderText("Invalid Time/Date Values");
             alert.setContentText("Start time must come before end time");
+            alert.showAndWait();
+
+        } catch (InputMismatchException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Scheduling Error");
+            alert.setHeaderText("Overlap");
+            alert.setContentText("Customer already booked for that time!" + "\nPlease try another time");
             alert.showAndWait();
 
         } catch (Exception e) {
