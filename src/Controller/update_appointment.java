@@ -33,6 +33,7 @@ public class update_appointment {
     public Button updateButton;
     public Button cancelButton;
 
+
     public void updateButtonClick(ActionEvent actionEvent) {
         try {
             Appointment myAppointment = null;

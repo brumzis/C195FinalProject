@@ -1,6 +1,9 @@
 package Controller;
 
+import Model.Appointment;
 import Model.JDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +20,9 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class login_screen implements Initializable {
@@ -54,6 +59,8 @@ public class login_screen implements Initializable {
 
         if(userID != 0 && (validPassword(getUserID(userNameInput), passwordInput))) {
             System.out.println("username and password are good - go to main page");
+            checkUserAppointments(userID);
+
             Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
             Stage menuStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             Scene menuScene = new Scene(root, 600, 400);
@@ -100,4 +107,45 @@ public class login_screen implements Initializable {
     }
 
 
+    private void checkUserAppointments(int userID) throws SQLException {
+        try {
+            ObservableList<Appointment> myList = JDBC.createAppointmentList();
+            ObservableList<Appointment> newList = FXCollections.observableArrayList();
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            for (Appointment a : myList) {
+                    if (a.getApptUserID() == userID)
+                        newList.add(a);
+            }
+            if (!newList.isEmpty()) {
+                for (Appointment a : newList) {
+                    //if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))
+                    //loadAlertUserBox(a);
+                    if (a.getApptID() == 1)
+                        loadAlertUserBox(a);
+                }
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Message");
+                alert.setHeaderText("Appointment Info:");
+                alert.setContentText("You have no scheduled appointments in the next 15 minutes");
+                alert.showAndWait();
+            }
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Message");
+            alert.setHeaderText("Appointment Info:");
+            alert.setContentText("You have no scheduled appointments");
+            alert.showAndWait();
+        }
+    }
+    private void loadAlertUserBox(Appointment a) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Appointment Alert");
+        alert.setHeaderText("Appointment reminder");
+        alert.setContentText("Upcomming appointment ID: " + a.getApptCustomerID() + "\nAppointment type: " + a.getApptType());
+        alert.showAndWait();
+    }
 }
