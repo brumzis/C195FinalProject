@@ -16,6 +16,10 @@ public class main_menu {
     public Button appointmentDeleteButton;
     public Button customerViewButton;
     public Button appointmentViewButton;
+    public Button viewContactScheduleButton;
+    public Button viewUserScheduleButton;
+    public Button viewCustApptButton;
+    public Button userLoginTrackingButton;
 
     public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
@@ -71,5 +75,17 @@ public class main_menu {
         myStage.setTitle("Appointment Screen");
         myStage.setScene(myScene);
         myStage.show();
+    }
+
+    public void viewContactScheduleButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void viewUserScheduleButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void viewCustApptButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void loginTrackingButtonClick(ActionEvent actionEvent) {
     }
 }

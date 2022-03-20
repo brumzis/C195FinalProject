@@ -59,9 +59,17 @@
          <bottom>
             <HBox prefHeight="74.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
+                  <Label prefHeight="74.0" prefWidth="1098.0" text="*Times shown reflect the local time on your machine">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
                   <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonClick" prefHeight="28.0" prefWidth="93.0" text="Exit">
                      <HBox.margin>
-                        <Insets left="975.0" top="20.0" />
+                        <Insets top="20.0" />
                      </HBox.margin>
                   </Button>
                </children>

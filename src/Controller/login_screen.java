@@ -118,10 +118,8 @@ public class login_screen implements Initializable {
             }
             if (!newList.isEmpty()) {
                 for (Appointment a : newList) {
-                    //if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))
-                    //loadAlertUserBox(a);
-                    if (a.getApptID() == 1)
-                        loadAlertUserBox(a);
+                    if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))
+                    loadAlertUserBox(a);
                 }
             }
             else {

@@ -201,30 +201,11 @@ public abstract class JDBC {
 
     public static ObservableList<String> getHours() {
         ObservableList myList = FXCollections.observableArrayList();
-        myList.add("00");
-        myList.add("01");
-        myList.add("02");
-        myList.add("03");
-        myList.add("04");
-        myList.add("05");
-        myList.add("06");
-        myList.add("07");
-        myList.add("08");
-        myList.add("09");
-        myList.add("10");
-        myList.add("11");
-        myList.add("12");
-        myList.add("13");
-        myList.add("14");
-        myList.add("15");
-        myList.add("16");
-        myList.add("17");
-        myList.add("18");
-        myList.add("19");
-        myList.add("20");
-        myList.add("21");
-        myList.add("22");
-        myList.add("23");
+        myList.add("00");myList.add("01");myList.add("02");myList.add("03");myList.add("04");
+        myList.add("05");myList.add("06");myList.add("07");myList.add("08");myList.add("09");
+        myList.add("10");myList.add("11");myList.add("12");myList.add("13");myList.add("14");
+        myList.add("15");myList.add("16");myList.add("17");myList.add("18");myList.add("19");
+        myList.add("20");myList.add("21");myList.add("22");myList.add("23");
         return myList;
     }
 
@@ -252,13 +233,8 @@ public abstract class JDBC {
 
     public static ObservableList<Appointment> createAppointmentListCurrentWeek() throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
-        LocalDateTime myDate = LocalDateTime.now();
-        LocalDateTime myEndDate = myDate.plusWeeks(1);
-        LocalDateTime myStartDate = myDate.minusDays(1);
-        String sql = "SELECT * FROM appointments WHERE Start > ? AND End < ?";
+        String sql = "SELECT * FROM appointments WHERE YEARWEEK(Start) = YEARWEEK(NOW())";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, myStartDate.toString());
-        ps.setString(2, myEndDate.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));
@@ -270,7 +246,7 @@ public abstract class JDBC {
 
     public static ObservableList<Appointment> createAppointmentListCurrentMonth() throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM appointments WHERE MONTH(Start) = MONTH(CURRENT_DATE()) AND YEAR(Start) = YEAR(CURRENT_DATE())";
+        String sql = "SELECT * FROM appointments WHERE MONTH(Start) = MONTH(NOW()) AND YEAR(Start) = YEAR(NOW())";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

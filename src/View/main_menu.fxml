@@ -22,7 +22,7 @@
             </Label>
          </top>
          <left>
-            <VBox prefHeight="345.0" prefWidth="280.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="345.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="300.0" text="Customer Records">
                      <font>
@@ -51,7 +51,7 @@
             </VBox>
          </left>
          <right>
-            <VBox prefHeight="345.0" prefWidth="280.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="345.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="290.0" text="Appointments">
                      <font>
@@ -79,6 +79,40 @@
                </children>
             </VBox>
          </right>
+         <center>
+            <VBox prefHeight="345.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="300.0" text="Reporting">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="viewContactScheduleButton" mnemonicParsing="false" onAction="#viewContactScheduleButtonClick" prefHeight="25.0" prefWidth="287.0" text="View Contact Schedules">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="viewUserScheduleButton" layoutX="10.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewUserScheduleButtonClick" prefHeight="25.0" prefWidth="287.0" text="View User Schedules">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="viewCustApptButton" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#viewCustApptButtonClick" prefHeight="25.0" prefWidth="287.0" text="Customer Appointments">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="userLoginTrackingButton" layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#loginTrackingButtonClick" prefHeight="25.0" prefWidth="287.0" text="User Login Tracking">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
