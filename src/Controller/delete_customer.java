@@ -48,12 +48,6 @@ public class delete_customer {
                 int rowsAffected = ps.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    System.out.println(rowsAffected + " row deleted from table");
-                    //Alert alertbox = new Alert(Alert.AlertType.CONFIRMATION);
-                    //alertbox.setTitle("Confirmation");
-                    //alertbox.setHeaderText("Success!");
-                    //alertbox.setContentText("Customer has been removed from DB");
-                    //alertbox.showAndWait();
                     alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
                                                        myAlert.setTitle("Confirmation");
                                                        myAlert.setHeaderText("Success!");
@@ -63,25 +57,33 @@ public class delete_customer {
                     alert1.displayAlertBox();
                 }
                 else {
-                    Alert message = new Alert(Alert.AlertType.ERROR);
-                    message.setTitle("Error");
-                    message.setHeaderText("Customer lookup error");
-                    message.setContentText("Customer ID not found");
-                    message.showAndWait();
+                    alertBoxInterface alert2 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                                       myAlert.setTitle("Error");
+                                                       myAlert.setHeaderText("Customer lookup error");
+                                                       myAlert.setContentText("Customer ID not found");
+                                                       return myAlert.showAndWait();
+                                                     };
+                    alert2.displayAlertBox();
                 }
             }
 
         } catch (IndexOutOfBoundsException e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Deletion Error:");
-            alert2.setHeaderText("Customer cannot have any appointments. Delete customer appointments first");
-            alert2.showAndWait();
+            alertBoxInterface alert3 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                               myAlert.setTitle("Deletion Error");
+                                               myAlert.setHeaderText("Customer appointments found");
+                                               myAlert.setContentText("Customer cannot have any appointments. Delete customer appointments first");
+                                               return myAlert.showAndWait();
+                                             };
+            alert3.displayAlertBox();
 
         } catch(NumberFormatException e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Deletion Error:");
-            alert2.setHeaderText("Please enter a valid Customer ID");
-            alert2.showAndWait();
+            alertBoxInterface alert4 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                               myAlert.setTitle("Deletion Error");
+                                               myAlert.setHeaderText("Invalid Entry");
+                                               myAlert.setContentText("Please enter a valid Customer ID");
+                                               return myAlert.showAndWait();
+                                             };
+            alert4.displayAlertBox();
         }
     }
 
