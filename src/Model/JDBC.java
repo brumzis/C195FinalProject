@@ -140,8 +140,14 @@ public abstract class JDBC {
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, customerID);
         int rowsAffected = ps.executeUpdate();
-        if (rowsAffected > 0)
+        if (rowsAffected > 0) {
             System.out.println(rowsAffected + " row deleted from table");
+            Alert alertbox = new Alert(Alert.AlertType.CONFIRMATION);
+            alertbox.setTitle("Confirmation");
+            alertbox.setHeaderText("Success!");
+            alertbox.setContentText("Customer has been removed from DB");
+            alertbox.showAndWait();
+        }
         else {
             Alert alert1 = new Alert(Alert.AlertType.ERROR);
             alert1.setTitle("Deletion Error:");

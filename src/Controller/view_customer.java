@@ -12,12 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
-
 import static Model.JDBC.createCustomerList;
 
 
@@ -36,7 +35,6 @@ public class view_customer implements Initializable {
     public Button exitButton;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -53,16 +51,12 @@ public class view_customer implements Initializable {
         tableDivisionColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
             @Override
             public Integer fromString(String val) {
-                try {
-                    return super.fromString(val);
-                } catch(NumberFormatException ex) {
-                    return 0;
-                }
-            }}));
-
+                try {return super.fromString(val);}
+                catch(NumberFormatException ex) {return 0;}}}));
 
         customerTable.setEditable(true);
-        try {customerTable.setItems(createCustomerList());} catch (SQLException e) {e.printStackTrace();}
+        try {customerTable.setItems(createCustomerList());}
+        catch (SQLException e) {e.printStackTrace();}
     }
 
 
@@ -101,7 +95,6 @@ public class view_customer implements Initializable {
     }
 
 
-
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
             if (customerTable.getSelectionModel().getSelectedItem() == null) {
@@ -114,14 +107,16 @@ public class view_customer implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Delete Customer?");
                 alert.setContentText("All customer appointments must be deleted before deleting customer! " + "Do you wish to continue?");
-                alert.showAndWait();
-                Customer c = customerTable.getSelectionModel().getSelectedItem();
-                if(JDBC.checkForCustomerAppointments(c.getCustomerID()))
-                    throw new IllegalStateException("Cannot have appointments");
-                JDBC.deleteCustomer(c.getCustomerID());
-                customerTable.getSelectionModel().clearSelection();
-                customerTable.getItems().clear();
-                customerTable.setItems(createCustomerList());
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    Customer c = customerTable.getSelectionModel().getSelectedItem();
+                    if (JDBC.checkForCustomerAppointments(c.getCustomerID()))
+                        throw new IllegalStateException("Cannot have appointments");
+                    JDBC.deleteCustomer(c.getCustomerID());
+                    customerTable.getSelectionModel().clearSelection();
+                    customerTable.getItems().clear();
+                    customerTable.setItems(createCustomerList());
+                }
             }
         } catch (IllegalStateException e) {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
@@ -235,7 +230,4 @@ public class view_customer implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-
 }
