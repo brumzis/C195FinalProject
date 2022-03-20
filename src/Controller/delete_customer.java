@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.JDBC;
+import Model.alertBoxInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,11 +29,14 @@ public class delete_customer {
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
             int customerID = Integer.parseInt(deleteCustomerIDTbox.getText());
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete Customer?");
-            alert.setContentText("All customer appointments must be deleted before deleting customer! " + "Do you wish to continue?");
-
-            Optional<ButtonType> result = alert.showAndWait();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                                              myAlert.setTitle("Delete Customer");
+                                              myAlert.setHeaderText("Confirm Delete?");
+                                              myAlert.setContentText("All customer appointments must be deleted before deleting customer!" +
+                                                                     " Do you wish to continue?");
+                                              return myAlert.showAndWait();
+                                            };
+            Optional<ButtonType> result = alert.displayAlertBox();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 if (JDBC.checkForCustomerAppointments(customerID))
@@ -45,11 +49,18 @@ public class delete_customer {
 
                 if (rowsAffected > 0) {
                     System.out.println(rowsAffected + " row deleted from table");
-                    Alert alertbox = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertbox.setTitle("Confirmation");
-                    alertbox.setHeaderText("Success!");
-                    alertbox.setContentText("Customer has been removed from DB");
-                    alertbox.showAndWait();
+                    //Alert alertbox = new Alert(Alert.AlertType.CONFIRMATION);
+                    //alertbox.setTitle("Confirmation");
+                    //alertbox.setHeaderText("Success!");
+                    //alertbox.setContentText("Customer has been removed from DB");
+                    //alertbox.showAndWait();
+                    alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                                                       myAlert.setTitle("Confirmation");
+                                                       myAlert.setHeaderText("Success!");
+                                                       myAlert.setContentText("Customer has been removed from DB");
+                                                       return myAlert.showAndWait();
+                                                     };
+                    alert1.displayAlertBox();
                 }
                 else {
                     Alert message = new Alert(Alert.AlertType.ERROR);

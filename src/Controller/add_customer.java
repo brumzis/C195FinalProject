@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Country;
 import Model.JDBC;
+import Model.alertBoxInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,12 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-
 
 
 public class add_customer {
@@ -31,12 +29,10 @@ public class add_customer {
     public Button addCustomerCancelButton;
 
 
-
     public void initialize () throws SQLException {
 
         countryComboBox.setItems(JDBC.getCountryNames());
         divisionComboBox.setItems(JDBC.getAllDivisionNames());
-
     }
 
 
@@ -49,12 +45,17 @@ public class add_customer {
             ps.setString(3, postalCodeTbox.getText());
             ps.setString(4, phoneNumberTbox.getText());
             ps.setInt(5, JDBC.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
+
             int rowsAffected = ps.executeUpdate();
+
             if (rowsAffected > 0) {
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Addition Successful");
-                alert2.setHeaderText("Customer added to DB!");
-                alert2.showAndWait();
+                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                                                  myAlert.setTitle("Addition Successful");
+                                                  myAlert.setHeaderText("Customer added to DB!");
+                                                  return myAlert.showAndWait();
+                                                };
+                alert.displayAlertBox();
+
                 Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
                 Stage menuStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
                 Scene menuScene = new Scene(root, 600, 400);

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Appointment;
 import Model.JDBC;
+import Model.alertBoxInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -116,18 +117,30 @@ public class login_screen implements Initializable {
                     if (a.getApptUserID() == userID)
                         newList.add(a);
             }
-            if (!newList.isEmpty()) {
+
+            if(!newList.isEmpty()) {
                 for (Appointment a : newList) {
                     if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))
-                    loadAlertUserBox(a);
+                        loadAlertUserBox(a);
                 }
+                System.out.println("no appointments upcoming");
+                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                    myAlert.setTitle("Message");
+                    myAlert.setHeaderText("Appointment Info:");
+                    myAlert.setContentText("You have no scheduled appointments in the next 15 minutes");
+                    return myAlert.showAndWait();
+                };
+                alert.displayAlertBox();
             }
             else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Message");
-                alert.setHeaderText("Appointment Info:");
-                alert.setContentText("You have no scheduled appointments in the next 15 minutes");
-                alert.showAndWait();
+                System.out.println("no appointments upcoming");
+                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                                                  myAlert.setTitle("Message");
+                                                  myAlert.setHeaderText("Appointment Info:");
+                                                  myAlert.setContentText("You have no scheduled appointments in the next 15 minutes");
+                                                  return myAlert.showAndWait();
+                                                };
+                alert.displayAlertBox();
             }
 
         } catch (Exception e) {
@@ -138,12 +151,14 @@ public class login_screen implements Initializable {
             alert.showAndWait();
         }
     }
+
+
     private void loadAlertUserBox(Appointment a) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Appointment Alert");
         alert.setHeaderText("Appointment reminder");
-        alert.setContentText("Upcomming appointment ID: " + a.getApptCustomerID() + "\nAppointment date: " + a.getApptStart().toLocalDate() + "\nAppointment time: " + a.getApptStart().toLocalTime());
+        alert.setContentText("Upcoming appointment ID: " + a.getApptCustomerID() + "\nAppointment date: " + a.getApptStart().toLocalDate() + "\nAppointment time: " + a.getApptStart().toLocalTime());
         alert.showAndWait();
     }
 }
