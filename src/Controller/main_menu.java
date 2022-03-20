@@ -83,11 +83,23 @@ public class main_menu {
     }
 
 
-    public void viewContactScheduleButtonClick(ActionEvent actionEvent) {
+    public void viewContactScheduleButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/view_contact_schedules.fxml"));
+        Stage menuStage = (Stage)viewContactScheduleButton.getScene().getWindow();
+        Scene menuScene = new Scene(root, 1000, 500);
+        menuStage.setTitle("View Contact Schedule");
+        menuStage.setScene(menuScene);
+        menuStage.show();
     }
 
 
-    public void viewUserScheduleButtonClick(ActionEvent actionEvent) {
+    public void viewUserScheduleButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/view_user_schedules.fxml"));
+        Stage menuStage = (Stage)viewUserScheduleButton.getScene().getWindow();
+        Scene menuScene = new Scene(root, 1000, 500);
+        menuStage.setTitle("View Contact Schedule");
+        menuStage.setScene(menuScene);
+        menuStage.show();
     }
 
 
