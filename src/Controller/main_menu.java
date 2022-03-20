@@ -6,10 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
+
 public class main_menu {
+
     public Button customerAddButton;
     public Button customerDeleteButton;
     public Button appointmentNewButton;
@@ -20,6 +21,7 @@ public class main_menu {
     public Button viewUserScheduleButton;
     public Button viewCustApptButton;
     public Button userLoginTrackingButton;
+
 
     public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
@@ -50,6 +52,7 @@ public class main_menu {
         viewCustomerStage.show();
     }
 
+
     public void newApptButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_appointment.fxml"));
         Stage addApptStage = (Stage)appointmentNewButton.getScene().getWindow();
@@ -58,6 +61,7 @@ public class main_menu {
         addApptStage.setScene(addApptScene);
         addApptStage.show();
     }
+
 
     public void deleteAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/delete_appointment.fxml"));
@@ -68,6 +72,7 @@ public class main_menu {
         delCustomerStage.show();
     }
 
+
     public void viewAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
         Stage myStage = (Stage)appointmentViewButton.getScene().getWindow();
@@ -77,15 +82,20 @@ public class main_menu {
         myStage.show();
     }
 
+
     public void viewContactScheduleButtonClick(ActionEvent actionEvent) {
     }
+
 
     public void viewUserScheduleButtonClick(ActionEvent actionEvent) {
     }
 
+
     public void viewCustApptButtonClick(ActionEvent actionEvent) {
     }
 
+
     public void loginTrackingButtonClick(ActionEvent actionEvent) {
     }
+
 }

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Customer;
 import Model.JDBC;
+import Model.alertBoxInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -72,10 +73,12 @@ public class view_customer implements Initializable {
 
     public void updateCustomerButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
         if (customerTable.getSelectionModel().getSelectedItem() == null) {
-            Alert noSelection = new Alert(Alert.AlertType.ERROR);
-            noSelection.setTitle("Error");
-            noSelection.setHeaderText("No customer selected");
-            noSelection.showAndWait();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Error");
+                                              myAlert.setHeaderText("Customer appointments found");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
         else {
             Customer c = customerTable.getSelectionModel().getSelectedItem();
@@ -98,37 +101,51 @@ public class view_customer implements Initializable {
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
             if (customerTable.getSelectionModel().getSelectedItem() == null) {
-                Alert noSelection = new Alert(Alert.AlertType.ERROR);
-                noSelection.setTitle("Error");
-                noSelection.setHeaderText("No customer selected");
-                noSelection.showAndWait();
+                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                                  myAlert.setTitle("Error");
+                                                  myAlert.setHeaderText("No customer selected");
+                                                  return myAlert.showAndWait();
+                                                };
+                alert.displayAlertBox();
             }
             else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Delete Customer?");
-                alert.setContentText("All customer appointments must be deleted before deleting customer! " + "Do you wish to continue?");
-                Optional<ButtonType> result = alert.showAndWait();
+                alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    myAlert.setTitle("Delete Customer");
+                    myAlert.setHeaderText("Customer appointment warning");
+                    myAlert.setContentText("All customer appointments must be deleted before deleting customer! Do you wish to continue?");
+                    return myAlert.showAndWait();
+                };
+                Optional<ButtonType> result = alert1.displayAlertBox();
+
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     Customer c = customerTable.getSelectionModel().getSelectedItem();
+
                     if (JDBC.checkForCustomerAppointments(c.getCustomerID()))
                         throw new IllegalStateException("Cannot have appointments");
+
                     JDBC.deleteCustomer(c.getCustomerID());
+
                     customerTable.getSelectionModel().clearSelection();
                     customerTable.getItems().clear();
                     customerTable.setItems(createCustomerList());
                 }
             }
         } catch (IllegalStateException e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Deletion Error:");
-            alert2.setHeaderText("Customer cannot have appointments");
-            alert2.showAndWait();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Deletion Error");
+                                              myAlert.setHeaderText("Customer cannot have appointments");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
+
 
         } catch(Exception e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Deletion Error:");
-            alert2.setHeaderText("Please enter a valid Customer ID");
-            alert2.showAndWait();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Deletion Error");
+                                              myAlert.setHeaderText("Please enter a valid Customer ID");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
     }
 
@@ -150,12 +167,12 @@ public class view_customer implements Initializable {
             c.setCustomerName(customerStringCellEditEvent.getNewValue());
             int i = JDBC.updateCustomer(c);
         } catch (Exception e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Update Error:");
-            alert2.setHeaderText("Please enter a valid values");
-            alert2.showAndWait();
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Update Error");
+                                              myAlert.setHeaderText("Please enter valid values");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
     }
 
@@ -166,12 +183,12 @@ public class view_customer implements Initializable {
             c.setCustomerAddress(customerStringCellEditEvent.getNewValue());
             int i = JDBC.updateCustomer(c);
         } catch (Exception e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Update Error:");
-            alert2.setHeaderText("Please enter a valid values");
-            alert2.showAndWait();
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Update Error");
+                                              myAlert.setHeaderText("Please enter valid values");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
     }
 
@@ -182,12 +199,12 @@ public class view_customer implements Initializable {
             c.setCustomerPostalCode(customerStringCellEditEvent.getNewValue());
             int i = JDBC.updateCustomer(c);
         } catch (Exception e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Update Error:");
-            alert2.setHeaderText("Please enter a valid values");
-            alert2.showAndWait();
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Update Error");
+                                              myAlert.setHeaderText("Please enter valid values");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
     }
 
@@ -198,36 +215,38 @@ public class view_customer implements Initializable {
             c.setCustomerPhone(customerStringCellEditEvent.getNewValue());
             int i = JDBC.updateCustomer(c);
         } catch (Exception e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Update Error:");
-            alert2.setHeaderText("Please enter a valid values");
-            alert2.showAndWait();
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Update Error");
+                                              myAlert.setHeaderText("Please enter valid values");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
     }
 
     public void divisionEditCommit(TableColumn.CellEditEvent<Customer, Integer> customerIntegerCellEditEvent){
-        System.out.println("got here");
+
         try {
             Customer c = customerTable.getSelectionModel().getSelectedItem();
             c.setCustomerDivision(customerIntegerCellEditEvent.getNewValue());
             int i = JDBC.updateCustomer(c);
             System.out.println(i);
             if (i < 1) {
-                Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                alert2.setTitle("Update Error:");
-                alert2.setHeaderText("Please enter a valid values");
-                alert2.showAndWait();
+                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                                  myAlert.setTitle("Update Error");
+                                                  myAlert.setHeaderText("Please enter valid values");
+                                                  return myAlert.showAndWait();
+                                                };
+                alert.displayAlertBox();
             }
 
         } catch (Exception e) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Update Error:");
-            alert2.setHeaderText("Please enter a valid values");
-            alert2.showAndWait();
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Update Error");
+                                              myAlert.setHeaderText("Please enter valid values");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
     }
 }

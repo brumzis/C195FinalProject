@@ -1,9 +1,9 @@
 package Controller;
 
 import Model.Appointment;
-import Model.Customer;
 import Model.DateTimeUtility;
 import Model.JDBC;
+import Model.alertBoxInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,15 +12,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import static Model.JDBC.createCustomerList;
 
 
 public class view_appointments implements Initializable {
@@ -57,14 +54,8 @@ public class view_appointments implements Initializable {
         apptCustomerID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptCustomerID"));
         apptUserID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptUserID"));
 
-        try {
-            appointmentTable.setItems(JDBC.createAppointmentList());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        try {appointmentTable.setItems(JDBC.createAppointmentList());} catch (SQLException e) {e.printStackTrace();}
     }
-
 
 
     public void scheduleNewApptClick(ActionEvent actionEvent) throws IOException {
@@ -78,10 +69,12 @@ public class view_appointments implements Initializable {
 
     public void updateApptButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
         if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
-            Alert noSelection = new Alert(Alert.AlertType.ERROR);
-            noSelection.setTitle("Error");
-            noSelection.setHeaderText("No appointment selected");
-            noSelection.showAndWait();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Error:");
+                                              myAlert.setHeaderText("No appointment selected");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
         else {
             Appointment a = appointmentTable.getSelectionModel().getSelectedItem();
@@ -99,18 +92,24 @@ public class view_appointments implements Initializable {
         }
     }
 
+
     public void deleteApptButtonClick(ActionEvent actionEvent) throws SQLException {
         if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
-            Alert noSelection = new Alert(Alert.AlertType.ERROR);
-            noSelection.setTitle("Error");
-            noSelection.setHeaderText("No appointment selected");
-            noSelection.showAndWait();
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                              myAlert.setTitle("Error:");
+                                              myAlert.setHeaderText("No appointment selected");
+                                              return myAlert.showAndWait();
+                                            };
+            alert.displayAlertBox();
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete Appointment?");
-            alert.setContentText("Are you sure?");
-            Optional<ButtonType> result = alert.showAndWait();
+            alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                                               myAlert.setTitle("Delete Appointment");
+                                               myAlert.setContentText("Are you sure?");
+                                               return myAlert.showAndWait();
+                                             };
+            Optional<ButtonType> result = alert1.displayAlertBox();
+
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 Appointment a = appointmentTable.getSelectionModel().getSelectedItem();
                 String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
@@ -118,18 +117,23 @@ public class view_appointments implements Initializable {
                 ps.setInt(1, a.getApptID());
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
-                    Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
-                    newAlert.setTitle("Success");
-                    newAlert.setHeaderText("Appointment Cancelled");
-                    newAlert.setContentText("Appointment successfully deleted from DB");
-                    newAlert.showAndWait();
+                    alertBoxInterface alert2 = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                                                       myAlert.setTitle("Success");
+                                                       myAlert.setHeaderText("Appointment Cancelled");
+                                                       myAlert.setContentText("Appointment successfully deleted from DB");
+                                                       return myAlert.showAndWait();
+                                                     };
+                    alert2.displayAlertBox();
                 }
                 else {
-                    Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                    alert1.setTitle("Deletion Error:");
-                    alert1.setHeaderText("Appointment not found");
-                    alert1.showAndWait();
+                    alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                                      myAlert.setTitle("Deletion Error:");
+                                                      myAlert.setHeaderText("Appointment not found");
+                                                      return myAlert.showAndWait();
+                                                    };
+                    alert.displayAlertBox();
                 }
+
                 appointmentTable.getSelectionModel().clearSelection();
                 appointmentTable.getItems().clear();
                 appointmentTable.setItems(JDBC.createAppointmentList());

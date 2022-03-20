@@ -1,15 +1,8 @@
 package Model;
 
-import Controller.edit_customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
-
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -27,15 +20,12 @@ public abstract class JDBC {
     public static Connection connection;  // Connection Interface
 
 
-    public static void openConnection()
-    {
+    public static void openConnection() {
         try {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
             System.out.println("Connection successful!");
-        }
-        catch(Exception e)
-        {
+        } catch(Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
     }
@@ -45,8 +35,7 @@ public abstract class JDBC {
         try {
             connection.close();
             System.out.println("Connection closed!");
-        }
-        catch(Exception e) {
+        } catch(Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
     }
@@ -135,6 +124,7 @@ public abstract class JDBC {
         return myList;
     }
 
+
     public static int deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -163,7 +153,6 @@ public abstract class JDBC {
         try {
             String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-
             ps.setString(1, cust.getCustomerName());
             ps.setString(2, cust.getCustomerAddress());
             ps.setString(3, cust.getCustomerPostalCode() );
@@ -199,6 +188,7 @@ public abstract class JDBC {
         return myList;
     }
 
+
     public static ObservableList<String> getHours() {
         ObservableList myList = FXCollections.observableArrayList();
         myList.add("00");myList.add("01");myList.add("02");myList.add("03");myList.add("04");
@@ -209,6 +199,7 @@ public abstract class JDBC {
         return myList;
     }
 
+
     public static ObservableList<String> getMinutes() {
         ObservableList myList = FXCollections.observableArrayList();
         myList.add("0");
@@ -217,6 +208,7 @@ public abstract class JDBC {
         myList.add("45");
         return myList;
     }
+
 
     public static ObservableList<Appointment> createAppointmentList() throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
@@ -276,7 +268,6 @@ public abstract class JDBC {
         try {
             String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-
             ps.setString(1, appt.getApptTitle());
             ps.setString(2, appt.getApptDescription());
             ps.setString(3, appt.getApptLocation());
@@ -295,7 +286,6 @@ public abstract class JDBC {
                 updateAlert.showAndWait();
                 return rowsAffected;
             }
-
         } catch (Exception e) {
             Alert errorBox = new Alert(Alert.AlertType.ERROR);
             errorBox.setTitle("error");

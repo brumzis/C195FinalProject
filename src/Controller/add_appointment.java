@@ -2,25 +2,21 @@ package Controller;
 
 import Model.DateTimeUtility;
 import Model.JDBC;
+import Model.alertBoxInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.InputMismatchException;
-import java.util.ResourceBundle;
+
 
 public class add_appointment {
 
@@ -49,13 +45,13 @@ public class add_appointment {
         endHourComboBox.setItems(JDBC.getHours());
         startMinComboBox.setItems(JDBC.getMinutes());
         endMinComboBox.setItems(JDBC.getMinutes());
-
-
     }
 
     public void addButtonClick(ActionEvent actionEvent) {
         try {
+
             //Convert user entered time values to LocalDateTime objects
+
             LocalDate startDay = startDateBox.getValue();
             LocalDate endDay = endDateBox.getValue();
             String startHour = startHourComboBox.getValue().toString();
@@ -89,17 +85,20 @@ public class add_appointment {
             ps.setInt(8, Integer.parseInt(userIDTbox.getText()));
             ps.setInt(9, JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()));
 
+            //make sure appointments do not overlap
             if(!DateTimeUtility.checkOverlap(Integer.parseInt(customerIDTbox.getText()), DateTimeUtility.convertToUTC(startApptTime), DateTimeUtility.convertToUTC(endApptTime)))
                 throw new InputMismatchException("appointments are overlapping");
 
-
             int rowsAffected = ps.executeUpdate();
+
             //if addition was successful, show alertbox and go back to main menu
             if (rowsAffected > 0) {
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Addition Successful");
-                alert2.setHeaderText("Appointment added to DB!");
-                alert2.showAndWait();
+                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                                                  myAlert.setTitle("Addition Successful");
+                                                  myAlert.setHeaderText("Appointment added to DB!");
+                                                  return myAlert.showAndWait();
+                                                };
+                alert.displayAlertBox();
 
                 Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
                 Stage menuStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -109,33 +108,41 @@ public class add_appointment {
                 menuStage.show();
             }
         } catch (ArithmeticException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Scheduling Error");
-            alert.setHeaderText("Invalid Time/Date Values");
-            alert.setContentText("Appointments can only be made Mon - Fri from 8AM to 10PM Eastern Time!");
-            alert.showAndWait();
+            alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                               myAlert.setTitle("Scheduling Error");
+                                               myAlert.setHeaderText("Invalid Time/Date Values");
+                                               myAlert.setContentText("Appointments can only be made Mon - Fri from 8AM to 10PM Eastern Time!");
+                                               return myAlert.showAndWait();
+                                             };
+            alert1.displayAlertBox();
 
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Scheduling Error");
-            alert.setHeaderText("Invalid Time/Date Values");
-            alert.setContentText("Start time must come before end time");
-            alert.showAndWait();
+            alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                               myAlert.setTitle("Scheduling Error");
+                                               myAlert.setHeaderText("Invalid Time/Date Values");
+                                               myAlert.setContentText("Start time must come before end time");
+                                               return myAlert.showAndWait();
+                                             };
+            alert1.displayAlertBox();
 
         } catch (InputMismatchException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Scheduling Error");
-            alert.setHeaderText("Overlap");
-            alert.setContentText("Customer already booked for that time!" + "\nPlease try another time");
-            alert.showAndWait();
+            alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                               myAlert.setTitle("Scheduling Error");
+                                               myAlert.setHeaderText("Overlap");
+                                               myAlert.setContentText("Customer already booked for that time!" + "\nPlease try another time");
+                                               return myAlert.showAndWait();
+                                             };
+            alert1.displayAlertBox();
+
 
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Data Entry Error");
-            alert.setHeaderText("Data Entry Error");
-            alert.setContentText("Please make sure all fields are filled in with correct data types");
-            alert.showAndWait();
-            System.out.println(e.getMessage());
+            alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                                               myAlert.setTitle("Data Entry Error");
+                                               myAlert.setHeaderText("Data Entry Error");
+                                               myAlert.setContentText("Please make sure all fields are filled in with correct data types");
+                                               return myAlert.showAndWait();
+                                             };
+            alert1.displayAlertBox();
         }
     }
 
@@ -148,6 +155,4 @@ public class add_appointment {
         menuStage.setScene(menuScene);
         menuStage.show();
     }
-
-
 }
