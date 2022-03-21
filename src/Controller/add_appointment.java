@@ -1,11 +1,8 @@
 package Controller;
 
-import Model.Contact;
 import Model.DateTimeUtility;
 import Model.JDBC;
 import Model.alertBoxInterface;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -43,7 +40,6 @@ public class add_appointment {
 
     public void initialize() throws SQLException{
 
-
         contactComboBox.setItems(JDBC.getContactNames());
         startHourComboBox.setItems(JDBC.getHours());
         endHourComboBox.setItems(JDBC.getHours());
@@ -52,6 +48,7 @@ public class add_appointment {
     }
 
     public void addButtonClick(ActionEvent actionEvent) {
+
         try {
 
             //Convert user entered time values to LocalDateTime objects
@@ -65,18 +62,24 @@ public class add_appointment {
             LocalDateTime startApptTime = LocalDateTime.of(startDay.getYear(), startDay.getMonthValue(), startDay.getDayOfMonth(), Integer.parseInt(startHour), Integer.parseInt(startMinute));
             LocalDateTime endApptTime = LocalDateTime.of(endDay.getYear(), endDay.getMonthValue(), endDay.getDayOfMonth(), Integer.parseInt(endHour), Integer.parseInt(endMinute));
 
+
             //make sure user entered times do not fall outside US/Eastern business hours per specs
+
             if(!DateTimeUtility.validateAppointmentTime(startApptTime))
                 throw new ArithmeticException("invalid time");
             if(!DateTimeUtility.validateAppointmentTime(endApptTime))
                 throw new ArithmeticException("invalid time");
 
+
             //make sure start time comes before end time
+
             if(!DateTimeUtility.compareTimes(startApptTime, endApptTime))
                 throw new NumberFormatException("start time must come before end time");
 
+
             //insert user entered fields into the SQL Table
             //the times are first converted to utc time from the system time
+
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";  //excluded primary key column
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, titleTbox.getText());
@@ -88,6 +91,7 @@ public class add_appointment {
             ps.setInt(7, Integer.parseInt(customerIDTbox.getText()));
             ps.setInt(8, Integer.parseInt(userIDTbox.getText()));
             ps.setInt(9, JDBC.returnContactID(contactComboBox.getSelectionModel().getSelectedItem().toString()));
+
 
             //make sure appointments do not overlap
             if(!DateTimeUtility.checkOverlap(Integer.parseInt(customerIDTbox.getText()), DateTimeUtility.convertToUTC(startApptTime), DateTimeUtility.convertToUTC(endApptTime)))
@@ -151,7 +155,8 @@ public class add_appointment {
     }
 
 
-    public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
+    public void cancelButtonClick(ActionEvent actionEvent) throws IOException {  //return to main menu if clicked
+
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)cancelButton.getScene().getWindow();
         Scene menuScene = new Scene(root, 600, 400);

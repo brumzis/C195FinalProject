@@ -31,12 +31,15 @@ public class add_customer {
 
     public void initialize () throws SQLException {
 
+        //Load combo boxes with available countries and divisions
+
         countryComboBox.setItems(JDBC.getCountryNames());
         divisionComboBox.setItems(JDBC.getAllDivisionNames());
     }
 
 
     public void addCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
+
         try {
             String sql = "INSERT INTO Customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";  //excluded primary key column
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -46,8 +49,10 @@ public class add_customer {
             ps.setString(4, phoneNumberTbox.getText());
             ps.setInt(5, JDBC.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
 
+            //execute SQL Query with user entered values
             int rowsAffected = ps.executeUpdate();
 
+            //If customer addition was successful, load alertbox and go back to the main menu
             if (rowsAffected > 0) {
                 alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
                                                   myAlert.setTitle("Addition Successful");
@@ -63,6 +68,7 @@ public class add_customer {
                 menuStage.setScene(menuScene);
                 menuStage.show();
             }
+
         } catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Data Entry Error");
@@ -73,7 +79,7 @@ public class add_customer {
     }
 
 
-    public void AddCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {
+    public void AddCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {  //go back to the main menu
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)addCustomerCancelButton.getScene().getWindow();
         Scene menuScene = new Scene(root, 600, 400);
@@ -83,7 +89,7 @@ public class add_customer {
     }
 
 
-    public void selection(ActionEvent actionEvent) throws SQLException {
+    public void countrySelected(ActionEvent actionEvent) throws SQLException {
         String str = countryComboBox.getSelectionModel().getSelectedItem().toString();
         for (Country c : JDBC.getCountryObjects()) {
             if (c.getCountryName().equals(str))

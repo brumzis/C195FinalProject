@@ -56,7 +56,7 @@ public class update_appointment {
 
             //make sure start time comes before end time
             if(!DateTimeUtility.compareTimes(startApptTime, endApptTime))
-                throw new NumberFormatException("start time must come before end time");
+                throw new IllegalStateException("start time must come before end time");
 
             if(!DateTimeUtility.checkOverlap(Integer.parseInt(customerIDTbox.getText()), DateTimeUtility.convertToUTC(startApptTime), DateTimeUtility.convertToUTC(endApptTime)))
                 throw new InputMismatchException("appointments are overlapping");
@@ -85,7 +85,7 @@ public class update_appointment {
             alert.setContentText("Appointments can only be made Mon - Fri from 8AM to 10PM Eastern Time!");
             alert.showAndWait();
 
-        } catch (NumberFormatException e) {
+        } catch (IllegalStateException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Scheduling Error");
             alert.setHeaderText("Invalid Time/Date Values");

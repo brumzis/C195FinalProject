@@ -83,7 +83,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <ComboBox fx:id="countryComboBox" onAction="#selection" prefHeight="35.0" prefWidth="150.0">
+                  <ComboBox fx:id="countryComboBox" onAction="#countrySelected" prefHeight="35.0" prefWidth="150.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

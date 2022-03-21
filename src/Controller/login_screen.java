@@ -122,12 +122,7 @@ public class login_screen implements Initializable {
                         newList.add(a);
             }
 
-            if(!newList.isEmpty()) {
-                for (Appointment a : newList) {
-                    if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))
-                        loadAlertUserBox(a);
-                }
-                System.out.println("no appointments upcoming");
+            if(newList.isEmpty()) {
                 alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
                     myAlert.setTitle("Message");
                     myAlert.setHeaderText("Appointment Info:");
@@ -136,13 +131,30 @@ public class login_screen implements Initializable {
                 };
                 alert.displayAlertBox();
             }
+
+            if(!newList.isEmpty()) {
+                for (Appointment a : newList) {
+                    if(currentDateTime.isAfter(a.getApptStart()) && currentDateTime.isBefore(a.getApptEnd())) {
+                        alertBoxInterface alert2 = () -> {Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                                                          myAlert.setTitle("Important");
+                                                          myAlert.setHeaderText("Meeting happening now");
+                                                          myAlert.setContentText("You have a scheduled meeting you are supposed to be in right now!");
+                                                          return myAlert.showAndWait();
+                                                         };
+                        alert2.displayAlertBox();
+                    }
+
+                    else if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))
+                        loadAlertUserBox(a);
+                }
+            }
             else {
                 System.out.println("no appointments upcoming");
-                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
-                                                  myAlert.setTitle("Message");
-                                                  myAlert.setHeaderText("Appointment Info:");
-                                                  myAlert.setContentText("You have no scheduled appointments in the next 15 minutes");
-                                                  return myAlert.showAndWait();
+                alertBoxInterface alert = () -> {Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                                                 myAlert.setTitle("Message");
+                                                 myAlert.setHeaderText("Appointment Info:");
+                                                 myAlert.setContentText("You have no scheduled appointments in the next 15 minutes");
+                                                 return myAlert.showAndWait();
                                                 };
                 alert.displayAlertBox();
             }
@@ -162,7 +174,7 @@ public class login_screen implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Appointment Alert");
         alert.setHeaderText("Appointment reminder");
-        alert.setContentText("Upcoming appointment ID: " + a.getApptCustomerID() + "\nAppointment date: " + a.getApptStart().toLocalDate() + "\nAppointment time: " + a.getApptStart().toLocalTime());
+        alert.setContentText("Upcoming appointment ID: " + a.getApptID() + "\nAppointment date: " + a.getApptStart().toLocalDate() + "\nAppointment time: " + a.getApptStart().toLocalTime());
         alert.showAndWait();
     }
 }
