@@ -75,7 +75,7 @@ public class view_customer implements Initializable {
         if (customerTable.getSelectionModel().getSelectedItem() == null) {
             alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
                                               myAlert.setTitle("Error");
-                                              myAlert.setHeaderText("Customer appointments found");
+                                              myAlert.setHeaderText("No Customer Selected");
                                               return myAlert.showAndWait();
                                             };
             alert.displayAlertBox();

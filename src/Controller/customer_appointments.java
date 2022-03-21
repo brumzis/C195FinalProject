@@ -49,7 +49,10 @@ public class customer_appointments {
         customerContactID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptContact"));
 
     }
+
+
     public void customerGoButtonClick(ActionEvent actionEvent) throws SQLException {
+
         customerTable.getItems().clear();
         monthComboBox.getSelectionModel().clearSelection();
         totalsTextBox.setText(null);
@@ -64,7 +67,9 @@ public class customer_appointments {
             totalsTextBox.setText("0");
     }
 
+
     public void monthGoButtonClick(ActionEvent actionEvent) throws SQLException {
+
         customerTable.getItems().clear();
         customerComboBox.getSelectionModel().clearSelection();
         filterTextBox.setText(null);
@@ -81,6 +86,7 @@ public class customer_appointments {
 
 
     public void filterGoButtonClick(ActionEvent actionEvent) throws SQLException {
+
         customerTable.getItems().clear();
         customerComboBox.getSelectionModel().clearSelection();
         monthComboBox.getSelectionModel().clearSelection();
@@ -97,6 +103,7 @@ public class customer_appointments {
 
 
     public void customerBackButtonClick(ActionEvent actionEvent) throws IOException {
+
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)customerBackButton.getScene().getWindow();
         Scene menuScene = new Scene(root, 600, 400);

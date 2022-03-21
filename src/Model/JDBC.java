@@ -3,7 +3,12 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 
@@ -389,5 +394,19 @@ public abstract class JDBC {
             return false;
         else
             return true;
+    }
+
+
+    public static void attemptLogger(String userName, String password, Boolean loginSuccess) throws IOException {
+
+        Instant instant = Instant.now();
+        FileWriter myFileWriter = new FileWriter("login_activity.txt", true);
+        PrintWriter fileOut = new PrintWriter(myFileWriter);
+        fileOut.println("Username used: " + userName);
+        fileOut.println("Password used: " + password);
+        fileOut.println("Login Successful? " + loginSuccess);
+        fileOut.println("Time/Date of attempt(UTC): " + instant);
+        fileOut.println("---------------------------------------------------------------");
+        fileOut.close();
     }
 }

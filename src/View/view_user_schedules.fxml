@@ -81,9 +81,9 @@
                 <TableColumn fx:id="userTitle" prefWidth="134.0" text="Title" />
                   <TableColumn fx:id="userType" prefWidth="73.0" text="Type" />
                   <TableColumn fx:id="userDescription" prefWidth="195.0" text="Description" />
-                  <TableColumn fx:id="userStart" prefWidth="108.0" text="Start date/time" />
-                  <TableColumn fx:id="userEnd" prefWidth="108.0" text="End date/time" />
-                  <TableColumn fx:id="userCustomerID" prefWidth="82.0" text="Customer ID" />
+                  <TableColumn fx:id="userStart" prefWidth="108.0" style="-fx-text-alignment: center;" text="Start date/time" />
+                  <TableColumn fx:id="userEnd" prefWidth="108.0" style="-fx-text-alignment: center;" text="End date/time" />
+                  <TableColumn fx:id="userCustomerID" prefWidth="82.0" style="-fx-text-alignment: center;" text="Customer ID" />
               </columns>
             </TableView>
          </center>

@@ -147,12 +147,12 @@
             <TableView fx:id="customerTable" prefHeight="405.0" prefWidth="800.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="customerApptID" prefWidth="60.0" text="Appt. ID" />
-                <TableColumn fx:id="customerTitle" prefWidth="134.0" text="Title" />
-                  <TableColumn fx:id="customerType" prefWidth="73.0" text="Type" />
-                  <TableColumn fx:id="customerDescription" prefWidth="195.0" text="Description" />
-                  <TableColumn fx:id="customerStart" prefWidth="108.0" text="Start date/time" />
-                  <TableColumn fx:id="customerEnd" prefWidth="108.0" text="End date/time" />
-                  <TableColumn fx:id="customerContactID" prefWidth="82.0" text="Contact ID" />
+                <TableColumn fx:id="customerTitle" prefWidth="144.0" text="Title" />
+                  <TableColumn fx:id="customerType" prefWidth="85.0" text="Type" />
+                  <TableColumn fx:id="customerDescription" prefWidth="201.0" text="Description" />
+                  <TableColumn fx:id="customerStart" prefWidth="103.0" style="-fx-text-alignment: center;" text="Start date/time" />
+                  <TableColumn fx:id="customerEnd" prefWidth="102.0" style="-fx-text-alignment: center;" text="End date/time" />
+                  <TableColumn fx:id="customerContactID" prefWidth="65.0" style="-fx-text-alignment: center;" text="Contact ID" />
               </columns>
             </TableView>
          </center>

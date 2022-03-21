@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 
 
 public class login_screen implements Initializable {
+
     public Button loginButton;
     public Label loginLabel;
     public TextField userIDTextBox;
@@ -60,7 +61,7 @@ public class login_screen implements Initializable {
         int userID = getUserID(userNameInput);
 
         if(userID != 0 && (validPassword(getUserID(userNameInput), passwordInput))) {
-            System.out.println("username and password are good - go to main page");
+            JDBC.attemptLogger(userNameInput, passwordInput, true);
             checkUserAppointments(userID);
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
@@ -70,8 +71,10 @@ public class login_screen implements Initializable {
             menuStage.setScene(menuScene);
             menuStage.show();
         }
-        else
+        else {
+            JDBC.attemptLogger(userNameInput, passwordInput, false);
             loadPasswordErrorBox();
+        }
     }
 
 
