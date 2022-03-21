@@ -49,33 +49,54 @@ public class customer_appointments {
 
     public void customerComboBoxSelected(ActionEvent actionEvent) throws SQLException {
 
-        Customer c = customerComboBox.getSelectionModel().getSelectedItem();
-        customerTable.setItems(JDBC.createCustomerSchedule(c.getCustomerID()));
-
+        customerTable.getItems().clear();
+        totalsTextBox.setText(null);
+        monthComboBox.setValue(null);
+        filterTextBox.setText(null);
+        if(customerComboBox.getSelectionModel().getSelectedItem() != null) {
+            Customer c = customerComboBox.getSelectionModel().getSelectedItem();
+            customerTable.setItems(JDBC.createCustomerSchedule(c.getCustomerID()));
+            int size = JDBC.createCustomerSchedule(c.getCustomerID()).size();
+            totalsTextBox.setText(Integer.toString(size));
+        }
+        else
+            totalsTextBox.setText("0");
     }
 
     public void monthComboBoxSelected(ActionEvent actionEvent) throws SQLException {
 
-        if(customerComboBox.getSelectionModel().getSelectedItem() == null) {
-            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
-                myAlert.setTitle("Error:");
-                myAlert.setHeaderText("No customer selected");
-                return myAlert.showAndWait();
-            };
-            alert.displayAlertBox();
+        customerTable.getItems().clear();
+        customerComboBox.setValue(null);
+        filterTextBox.setText(null);
+        totalsTextBox.setText(null);
+        if (monthComboBox.getSelectionModel().getSelectedItem() != null) {
+            String selection = monthComboBox.getSelectionModel().getSelectedItem();
+            customerTable.setItems(JDBC.createCustomerScheduleByMonth(selection));
+            int size = JDBC.createCustomerScheduleByMonth(selection).size();
+            totalsTextBox.setText(Integer.toString(size));
         }
-
-        Customer c = customerComboBox.getSelectionModel().getSelectedItem();
-        String selection = monthComboBox.getSelectionModel().getSelectedItem();
-        customerTable.setItems(JDBC.createCustomerScheduleByMonth(c.getCustomerID(), selection));
-        System.out.println("from monthcombobox selection " + selection);
-
+        else
+            totalsTextBox.setText("0");
     }
 
-    public void filterTextBoxEntered(ActionEvent actionEvent) {
+
+    public void filterTextBoxEntered(ActionEvent actionEvent) throws SQLException {
+
+        customerTable.getSelectionModel().clearSelection();
+        customerTable.getItems().clear();
+        customerComboBox.setValue(null);
+        totalsTextBox.setText(null);
+        monthComboBox.setValue(null);
         String s = filterTextBox.getText();
-        System.out.println(s);
+        if(s != null) {
+            customerTable.setItems(JDBC.createCustomerScheduleByType(s));
+            int size = JDBC.createCustomerScheduleByType(s).size();
+            totalsTextBox.setText(Integer.toString(size));
+        }
+        else
+            totalsTextBox.setText("0");
     }
+
 
     public void customerBackButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
