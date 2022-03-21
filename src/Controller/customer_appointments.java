@@ -29,6 +29,9 @@ public class customer_appointments {
     public TableColumn customerEnd;
     public TableColumn customerContactID;
     public TableView customerTable;
+    public Button customerGoButton;
+    public Button monthGoButton;
+    public Button filterGoButton;
 
 
     public void initialize() throws SQLException {
@@ -46,12 +49,10 @@ public class customer_appointments {
         customerContactID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptContact"));
 
     }
-
-    public void customerComboBoxSelected(ActionEvent actionEvent) throws SQLException {
-
+    public void customerGoButtonClick(ActionEvent actionEvent) throws SQLException {
         customerTable.getItems().clear();
+        monthComboBox.getSelectionModel().clearSelection();
         totalsTextBox.setText(null);
-        monthComboBox.setValue(null);
         filterTextBox.setText(null);
         if(customerComboBox.getSelectionModel().getSelectedItem() != null) {
             Customer c = customerComboBox.getSelectionModel().getSelectedItem();
@@ -63,10 +64,9 @@ public class customer_appointments {
             totalsTextBox.setText("0");
     }
 
-    public void monthComboBoxSelected(ActionEvent actionEvent) throws SQLException {
-
+    public void monthGoButtonClick(ActionEvent actionEvent) throws SQLException {
         customerTable.getItems().clear();
-        customerComboBox.setValue(null);
+        customerComboBox.getSelectionModel().clearSelection();
         filterTextBox.setText(null);
         totalsTextBox.setText(null);
         if (monthComboBox.getSelectionModel().getSelectedItem() != null) {
@@ -80,13 +80,11 @@ public class customer_appointments {
     }
 
 
-    public void filterTextBoxEntered(ActionEvent actionEvent) throws SQLException {
-
-        customerTable.getSelectionModel().clearSelection();
+    public void filterGoButtonClick(ActionEvent actionEvent) throws SQLException {
         customerTable.getItems().clear();
-        customerComboBox.setValue(null);
+        customerComboBox.getSelectionModel().clearSelection();
+        monthComboBox.getSelectionModel().clearSelection();
         totalsTextBox.setText(null);
-        monthComboBox.setValue(null);
         String s = filterTextBox.getText();
         if(s != null) {
             customerTable.setItems(JDBC.createCustomerScheduleByType(s));
@@ -106,4 +104,5 @@ public class customer_appointments {
         menuStage.setScene(menuScene);
         menuStage.show();
     }
+
 }

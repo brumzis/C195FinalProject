@@ -26,11 +26,11 @@
                </BorderPane.margin></Label>
          </top>
          <left>
-            <VBox prefHeight="321.0" prefWidth="179.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="321.0" prefWidth="225.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox>
                      <children>
-                        <Label alignment="CENTER" prefHeight="46.0" prefWidth="178.0" text="Select Customer">
+                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="129.0" text="Select Customer">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -42,16 +42,25 @@
                   </VBox>
                   <VBox>
                      <children>
-                        <ComboBox fx:id="customerComboBox" onAction="#customerComboBoxSelected" prefHeight="31.0" prefWidth="149.0" promptText="      Select Customer">
-                           <VBox.margin>
-                              <Insets left="15.0" right="15.0" />
-                           </VBox.margin>
-                        </ComboBox>
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="225.0">
+                           <children>
+                              <ComboBox fx:id="customerComboBox" prefHeight="31.0" prefWidth="134.0" promptText="Select Customer">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ComboBox>
+                              <Button fx:id="customerGoButton" mnemonicParsing="false" onAction="#customerGoButtonClick" prefHeight="30.0" prefWidth="52.0" text="Go" textAlignment="CENTER">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="47.0" prefWidth="179.0">
+                  <VBox prefHeight="36.0" prefWidth="195.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="47.0" prefWidth="150.0" text="Filter by month">
+                        <Label alignment="CENTER" prefHeight="36.0" prefWidth="130.0" text="Filter by month">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -64,12 +73,17 @@
                         <Insets left="15.0" right="15.0" />
                      </VBox.margin>
                   </VBox>
-                  <ComboBox fx:id="monthComboBox" onAction="#monthComboBoxSelected" prefHeight="25.0" prefWidth="149.0">
-                     <VBox.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </VBox.margin>
-                  </ComboBox>
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Filter by type">
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="225.0">
+                     <children>
+                        <ComboBox fx:id="monthComboBox" prefHeight="31.0" prefWidth="134.0" promptText="      Select Month" />
+                        <Button fx:id="monthGoButton" mnemonicParsing="false" onAction="#monthGoButtonClick" prefHeight="30.0" prefWidth="52.0" text="Go" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="128.0" text="Filter by type">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -77,12 +91,17 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="filterTextBox" onAction="#filterTextBoxEntered" prefHeight="22.0" prefWidth="149.0">
-                     <VBox.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label alignment="CENTER" layoutX="25.0" layoutY="179.0" prefHeight="31.0" prefWidth="150.0" text="Total">
+                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="225.0">
+                     <children>
+                        <TextField fx:id="filterTextBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="105.0" />
+                        <Button fx:id="filterGoButton" mnemonicParsing="false" onAction="#filterGoButtonClick" prefHeight="30.0" prefWidth="52.0" text="Go" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" layoutX="25.0" layoutY="179.0" prefHeight="33.0" prefWidth="150.0" text="        Total">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -90,9 +109,9 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="totalsTextBox" alignment="CENTER" editable="false">
+                  <TextField fx:id="totalsTextBox" alignment="CENTER" editable="false" maxHeight="30.0" maxWidth="36.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="36.0">
                      <VBox.margin>
-                        <Insets left="65.0" right="65.0" />
+                        <Insets left="88.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -104,7 +123,7 @@
                </BorderPane.margin></VBox>
          </left>
          <right>
-            <VBox prefHeight="321.0" prefWidth="59.0" BorderPane.alignment="CENTER" />
+            <VBox prefHeight="321.0" prefWidth="15.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
