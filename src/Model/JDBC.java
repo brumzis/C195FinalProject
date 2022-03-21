@@ -202,6 +202,19 @@ public abstract class JDBC {
     }
 
 
+    public static ObservableList<User> getUserObjects() throws SQLException {
+        ObservableList<User> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM users";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            User u = new User(rs.getInt(1), rs.getString(2), rs.getString(3));
+            myList.add(u);
+        }
+        return myList;
+    }
+
+
     public static ObservableList<String> getHours() {
         ObservableList myList = FXCollections.observableArrayList();
         myList.add("00");myList.add("01");myList.add("02");myList.add("03");myList.add("04");
@@ -249,6 +262,35 @@ public abstract class JDBC {
         return myList;
     }
 
+
+    public static ObservableList<Appointment> createCustomerSchedule(int customerID) throws SQLException {
+        ObservableList<Appointment> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));
+            myList.add(app);
+        }
+        return myList;
+    }
+
+
+    public static ObservableList<Appointment> createCustomerScheduleByMonth(int customerID, String selectedMonth) throws SQLException {
+        ObservableList<Appointment> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments WHERE Customer_ID = ? AND MONTHNAME(Start) = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        ps.setString(2, selectedMonth);
+        System.out.println("query going in with second value being " + selectedMonth);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));
+            myList.add(app);
+        }
+        return myList;
+    }
 
     public static ObservableList<Appointment> createAppointmentListCurrentWeek() throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();

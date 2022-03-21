@@ -80,4 +80,10 @@ public class Customer {
     public void setCustomerDivision(int customerDivision) {
         this.customerDivision = customerDivision;
     }
+
+
+    @Override
+    public String toString() {
+        return customerName;
+    }
 }

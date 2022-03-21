@@ -103,7 +103,13 @@ public class main_menu {
     }
 
 
-    public void viewCustApptButtonClick(ActionEvent actionEvent) {
+    public void viewCustApptButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/customer_appointments.fxml"));
+        Stage menuStage = (Stage)viewCustApptButton.getScene().getWindow();
+        Scene menuScene = new Scene(root, 1000, 500);
+        menuStage.setTitle("View Customer Schedule");
+        menuStage.setScene(menuScene);
+        menuStage.show();
     }
 
 
