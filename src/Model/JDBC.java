@@ -178,13 +178,26 @@ public abstract class JDBC {
     }
 
 
-    public static ObservableList<String> getContacts() throws SQLException {
+    public static ObservableList<String> getContactNames() throws SQLException {
         ObservableList<String> myList = FXCollections.observableArrayList();
         String sql = "SELECT Contact_Name FROM contacts";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next())
             myList.add(rs.getString(1));
+        return myList;
+    }
+
+
+    public static ObservableList<Contact> getContactObjects() throws SQLException {
+        ObservableList<Contact> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM contacts";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Contact c = new Contact(rs.getInt(1), rs.getString(2), rs.getString(3));
+            myList.add(c);
+        }
         return myList;
     }
 
@@ -214,6 +227,20 @@ public abstract class JDBC {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));
+            myList.add(app);
+        }
+        return myList;
+    }
+
+
+    public static ObservableList<Appointment> createContactSchedule(int contactID) throws SQLException {
+        ObservableList<Appointment> myList = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments WHERE Contact_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, contactID);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Appointment app = new Appointment(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(14), rs.getString(5), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("Start")), DateTimeUtility.convertFromUTC((LocalDateTime)rs.getObject("End")), rs.getInt(12), rs.getInt(13));

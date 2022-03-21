@@ -123,7 +123,7 @@ public class update_appointment {
         titleTbox.setText(a.getApptTitle());
         descriptionTbox.setText(a.getApptDescription());
         locationTbox.setText(a.getApptLocation());
-        contactComboBox.setItems(JDBC.getContacts());
+        contactComboBox.setItems(JDBC.getContactNames());
         contactComboBox.setValue(a.getApptContactName(a.getApptContact()));
         typeTbox.setText(a.getApptType());
         startHourComboBox.setItems(JDBC.getHours());

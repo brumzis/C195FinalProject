@@ -75,15 +75,15 @@
                </children></HBox>
          </bottom>
          <center>
-            <TableView prefHeight="405.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="contactTable" prefHeight="405.0" prefWidth="800.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn prefWidth="60.0" text="Appt. ID" />
-                <TableColumn prefWidth="134.0" text="Title" />
-                  <TableColumn prefWidth="73.0" text="Type" />
-                  <TableColumn prefWidth="195.0" text="Description" />
-                  <TableColumn prefWidth="108.0" text="Start date/time" />
-                  <TableColumn prefWidth="108.0" text="End date/time" />
-                  <TableColumn prefWidth="82.0" text="Customer ID" />
+                <TableColumn fx:id="contactApptID" prefWidth="60.0" text="Appt. ID" />
+                <TableColumn fx:id="contactTitle" prefWidth="134.0" text="Title" />
+                  <TableColumn fx:id="contactType" prefWidth="73.0" text="Type" />
+                  <TableColumn fx:id="contactDescription" prefWidth="195.0" text="Description" />
+                  <TableColumn fx:id="contactStart" prefWidth="108.0" text="Start date/time" />
+                  <TableColumn fx:id="contactEnd" prefWidth="108.0" text="End date/time" />
+                  <TableColumn fx:id="contactCustomerID" prefWidth="82.0" text="Customer ID" />
               </columns>
             </TableView>
          </center>

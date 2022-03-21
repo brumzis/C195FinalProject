@@ -1,8 +1,11 @@
 package Controller;
 
+import Model.Contact;
 import Model.DateTimeUtility;
 import Model.JDBC;
 import Model.alertBoxInterface;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -40,7 +43,8 @@ public class add_appointment {
 
     public void initialize() throws SQLException{
 
-        contactComboBox.setItems(JDBC.getContacts());
+
+        contactComboBox.setItems(JDBC.getContactNames());
         startHourComboBox.setItems(JDBC.getHours());
         endHourComboBox.setItems(JDBC.getHours());
         startMinComboBox.setItems(JDBC.getMinutes());
