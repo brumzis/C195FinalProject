@@ -16,6 +16,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class delete_customer {
 
     public TextField deleteCustomerIDTbox;
@@ -25,7 +36,17 @@ public class delete_customer {
 
     public void initialize() {}
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
             int customerID = Integer.parseInt(deleteCustomerIDTbox.getText());
@@ -87,7 +108,17 @@ public class delete_customer {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)deleteCustomerCancelButton.getScene().getWindow();

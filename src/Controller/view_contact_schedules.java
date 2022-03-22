@@ -18,6 +18,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class view_contact_schedules {
     public ComboBox<Contact> contactComboBox;
     public Button contactBackButton;
@@ -30,7 +41,17 @@ public class view_contact_schedules {
     public TableColumn contactCustomerID;
     public TableView contactTable;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void initialize() throws SQLException {
 
         contactComboBox.setItems(JDBC.getContactObjects());
@@ -42,9 +63,19 @@ public class view_contact_schedules {
         contactStart.setCellValueFactory(new PropertyValueFactory<Appointment, DateTimeUtility>("apptStart"));
         contactEnd.setCellValueFactory(new PropertyValueFactory<Appointment, DateTimeUtility>("apptEnd"));
         contactCustomerID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptCustomerID"));
-
-
     }
+
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void contactComboBoxSelected(ActionEvent actionEvent) throws SQLException {
 
         Contact c = contactComboBox.getSelectionModel().getSelectedItem();
@@ -52,6 +83,17 @@ public class view_contact_schedules {
 
     }
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void contactBackButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)contactBackButton.getScene().getWindow();

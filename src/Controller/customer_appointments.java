@@ -13,7 +13,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class customer_appointments {
 
     public ComboBox<Customer> customerComboBox;
@@ -33,7 +43,17 @@ public class customer_appointments {
     public Button monthGoButton;
     public Button filterGoButton;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void initialize() throws SQLException {
 
         customerComboBox.setItems(JDBC.createCustomerList());
@@ -50,7 +70,17 @@ public class customer_appointments {
 
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void customerGoButtonClick(ActionEvent actionEvent) throws SQLException {
 
         customerTable.getItems().clear();
@@ -67,7 +97,17 @@ public class customer_appointments {
             totalsTextBox.setText("0");
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void monthGoButtonClick(ActionEvent actionEvent) throws SQLException {
 
         customerTable.getItems().clear();
@@ -84,7 +124,17 @@ public class customer_appointments {
             totalsTextBox.setText("0");
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void filterGoButtonClick(ActionEvent actionEvent) throws SQLException {
 
         customerTable.getItems().clear();
@@ -101,7 +151,17 @@ public class customer_appointments {
             totalsTextBox.setText("0");
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void customerBackButtonClick(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));

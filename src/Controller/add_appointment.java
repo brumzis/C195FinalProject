@@ -37,7 +37,17 @@ public class add_appointment {
     public ComboBox contactComboBox;
     public TextField typeTbox;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void initialize() throws SQLException{
 
         contactComboBox.setItems(JDBC.getContactNames());
@@ -46,7 +56,17 @@ public class add_appointment {
         startMinComboBox.setItems(JDBC.getMinutes());
         endMinComboBox.setItems(JDBC.getMinutes());
     }
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void addButtonClick(ActionEvent actionEvent) {
 
         try {
@@ -154,7 +174,17 @@ public class add_appointment {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {  //return to main menu if clicked
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));

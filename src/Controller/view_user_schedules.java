@@ -17,6 +17,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class view_user_schedules {
 
     public ComboBox<User> userComboBox;
@@ -30,7 +41,17 @@ public class view_user_schedules {
     public TableColumn userEnd;
     public TableColumn userCustomerID;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void initialize() throws SQLException {
 
         userComboBox.setItems(JDBC.getUserObjects());
@@ -45,6 +66,17 @@ public class view_user_schedules {
 
     }
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void comboBoxSelected(ActionEvent actionEvent) throws SQLException {
 
         User u = userComboBox.getSelectionModel().getSelectedItem();
@@ -52,6 +84,17 @@ public class view_user_schedules {
 
     }
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void backButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)userBackButton.getScene().getWindow();

@@ -20,7 +20,17 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import static Model.JDBC.createCustomerList;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class view_customer implements Initializable {
 
     public TableView<Customer> customerTable;
@@ -35,7 +45,17 @@ public class view_customer implements Initializable {
     public Button deleteCustomerButton;
     public Button exitButton;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -60,7 +80,17 @@ public class view_customer implements Initializable {
         catch (SQLException e) {e.printStackTrace();}
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void createCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
         Stage addCustomerStage = (Stage)createCustomerButton.getScene().getWindow();
@@ -70,7 +100,17 @@ public class view_customer implements Initializable {
         addCustomerStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void updateCustomerButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
         if (customerTable.getSelectionModel().getSelectedItem() == null) {
             alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
@@ -97,7 +137,17 @@ public class view_customer implements Initializable {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
             if (customerTable.getSelectionModel().getSelectedItem() == null) {
@@ -149,7 +199,17 @@ public class view_customer implements Initializable {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void exitButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)deleteCustomerButton.getScene().getWindow();
@@ -159,7 +219,17 @@ public class view_customer implements Initializable {
         menuStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void nameEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) throws SQLException {
 
         Customer c = customerTable.getSelectionModel().getSelectedItem();
@@ -176,6 +246,17 @@ public class view_customer implements Initializable {
         }
     }
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void addressEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
 
         Customer c = customerTable.getSelectionModel().getSelectedItem();
@@ -192,6 +273,17 @@ public class view_customer implements Initializable {
         }
     }
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void postalEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
 
         Customer c = customerTable.getSelectionModel().getSelectedItem();
@@ -208,6 +300,17 @@ public class view_customer implements Initializable {
         }
     }
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void phoneEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
 
         Customer c = customerTable.getSelectionModel().getSelectedItem();
@@ -224,6 +327,17 @@ public class view_customer implements Initializable {
         }
     }
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void divisionEditCommit(TableColumn.CellEditEvent<Customer, Integer> customerIntegerCellEditEvent){
 
         try {

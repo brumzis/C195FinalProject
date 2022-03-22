@@ -1,18 +1,34 @@
 package Model;
 
-import com.sun.marlin.FloatArrayCache;
-import javafx.scene.control.Alert;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.*;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class DateTimeUtility {
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static boolean validateAppointmentTime(LocalDateTime myDateTime) {
         LocalDateTime newDateTime = DateTimeUtility.convertToUSEastern(myDateTime);
         if (newDateTime.getHour() >= 8 && newDateTime.getHour() <= 22 && newDateTime.getDayOfWeek() != DayOfWeek.SATURDAY && newDateTime.getDayOfWeek() != DayOfWeek.SUNDAY)
@@ -21,7 +37,17 @@ public class DateTimeUtility {
             return false;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static boolean compareTimes(LocalDateTime start, LocalDateTime end) {
         if (start.isBefore(end))
             return true;
@@ -29,7 +55,17 @@ public class DateTimeUtility {
             return false;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static LocalDateTime convertToUTC(LocalDateTime myDateTime) {
         ZonedDateTime myZDT = ZonedDateTime.of(myDateTime, ZoneId.systemDefault());
         ZoneId utcZone = ZoneId.of("UTC");
@@ -37,7 +73,17 @@ public class DateTimeUtility {
         return utcZDT.toLocalDateTime();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static LocalDateTime convertFromUTC(LocalDateTime myDateTime) {
         ZoneId utcZone = ZoneId.of("UTC");
         ZonedDateTime ZTD = ZonedDateTime.of(myDateTime, utcZone);
@@ -45,7 +91,17 @@ public class DateTimeUtility {
         return myZDT.toLocalDateTime();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static LocalDateTime convertToUSEastern(LocalDateTime myDateTime) {
         ZonedDateTime myZDT = ZonedDateTime.of(myDateTime, ZoneId.systemDefault());
         ZoneId usEasternZone = ZoneId.of("US/Eastern");
@@ -53,7 +109,17 @@ public class DateTimeUtility {
         return easternZDT.toLocalDateTime();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static boolean checkOverlap(int apptCustomerID, LocalDateTime newStartTime, LocalDateTime newEndTime) throws SQLException {
         String sql = "SELECT Start, End FROM appointments WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

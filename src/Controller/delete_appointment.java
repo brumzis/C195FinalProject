@@ -16,14 +16,34 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class delete_appointment {
 
     public TextField deleteApptTbox;
     public Button deleteApptButton;
     public Button cancelButton;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)cancelButton.getScene().getWindow();
@@ -33,7 +53,17 @@ public class delete_appointment {
         menuStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void apptDeleteButtonClick(ActionEvent actionEvent) {
         try {
             int apptID = Integer.parseInt(deleteApptTbox.getText());

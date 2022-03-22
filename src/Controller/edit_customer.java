@@ -18,7 +18,17 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class edit_customer implements Initializable {
     public TextField editCustomerIDTbox;
     public TextField editCustomerNameTbox;
@@ -29,6 +39,18 @@ public class edit_customer implements Initializable {
     public ComboBox editDivisionComboBox;
     public Button editCustomerButton;
     public Button editCustomerCancelButton;
+
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -55,7 +77,17 @@ public class edit_customer implements Initializable {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void editCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)editCustomerCancelButton.getScene().getWindow();
@@ -65,7 +97,17 @@ public class edit_customer implements Initializable {
         menuStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public Customer getSelectedCustomer(Customer c) throws SQLException {
         System.out.println(c.getCustomerID());
         editCustomerIDTbox.setText(String.valueOf(c.getCustomerID()));
@@ -79,7 +121,17 @@ public class edit_customer implements Initializable {
         return c;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void countrySelected(ActionEvent actionEvent) throws SQLException {
         String str = editCountryComboBox.getSelectionModel().getSelectedItem().toString();
         for (Country c : JDBC.getCountryObjects()) {

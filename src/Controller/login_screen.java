@@ -26,7 +26,17 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class login_screen implements Initializable {
 
     public Button loginButton;
@@ -38,7 +48,17 @@ public class login_screen implements Initializable {
     public Label passwordLabel;
     public Label screenTitle;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -54,7 +74,17 @@ public class login_screen implements Initializable {
 
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void onLoginButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         String userNameInput = userIDTextBox.getText();
         String passwordInput = passwordTextBox.getText();
@@ -77,7 +107,17 @@ public class login_screen implements Initializable {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     private void loadPasswordErrorBox() {
         ResourceBundle rb = ResourceBundle.getBundle("Main/C195Bundle");
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -86,7 +126,17 @@ public class login_screen implements Initializable {
         alert.showAndWait();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     private int getUserID(String inputName) throws SQLException {
         int userID = 0;
         String sql = "SELECT User_ID FROM users WHERE User_Name = '" + inputName + "'";
@@ -99,7 +149,17 @@ public class login_screen implements Initializable {
         return userID;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     private boolean validPassword(int userID, String password) throws SQLException {
         String sql = "SELECT Password FROM users WHERE User_ID = '" + userID + "'";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -111,7 +171,17 @@ public class login_screen implements Initializable {
         return false;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     private void checkUserAppointments(int userID) throws SQLException {
         try {
             ObservableList<Appointment> myList = JDBC.createAppointmentList();
@@ -168,7 +238,17 @@ public class login_screen implements Initializable {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     private void loadAlertUserBox(Appointment a) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

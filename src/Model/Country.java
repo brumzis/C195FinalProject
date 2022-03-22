@@ -1,6 +1,16 @@
 package Model;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class Country {
 
     private int countryID;

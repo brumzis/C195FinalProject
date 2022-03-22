@@ -15,7 +15,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class update_appointment {
     public TextField apptIDTbox;
     public TextField titleTbox;
@@ -34,7 +44,17 @@ public class update_appointment {
     public Button updateButton;
     public Button cancelButton;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void updateButtonClick(ActionEvent actionEvent) {
         try {
             Appointment myAppointment = null;
@@ -107,7 +127,17 @@ public class update_appointment {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
         Stage myStage = (Stage)cancelButton.getScene().getWindow();
@@ -116,7 +146,17 @@ public class update_appointment {
         myStage.setScene(myScene);
         myStage.show();
     }
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public Appointment getSelectedAppointment(Appointment a) throws SQLException {
 
         apptIDTbox.setText(String.valueOf(a.getApptID()));

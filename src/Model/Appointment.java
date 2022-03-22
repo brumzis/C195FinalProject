@@ -5,6 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class Appointment {
 
     private int apptID;
@@ -18,7 +29,17 @@ public class Appointment {
     private int apptCustomerID;
     private int apptUserID;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public Appointment(int apptID, String apptTitle, String apptDescription, String apptLocation, int apptContact, String apptType, LocalDateTime apptStart, LocalDateTime apptEnd, int apptCustomerID, int apptUserID) {
         this.apptID = apptID;
         this.apptTitle = apptTitle;

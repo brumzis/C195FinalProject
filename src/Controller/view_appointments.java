@@ -19,7 +19,17 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class view_appointments implements Initializable {
 
     public TableView<Appointment> appointmentTable;
@@ -40,6 +50,17 @@ public class view_appointments implements Initializable {
     public RadioButton weekRadioButton;
     public Button exitButton;
 
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -57,7 +78,17 @@ public class view_appointments implements Initializable {
         try {appointmentTable.setItems(JDBC.createAppointmentList());} catch (SQLException e) {e.printStackTrace();}
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void scheduleNewApptClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_appointment.fxml"));
         Stage addApptStage = (Stage)scheduleNewButton.getScene().getWindow();
@@ -66,7 +97,17 @@ public class view_appointments implements Initializable {
         addApptStage.setScene(addApptScene);
         addApptStage.show();
     }
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void updateApptButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
         if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
             alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
@@ -92,7 +133,17 @@ public class view_appointments implements Initializable {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void deleteApptButtonClick(ActionEvent actionEvent) throws SQLException {
         if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
             alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
@@ -140,26 +191,66 @@ public class view_appointments implements Initializable {
             }
         }
     }
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void monthRadioButtonChecked(ActionEvent actionEvent) throws SQLException {
         appointmentTable.getSelectionModel().clearSelection();
         appointmentTable.getItems().clear();
         appointmentTable.setItems(JDBC.createAppointmentListCurrentMonth());
     }
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void weekRadioButtonChecked(ActionEvent actionEvent) throws SQLException {
         appointmentTable.getSelectionModel().clearSelection();
         appointmentTable.getItems().clear();
         appointmentTable.setItems(JDBC.createAppointmentListCurrentWeek());
     }
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void allRadioButtonChecked(ActionEvent actionEvent) throws SQLException {
         appointmentTable.getSelectionModel().clearSelection();
         appointmentTable.getItems().clear();
         appointmentTable.setItems(JDBC.createAppointmentList());
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void exitButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)exitButton.getScene().getWindow();

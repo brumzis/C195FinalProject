@@ -3,7 +3,6 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +10,17 @@ import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public abstract class JDBC {
 
     private static final String protocol = "jdbc";
@@ -24,7 +33,17 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static void openConnection() {
         try {
             Class.forName(driver); // Locate Driver
@@ -35,7 +54,17 @@ public abstract class JDBC {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -45,7 +74,17 @@ public abstract class JDBC {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Country> getCountryObjects() throws SQLException {
         ObservableList<Country> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM countries";
@@ -58,7 +97,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<String> getCountryNames() throws SQLException {
         ObservableList<String> myList = FXCollections.observableArrayList();
         String sql = "SELECT Country FROM countries";
@@ -69,7 +118,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<String> getAllDivisionNames() throws SQLException {
         ObservableList<String> myList = FXCollections.observableArrayList();
         String sql = "SELECT Division FROM First_Level_Divisions";
@@ -80,7 +139,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<String> getCountrySpecificDivisionNames(int country_ID) throws SQLException {
         ObservableList<String> myList = FXCollections.observableArrayList();
         String sql = "SELECT Division FROM First_Level_Divisions WHERE Country_ID = ?";
@@ -92,7 +161,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static int returnDivisionID(String name) throws SQLException {
         int i = 0;
         String sql = "SELECT Division_ID FROM First_Level_Divisions WHERE Division = ?";
@@ -104,7 +183,17 @@ public abstract class JDBC {
         return i;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static int returnContactID(String name) throws SQLException {
         int i = 0;
         String sql = "SELECT Contact_ID FROM contacts WHERE Contact_Name = ?";
@@ -116,7 +205,17 @@ public abstract class JDBC {
         return i;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Customer> createCustomerList() throws SQLException {
         ObservableList<Customer> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM customers";
@@ -129,7 +228,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static int deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -152,7 +261,17 @@ public abstract class JDBC {
         return rowsAffected;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static int updateCustomer(Customer cust) throws SQLException {
         int rowsAffected = 0;
         try {
@@ -182,7 +301,17 @@ public abstract class JDBC {
         return rowsAffected;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<String> getContactNames() throws SQLException {
         ObservableList<String> myList = FXCollections.observableArrayList();
         String sql = "SELECT Contact_Name FROM contacts";
@@ -193,7 +322,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Contact> getContactObjects() throws SQLException {
         ObservableList<Contact> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM contacts";
@@ -206,7 +345,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<User> getUserObjects() throws SQLException {
         ObservableList<User> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM users";
@@ -219,7 +368,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<String> getHours() {
         ObservableList myList = FXCollections.observableArrayList();
         myList.add("00");myList.add("01");myList.add("02");myList.add("03");myList.add("04");
@@ -230,7 +389,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<String> getMinutes() {
         ObservableList myList = FXCollections.observableArrayList();
         myList.add("0");
@@ -240,7 +409,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Appointment> createAppointmentList() throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments";
@@ -253,7 +432,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Appointment> createContactSchedule(int contactID) throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE Contact_ID = ?";
@@ -267,7 +456,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Appointment> createCustomerSchedule(int customerID) throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE Customer_ID = ?";
@@ -281,7 +480,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Appointment> createCustomerScheduleByMonth(String selectedMonth) throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE MONTHNAME(Start) = ?";
@@ -295,7 +504,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Appointment> createCustomerScheduleByType(String selectedType) throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE Type = ?";
@@ -309,7 +528,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Appointment> createAppointmentListCurrentWeek() throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE YEARWEEK(Start) = YEARWEEK(NOW())";
@@ -322,7 +551,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static ObservableList<Appointment> createAppointmentListCurrentMonth() throws SQLException {
         ObservableList<Appointment> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE MONTH(Start) = MONTH(NOW()) AND YEAR(Start) = YEAR(NOW())";
@@ -335,7 +574,17 @@ public abstract class JDBC {
         return myList;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -349,7 +598,17 @@ public abstract class JDBC {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static int updateAppointment(Appointment appt) throws SQLException {
         int rowsAffected = 0;
         try {
@@ -383,7 +642,17 @@ public abstract class JDBC {
         return rowsAffected;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static boolean checkForCustomerAppointments(int customerID) throws SQLException {
 
         String sql = "SELECT Appointment_ID FROM appointments WHERE Customer_ID = ?";
@@ -396,7 +665,17 @@ public abstract class JDBC {
             return true;
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public static void attemptLogger(String userName, String password, Boolean loginSuccess) throws IOException {
 
         Instant instant = Instant.now();

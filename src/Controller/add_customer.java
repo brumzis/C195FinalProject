@@ -17,7 +17,17 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
+/**
+ * Page where user can add a new customer to the database
+ *
+ *
+ *
+ *
+ * @param
+ * @return
+ * @throws
+ * @see
+ */
 public class add_customer {
     public TextField customerNameTbox;
     public TextField customerAddressTbox;
@@ -28,7 +38,17 @@ public class add_customer {
     public Button addCustomerAddButton;
     public Button addCustomerCancelButton;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void initialize () throws SQLException {
 
         //Load combo boxes with available countries and divisions
@@ -37,14 +57,24 @@ public class add_customer {
         divisionComboBox.setItems(JDBC.getAllDivisionNames());
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void addCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
 
         try {
             String sql = "INSERT INTO Customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";  //excluded primary key column
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, customerNameTbox.getText());
-            ps.setString(2, customerAddressTbox.getText());
+            ps.setString(2, customerAddressTbox.getText());     //user entered values in the textfields are substituted into the SQL Statement.
             ps.setString(3, postalCodeTbox.getText());
             ps.setString(4, phoneNumberTbox.getText());
             ps.setInt(5, JDBC.returnDivisionID(divisionComboBox.getSelectionModel().getSelectedItem().toString()));
@@ -78,7 +108,17 @@ public class add_customer {
         }
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void AddCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {  //go back to the main menu
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
         Stage menuStage = (Stage)addCustomerCancelButton.getScene().getWindow();
@@ -88,7 +128,17 @@ public class add_customer {
         menuStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void countrySelected(ActionEvent actionEvent) throws SQLException {
         String str = countryComboBox.getSelectionModel().getSelectedItem().toString();
         for (Country c : JDBC.getCountryObjects()) {

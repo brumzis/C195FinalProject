@@ -22,7 +22,17 @@ public class main_menu {
     public Button viewCustApptButton;
     public Button userLoginTrackingButton;
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
         Stage addCustomerStage = (Stage)customerAddButton.getScene().getWindow();
@@ -32,7 +42,17 @@ public class main_menu {
         addCustomerStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/delete_customer.fxml"));
         Stage delCustomerStage = (Stage)customerDeleteButton.getScene().getWindow();
@@ -42,7 +62,17 @@ public class main_menu {
         delCustomerStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void viewCustomerTableButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
         Stage viewCustomerStage = (Stage)customerViewButton.getScene().getWindow();
@@ -52,7 +82,17 @@ public class main_menu {
         viewCustomerStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void newApptButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_appointment.fxml"));
         Stage addApptStage = (Stage)appointmentNewButton.getScene().getWindow();
@@ -62,7 +102,17 @@ public class main_menu {
         addApptStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void deleteAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/delete_appointment.fxml"));
         Stage delCustomerStage = (Stage)appointmentDeleteButton.getScene().getWindow();
@@ -72,7 +122,17 @@ public class main_menu {
         delCustomerStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void viewAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
         Stage myStage = (Stage)appointmentViewButton.getScene().getWindow();
@@ -82,7 +142,17 @@ public class main_menu {
         myStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void viewContactScheduleButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_contact_schedules.fxml"));
         Stage menuStage = (Stage)viewContactScheduleButton.getScene().getWindow();
@@ -92,7 +162,17 @@ public class main_menu {
         menuStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void viewUserScheduleButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_user_schedules.fxml"));
         Stage menuStage = (Stage)viewUserScheduleButton.getScene().getWindow();
@@ -102,7 +182,17 @@ public class main_menu {
         menuStage.show();
     }
 
-
+    /**
+     * Page where user can add a new customer to the database
+     *
+     *
+     *
+     *
+     * @param
+     * @return
+     * @throws
+     * @see
+     */
     public void viewCustApptButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/customer_appointments.fxml"));
         Stage menuStage = (Stage)viewCustApptButton.getScene().getWindow();
@@ -110,10 +200,6 @@ public class main_menu {
         menuStage.setTitle("View Customer Schedule");
         menuStage.setScene(menuScene);
         menuStage.show();
-    }
-
-
-    public void loginTrackingButtonClick(ActionEvent actionEvent) {
     }
 
 }
