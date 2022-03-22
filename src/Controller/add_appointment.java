@@ -17,7 +17,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 
-
+/**
+ * Controller for the add_appointment.fxml page. Has an initialize() method, as well as event handling
+ * for the Add and Cancel Buttons on the page
+ *
+ * @see Model.Appointment
+ */
 public class add_appointment {
 
     public DatePicker startDateBox;
@@ -37,16 +42,11 @@ public class add_appointment {
     public ComboBox contactComboBox;
     public TextField typeTbox;
 
+
     /**
-     * Page where user can add a new customer to the database
+     * Fills the comboboxes on the page with the correct data.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @throws SQLException
      */
     public void initialize() throws SQLException{
 
@@ -56,16 +56,23 @@ public class add_appointment {
         startMinComboBox.setItems(JDBC.getMinutes());
         endMinComboBox.setItems(JDBC.getMinutes());
     }
+
+
     /**
-     * Page where user can add a new customer to the database
+     * Pressing the Add button first takes the date and time values in the user entered text fields
+     * and combines/converts them to LocalDateTime Objects, one for the start and one for the end.
+     * Several checks are made to ensure the times entered fall into the requirements for the project.
+     * Checks are also made to make sure the appointment does not overlap with an existing one, and to
+     * make sure the end time comes after the start time. User entered data from the text fields on the
+     * page are entered into the SQL query to create a new appointment in the database. The LocalDateTime
+     * is first converted to UTC before creating a database entry. An alertbox notifies the user
+     * if the addition was successful or if there was an issue.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the Add button
+     * @throws ArithmeticException thrown if the appointment time entered is outside 8AM-10PM Eastern Time
+     * @throws NumberFormatException thrown if the end time doesn't come before the start time
+     * @throws InputMismatchException thrown is appointment is made overlapping an existing appointment
+     * @throws Exception thrown is data entered by the user is the wrong type, or if a textfield is empty
      */
     public void addButtonClick(ActionEvent actionEvent) {
 
@@ -175,15 +182,10 @@ public class add_appointment {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Upon cancel button click, returns user back to the main menu screen
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the cancel button
+     * @throws IOException
      */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {  //return to main menu if clicked
 

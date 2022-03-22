@@ -18,17 +18,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Page where user can add a new customer to the database
+ * Controller for the add_customer.fxml page. Handles the add button, cancel button, country combobox,
+ * and has an initialize method.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class add_customer {
+
     public TextField customerNameTbox;
     public TextField customerAddressTbox;
     public TextField postalCodeTbox;
@@ -39,15 +34,9 @@ public class add_customer {
     public Button addCustomerCancelButton;
 
     /**
-     * Page where user can add a new customer to the database
+     * Loads both comboboxes (country and division) will available values from the database
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @throws SQLException
      */
     public void initialize () throws SQLException {
 
@@ -58,15 +47,13 @@ public class add_customer {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Upon mouse click, an INSERT query is made to the database. The query is surrounded by a try/catch
+     * block to make sure invalid data is caught. User entered text fields are used to populate the query.
+     * An alertbox is used to notify the user if the addition was successful or not
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the Add button.
+     * @throws SQLException
+     * @see Model.Customer
      */
     public void addCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
 
@@ -91,7 +78,7 @@ public class add_customer {
                                                 };
                 alert.displayAlertBox();
 
-                Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));   //back to the main menu
                 Stage menuStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
                 Scene menuScene = new Scene(root, 600, 400);
                 menuStage.setTitle("Main Menu");
@@ -109,15 +96,9 @@ public class add_customer {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Takes the user back to the main menu
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @throws IOException
      */
     public void AddCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {  //go back to the main menu
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
@@ -129,15 +110,11 @@ public class add_customer {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Once a country has been selected from the country combobox, the division combobox will
+     * automatically update to reflect the available divisions per that country that is selected.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the changing/selection of a country in the country combobox.
+     * @throws SQLException
      */
     public void countrySelected(ActionEvent actionEvent) throws SQLException {
         String str = countryComboBox.getSelectionModel().getSelectedItem().toString();

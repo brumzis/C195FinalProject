@@ -4,15 +4,10 @@ import javafx.scene.control.ButtonType;
 import java.util.Optional;
 
 /**
- * Page where user can add a new customer to the database
+ * The alertBoxInterface is a functional interface that allows for the use of lambda expressions.
+ * I used lambda expressions to write code to display the various alertboxes for the appointment
+ * scheduling program.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public interface alertBoxInterface
 {

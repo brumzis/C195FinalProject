@@ -6,15 +6,12 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 /**
- * Page where user can add a new customer to the database
+ * The Appointment object has 10 attributes: apptID, apptTitle, apptDescription, apptLocation
+ * apptContact, apptType, apptStart, apptEnd, apptCustomerID, and apptUserID. These attributes correspond
+ * to columns in the appointment database. The start and end times are stored in the database using UTC time.
+ * Times must be converted to UTC before uploading to database, while times being downloaded from database
+ * will be converted to the local time on the machine using it
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class Appointment {
 
@@ -30,15 +27,8 @@ public class Appointment {
     private int apptUserID;
 
     /**
-     * Page where user can add a new customer to the database
+     * Constructor for the Appointment object. Getters and setters created as well.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
      */
     public Appointment(int apptID, String apptTitle, String apptDescription, String apptLocation, int apptContact, String apptType, LocalDateTime apptStart, LocalDateTime apptEnd, int apptCustomerID, int apptUserID) {
         this.apptID = apptID;

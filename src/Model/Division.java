@@ -1,15 +1,10 @@
 package Model;
 
 /**
- * Page where user can add a new customer to the database
+ * Allows for the creation of a Division Object. The Division object has 3 attributes, division_ID,
+ * divisionName, and country_ID. Depending on the country selected by the user, only certain
+ * divisions will be displayed. Each division has a corresponding country associated with it.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class Division {
 
@@ -23,7 +18,6 @@ public class Division {
         this.divisionName = divisionName;
         this.country_ID = country_ID;
     }
-
 
     public int getDivision_ID() {
         return division_ID;
@@ -48,10 +42,6 @@ public class Division {
     public void setCountry_ID(int country_ID) {
         this.country_ID = country_ID;
     }
-
-
-
-
 
 
 }

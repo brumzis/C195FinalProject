@@ -1,15 +1,10 @@
 package Model;
 
 /**
- * Page where user can add a new customer to the database
+ * Contact class allows for the creation of a Contact object. The Contact object has three attributes,
+ * corresponding to the 3 relevant columns in the database. contactID, contactName, and contactEmail.
+ * Getters and setters for each attribute follow.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class Contact {
 
@@ -18,15 +13,8 @@ public class Contact {
     private String contactEmail;
 
     /**
-     * Page where user can add a new customer to the database
+     * Constructor for the Contact object.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
      */
     public Contact(int contactID, String contactName, String contactEmail) {
         this.contactID = contactID;

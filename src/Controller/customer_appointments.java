@@ -14,15 +14,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * Page where user can add a new customer to the database
+ * Controller for the customer_appointments.fxml page. Handles 'Go' Buttons for three different
+ * appointment filters, handles a 'back' button, and also contains an initialize method. The table on this
+ * screen is not editable, so no handling is needed there.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class customer_appointments {
 
@@ -44,15 +39,11 @@ public class customer_appointments {
     public Button filterGoButton;
 
     /**
-     * Page where user can add a new customer to the database
+     * Initialize loads the customer combobox with all of the available customers in the database. It also
+     * loads the month combo box with every calendar month. The tableview stays empty upon initialization, as
+     * no customer, month, or type is yet selected.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @throws SQLException
      */
     public void initialize() throws SQLException {
 
@@ -71,15 +62,14 @@ public class customer_appointments {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * clicking the go button will use the selection from the customer combobox to populate the table
+     * with all customer appointments matching the selected customer. Clicking the go button also clears
+     * any remaining or old data from the other boxes or fields - this ensures the table data matches up
+     * with what the user has selected. The total box also keeps a count of how many rows were returned
+     * by the query, and displays those results.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click of the go button
+     * @throws SQLException
      */
     public void customerGoButtonClick(ActionEvent actionEvent) throws SQLException {
 
@@ -98,15 +88,14 @@ public class customer_appointments {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * clicking the go button will use the selection from the month combobox to populate the table
+     * with all customer appointments matching the selected month. Clicking the go button also clears
+     * any remaining or old data from the other boxes or fields - this ensures the table data matches up
+     * with what the user has selected. The total box also keeps a count of how many rows were returned
+     * by the query, and displays those results.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - mouse click on the month 'Go' button
+     * @throws SQLException
      */
     public void monthGoButtonClick(ActionEvent actionEvent) throws SQLException {
 
@@ -125,15 +114,14 @@ public class customer_appointments {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * clicking the go button will use the string in the textfield entered by the user to populate the table
+     * with all customer appointments matching the string in the textfield. Clicking the go button also clears
+     * any remaining or old data from the other boxes or fields - this ensures the table data matches up
+     * with what the user has selected. The total box also keeps a count of how many rows were returned
+     * by the query, and displays those results.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the type 'Go' button
+     * @throws SQLException
      */
     public void filterGoButtonClick(ActionEvent actionEvent) throws SQLException {
 
@@ -152,15 +140,10 @@ public class customer_appointments {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Upon the click of the back button, the user will return to the main menu
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - takes the user back to the main menu
+     * @throws IOException
      */
     public void customerBackButtonClick(ActionEvent actionEvent) throws IOException {
 

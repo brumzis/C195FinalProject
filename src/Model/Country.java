@@ -1,15 +1,10 @@
 package Model;
 
 /**
- * Page where user can add a new customer to the database
+ * Country class allows for the creation of a Country object. The Contact object has two attributes,
+ * corresponding to the 2 relevant columns in the database. countryID and countryName.
+ * Getters and setters for each attribute follow.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class Country {
 

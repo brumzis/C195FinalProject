@@ -1,15 +1,9 @@
 package Model;
 
 /**
- * Page where user can add a new customer to the database
+ * User class allows for the creation of a User object. The User object has three attributes,
+ * corresponding to the 3 relevant columns in the database. userID, userName, and userPassword
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class User {
 

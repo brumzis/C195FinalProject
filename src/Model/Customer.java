@@ -5,15 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Page where user can add a new customer to the database
+ * Customer class allows for the creation of a Customer object. The Customer object has six attributes,
+ * corresponding to the 6 relevant columns in the database. customerID, customerName, customerAddress,
+ * customerPostalCode, customerPhone, and customerDivision. Getters and setters for each attribute follow.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class Customer {
 
@@ -25,15 +20,8 @@ public class Customer {
     private int customerDivision;
 
     /**
-     * Page where user can add a new customer to the database
+     * Constructor for the Customer Object
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
      */
     public Customer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int customerDivision) {
         this.customerID = customerID;
