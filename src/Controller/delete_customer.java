@@ -17,15 +17,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 /**
- * Page where user can add a new customer to the database
+ * Controller for the delete_customer.fxml page. Only two buttons populate this window,
+ * a cancel button and a delete button. This controller handles both button events. This
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class delete_customer {
 
@@ -37,19 +31,22 @@ public class delete_customer {
     public void initialize() {}
 
     /**
-     * Page where user can add a new customer to the database
+     * The Delete Button click first takes the user entry from the textfield and stores it to
+     * an integer value. In the event a non-integer is entered by the user, an exception will
+     * be thrown and the user will be alerted via a text box. If an integer value is entered, the
+     * user will be prompted if they are sure they want to delete the customer, once confirmed
+     * the entry will be used in an SQL Query to delete the selected row from the database.
+     * Another alertbox is used to let the user know if the deletion was successful. If the
+     * customer ID was not found, the user will be alerted that the deletion was not successful.
+     * Per the instructions, the customer cannot be deleted if he/she has any scheduled appointments,
+     * so appointments must be checked before deletion is attemtped.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the click of the Delete Button.
+     * @throws SQLException
      */
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
-            int customerID = Integer.parseInt(deleteCustomerIDTbox.getText());
+            int customerID = Integer.parseInt(deleteCustomerIDTbox.getText());      //get the user entered customerID from the textfield
             alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
                                               myAlert.setTitle("Delete Customer");
                                               myAlert.setHeaderText("Confirm Delete?");
@@ -59,14 +56,14 @@ public class delete_customer {
                                             };
             Optional<ButtonType> result = alert.displayAlertBox();
 
-            if (result.isPresent() && result.get() == ButtonType.OK) {
+            if (result.isPresent() && result.get() == ButtonType.OK) {       //if customerID is valid, check for existing appointments
                 if (JDBC.checkForCustomerAppointments(customerID))
-                    throw new IndexOutOfBoundsException("can't have any appointments");
+                    throw new IndexOutOfBoundsException("can't have any appointments");  //throw exception with alertbox if appointments are found
 
                 String sql = "DELETE FROM customers WHERE Customer_ID = ?";
                 PreparedStatement ps = JDBC.connection.prepareStatement(sql);
                 ps.setInt(1, customerID);
-                int rowsAffected = ps.executeUpdate();
+                int rowsAffected = ps.executeUpdate();          //if deletion was successful, rowsAffected > 0, alert user in either case.
 
                 if (rowsAffected > 0) {
                     alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -109,15 +106,10 @@ public class delete_customer {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Upon a click of the cancel button the user will return to the main menu.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the cancel button
+     * @throws IOException
      */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));

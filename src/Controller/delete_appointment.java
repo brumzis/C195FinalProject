@@ -17,15 +17,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 /**
- * Page where user can add a new customer to the database
+ * Controller for the delete_appointment.fxml page. Only two buttons populate this window,
+ * a cancel button and a delete button. This controller handles both button events
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class delete_appointment {
 
@@ -34,15 +28,10 @@ public class delete_appointment {
     public Button cancelButton;
 
     /**
-     * Page where user can add a new customer to the database
+     * Upon a click of the cancel button the user will return to the main menu.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the cancel button
+     * @throws IOException
      */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
@@ -54,15 +43,15 @@ public class delete_appointment {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * The Delete Button click first takes the user entry from the textfield and stores it to
+     * an integer value. In the event a non-integer is entered by the user, an exception will
+     * be thrown and the user will be alerted via a text box. If an integer value is entered, the
+     * user will be prompted if they are sure they want to delete the appointment, once confirmed
+     * the entry will be used in an SQL Query to delete the selected row from the database.
+     * Another alertbox is used to let the user know if the deletion was successful. If the
+     * appointment ID was not found, the user will be alerted that the deletion was not successful.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the click of the Delete Button.
      */
     public void apptDeleteButtonClick(ActionEvent actionEvent) {
         try {
@@ -75,7 +64,7 @@ public class delete_appointment {
                                             };
             Optional<ButtonType> result = alert.displayAlertBox();
 
-            if(result.isPresent() && result.get() == ButtonType.OK) {
+            if(result.isPresent() && result.get() == ButtonType.OK) {             //If appointment ID exists, delete from the database
                 String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
                 PreparedStatement ps = JDBC.connection.prepareStatement(sql);
                 ps.setInt(1, apptID);
@@ -88,7 +77,7 @@ public class delete_appointment {
                                                      };
                     alert1.displayAlertBox();
 
-                    Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));  //once deleted, return to the main menu
                     Stage menuStage = (Stage) cancelButton.getScene().getWindow();
                     Scene menuScene = new Scene(root, 600, 400);
                     menuStage.setTitle("Main Menu");
@@ -96,7 +85,7 @@ public class delete_appointment {
                     menuStage.show();
 
                 } else {
-                    alertBoxInterface alert2 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+                    alertBoxInterface alert2 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);    //error box is appointment ID not found
                                                        myAlert.setTitle("Deletion Error:");
                                                        myAlert.setHeaderText("Appointment not found");
                                                        return myAlert.showAndWait();
@@ -104,7 +93,7 @@ public class delete_appointment {
                     alert2.displayAlertBox();
                 }
             }
-        } catch (NumberFormatException | SQLException | IOException e) {
+        } catch (NumberFormatException | SQLException | IOException e) {                           //error box for invalid data
             alertBoxInterface alert2 = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
                                                myAlert.setTitle("Deletion Error:");
                                                myAlert.setHeaderText("Please enter a valid Appointment ID");

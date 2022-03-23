@@ -27,15 +27,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 /**
- * Page where user can add a new customer to the database
+ * Controller for the login_screen.fxml page. The controller handles the userID and password text fields,
+ * as well as the login button. A label displaying the system time zone is also displayed on the login screen.
+ * This controller also handles support for the French language. A Resource Bundle is used, containing
+ * files for English and French. After any login attempt (successful or not) a call will be made to
+ * JDBC.attemptLogger which creates/adds to a 'login_activity.txt' file, recording the attempted username
+ * and password, along with a timestamp.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class login_screen implements Initializable {
 
@@ -49,15 +47,10 @@ public class login_screen implements Initializable {
     public Label screenTitle;
 
     /**
-     * Page where user can add a new customer to the database
+     * Initializes all labels, text fields and text to use the appropriate resource bundle
+     * depending on the user's system's language settings.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param rb ResourceBundle containing properties for English and French
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,19 +64,16 @@ public class login_screen implements Initializable {
         screenTitle.setText(rb.getString("title"));
         locationLabel.setText(rb.getString("loc"));
         userIdLabel.setText(rb.getString("userid1"));
-
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * A click on the login button takes the user entered
      *
      *
      *
      *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the login button
+     * @throws SQLException
      */
     public void onLoginButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         String userNameInput = userIDTextBox.getText();
