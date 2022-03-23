@@ -67,7 +67,7 @@ public class login_screen implements Initializable {
     }
 
     /**
-     * A click on the login button takes the user entered
+     * A click on the login button ttye again
      *
      *
      *
