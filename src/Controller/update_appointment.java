@@ -16,15 +16,14 @@ import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 
 /**
- * Page where user can add a new customer to the database
+ * Controller for the update_appointment.fxml page. This controller takes data entered by the
+ * user and processes and UPDATE command in SQL on the Appointment Database. As long as all of
+ * the fields have the appropriate data, the update will process successfully and return the user
+ * back to the view_appointments screen. Incomplete or invalid data will be met with an alertbox
+ * letting the user know they need to enter the correct data/dates/times. This screen will load
+ * with the existing data passed in by the appointment that has been selected by the user in the
+ * view_appointments.fxml screen. All data can be changed except the appointment ID field.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class update_appointment {
     public TextField apptIDTbox;
@@ -45,20 +44,18 @@ public class update_appointment {
     public Button cancelButton;
 
     /**
-     * Page where user can add a new customer to the database
+     * A click of the update button will first look at the dates and times entered by the user. They will be
+     * converted to LocalDateTime objects and checked to make sure they fall within given specifications.
+     * Once verified to be valid, they will be converted to UTC time before being updated along with the
+     * selected appointment in the database.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the Update Button
+     * @see Model.Customer
      */
     public void updateButtonClick(ActionEvent actionEvent) {
         try {
             Appointment myAppointment = null;
-            int i = Integer.parseInt(apptIDTbox.getText());
+            int i = Integer.parseInt(apptIDTbox.getText());                  //convert user entered data to LocalDateTime objects
             LocalDate startDay = startDateBox.getValue();
             LocalDate endDay = endDateBox.getValue();
             String startHour = startHourComboBox.getValue().toString();
@@ -68,17 +65,15 @@ public class update_appointment {
             LocalDateTime startApptTime = LocalDateTime.of(startDay.getYear(), startDay.getMonthValue(), startDay.getDayOfMonth(), Integer.parseInt(startHour), Integer.parseInt(startMinute));
             LocalDateTime endApptTime = LocalDateTime.of(endDay.getYear(), endDay.getMonthValue(), endDay.getDayOfMonth(), Integer.parseInt(endHour), Integer.parseInt(endMinute));
 
-            //make sure user entered times do not fall outside US/Eastern business hours per specs
-            if(!DateTimeUtility.validateAppointmentTime(startApptTime))
+            if(!DateTimeUtility.validateAppointmentTime(startApptTime))         //make sure user entered times do not fall outside US/Eastern business hours per specs
                 throw new ArithmeticException("invalid time");
             if(!DateTimeUtility.validateAppointmentTime(endApptTime))
                 throw new ArithmeticException("invalid time");
 
-            //make sure start time comes before end time
-            if(!DateTimeUtility.compareTimes(startApptTime, endApptTime))
+            if(!DateTimeUtility.compareTimes(startApptTime, endApptTime))                   //make sure start time comes before end time
                 throw new IllegalStateException("start time must come before end time");
 
-            if(!DateTimeUtility.checkOverlap(Integer.parseInt(customerIDTbox.getText()), DateTimeUtility.convertToUTC(startApptTime), DateTimeUtility.convertToUTC(endApptTime)))
+            if(!DateTimeUtility.checkOverlap(Integer.parseInt(customerIDTbox.getText()), DateTimeUtility.convertToUTC(startApptTime), DateTimeUtility.convertToUTC(endApptTime)))     //make sure appointments cannot overlap
                 throw new InputMismatchException("appointments are overlapping");
 
 
@@ -88,17 +83,17 @@ public class update_appointment {
                 myAppointment = new Appointment(i, titleTbox.getText(), descriptionTbox.getText(), locationTbox.getText(), (Integer) contactComboBox.getSelectionModel().getSelectedItem(), typeTbox.getText(), startApptTime, endApptTime, Integer.parseInt(customerIDTbox.getText()), Integer.parseInt(userIDTbox.getText()));
             }
 
-            int j = JDBC.updateAppointment(myAppointment);
+            int j = JDBC.updateAppointment(myAppointment);      // once all data has been checked - run the SQL UPDATE method.
 
             if (j > 0) {
-                Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));    //if successful, load the view appointments screen
                 Stage myStage = (Stage)updateButton.getScene().getWindow();
                 Scene myScene = new Scene(root, 1300, 500);
                 myStage.setTitle("View Appointments");
                 myStage.setScene(myScene);
                 myStage.show();
             }
-        } catch (ArithmeticException e) {
+        } catch (ArithmeticException e) {                                 //unsuccessful, load appropriate error box
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Scheduling Error");
             alert.setHeaderText("Invalid Time/Date Values");
@@ -128,15 +123,10 @@ public class update_appointment {
         }
     }
     /**
-     * Page where user can add a new customer to the database
+     * Takes the user back to the view_appointments.fxml screen.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the Cancel Button
+     * @throws IOException
      */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
@@ -147,15 +137,15 @@ public class update_appointment {
         myStage.show();
     }
     /**
-     * Page where user can add a new customer to the database
+     * This method is called from the view_appointments screen. The user selects an appointment
+     * from the tableview on that page and clicks 'Update'. Once clicked, this method is called
+     * and the selected object from that screen is passed in. This method takes that object and
+     * uses it to populate the fields on the Update Appointment Page.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param a - an appointment object selected by the user on the view_appointments screen.
+     * @return an object of type Appointment
+     * @throws SQLException
+     * @see Appointment
      */
     public Appointment getSelectedAppointment(Appointment a) throws SQLException {
 

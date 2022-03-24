@@ -8,7 +8,12 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-
+/**
+ * The controller for the main_menu.fxml page. This page does not actually process any user data, it
+ * serves as a selection screen for the user to choose where he/she wants to go. All buttons on this
+ * page will take the user to a different screen.
+ *
+ */
 public class main_menu {
 
     public Button customerAddButton;
@@ -20,18 +25,13 @@ public class main_menu {
     public Button viewContactScheduleButton;
     public Button viewUserScheduleButton;
     public Button viewCustApptButton;
-    public Button userLoginTrackingButton;
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the add_customer.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the Add Customer Button
+     * @throws IOException
+     * @see Model.Customer
      */
     public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
@@ -43,15 +43,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the delete_customer.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the Delete Customer Button
+     * @throws IOException
+     * @see Model.Customer
      */
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/delete_customer.fxml"));
@@ -63,15 +59,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the view_customer.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the View Customer Table Button
+     * @throws IOException
+     * @see Model.Customer
      */
     public void viewCustomerTableButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));
@@ -83,15 +75,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the add_appointment.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the Create New Appointment Button
+     * @throws IOException
+     * @see Model.Appointment
      */
     public void newApptButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_appointment.fxml"));
@@ -103,15 +91,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the delete_appointment.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the Delete Appointment Button
+     * @throws IOException
+     * @see Model.Appointment
      */
     public void deleteAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/delete_appointment.fxml"));
@@ -123,15 +107,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the view_appointments.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the View Appointments Button
+     * @throws IOException
+     * @see Model.Appointment
      */
     public void viewAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_appointments.fxml"));
@@ -143,15 +123,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the view_contact_schedules.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the View Contact Schedules Button
+     * @throws IOException
+     * @see Model.Contact
      */
     public void viewContactScheduleButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_contact_schedules.fxml"));
@@ -163,15 +139,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the view_user_schedules.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the View User Schedules Button
+     * @throws IOException
+     * @see Model.User
      */
     public void viewUserScheduleButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/view_user_schedules.fxml"));
@@ -183,15 +155,11 @@ public class main_menu {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Button click takes the user to the customer_appointments.fxml page
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - the mouse click of the Customer Appointments Button
+     * @throws IOException
+     * @see Model.Contact
      */
     public void viewCustApptButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/customer_appointments.fxml"));

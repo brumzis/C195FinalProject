@@ -67,10 +67,15 @@ public class login_screen implements Initializable {
     }
 
     /**
-     * A click on the login button ttye again
-     *
-     *
-     *
+     * A click on the login button will take the Strings entered by the user in the username and
+     * password fields and check to make sure they exist in the database. If not, an alertbox
+     * will ge generated letting the user know that either the username or password is
+     * incorrect. If successful, a check will be made to see if that user has any appointments
+     * scheduled in the next 15 minutes (including any taking place at that time). If so, the
+     * user will be alerted via an alertbox. If there are no appointments within the next 15 minutes,
+     * the user will be notified of that as well. Whether successful or not, a login_activity.txt
+     * file will be created/appended with the login attempt info, as well as a timestamp. The user
+     * is taken to the main menu screen upon a successful login.
      *
      * @param actionEvent - a mouse click on the login button
      * @throws SQLException
@@ -78,13 +83,13 @@ public class login_screen implements Initializable {
     public void onLoginButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         String userNameInput = userIDTextBox.getText();
         String passwordInput = passwordTextBox.getText();
-        int userID = getUserID(userNameInput);
+        int userID = getUserID(userNameInput);               //check database for user ID matching the username entered
 
-        if(userID != 0 && (validPassword(getUserID(userNameInput), passwordInput))) {
-            JDBC.attemptLogger(userNameInput, passwordInput, true);
-            checkUserAppointments(userID);
+        if(userID != 0 && (validPassword(getUserID(userNameInput), passwordInput))) {    //if username and password are correct
+            JDBC.attemptLogger(userNameInput, passwordInput, true);           //log the login attempt
+            checkUserAppointments(userID);                                              //check for upcoming appointments
 
-            Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));   //go to main menu
             Stage menuStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             Scene menuScene = new Scene(root, 600, 400);
             menuStage.setTitle("Main Menu");
@@ -92,21 +97,14 @@ public class login_screen implements Initializable {
             menuStage.show();
         }
         else {
-            JDBC.attemptLogger(userNameInput, passwordInput, false);
+            JDBC.attemptLogger(userNameInput, passwordInput, false);     //incorrect login attempts get logged as well
             loadPasswordErrorBox();
         }
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Password error box contains support for the French language as well.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
      */
     private void loadPasswordErrorBox() {
         ResourceBundle rb = ResourceBundle.getBundle("Main/C195Bundle");
@@ -117,15 +115,14 @@ public class login_screen implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Method takes a string input from the user and checks the database for that matching
+     * username. If found, the userID is returned as an integer value. If the username is
+     * not found in the database, the userID will return 0.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param inputName - text field entered by the user
+     * @return an integer value representing the userID
+     * @throws SQLException
+     * @see Model.User
      */
     private int getUserID(String inputName) throws SQLException {
         int userID = 0;
@@ -133,22 +130,21 @@ public class login_screen implements Initializable {
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
-        while(rs.next()) {
+        while(rs.next()) {                              //check all rows for a matching username
             userID = rs.getInt("User_ID");
         }
         return userID;
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * This method takes the userID (assuming it is found in the database) and compares it with the
+     * password entered by the user. If the password matches up with the info in the database,
+     * the method will return true. Otherwise it returns false.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param userID - an integer value used to check for a correct password
+     * @param password - a string value entered by the user
+     * @return true/false - returns true if the password matches up with the user in the DB
+     * @throws SQLException
      */
     private boolean validPassword(int userID, String password) throws SQLException {
         String sql = "SELECT Password FROM users WHERE User_ID = '" + userID + "'";
@@ -162,28 +158,27 @@ public class login_screen implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Method will take the userID of the person logging in, and check it against
+     * the appointment database to see if that userID has any upcoming appointments within
+     * the next 15 minutes. The method will also alert the user if there is an appointment
+     * taking place at the current time that has not ended yet. The method will not notify
+     * the user of any appointments missed that have already ended.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param userID - integer value of user who is logging on.
+     * @throws SQLException
      */
     private void checkUserAppointments(int userID) throws SQLException {
         try {
             ObservableList<Appointment> myList = JDBC.createAppointmentList();
             ObservableList<Appointment> newList = FXCollections.observableArrayList();
             LocalDateTime currentDateTime = LocalDateTime.now();
-            for (Appointment a : myList) {
+            for (Appointment a : myList) {                            //retrieves all appointments for that user
                     if (a.getApptUserID() == userID)
                         newList.add(a);
             }
 
             if(newList.isEmpty()) {
-                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);   //if there are no appointments
                     myAlert.setTitle("Message");
                     myAlert.setHeaderText("Appointment Info:");
                     myAlert.setContentText("You have no scheduled appointments in the next 15 minutes");
@@ -192,7 +187,7 @@ public class login_screen implements Initializable {
                 alert.displayAlertBox();
             }
 
-            if(!newList.isEmpty()) {
+            if(!newList.isEmpty()) {                                  //appointments exist and one is currently taking place right now
                 for (Appointment a : newList) {
                     if(currentDateTime.isAfter(a.getApptStart()) && currentDateTime.isBefore(a.getApptEnd())) {
                         alertBoxInterface alert2 = () -> {Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -204,12 +199,12 @@ public class login_screen implements Initializable {
                         alert2.displayAlertBox();
                     }
 
-                    else if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))
+                    else if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))   //appointment within the next 15 minutes
                         loadAlertUserBox(a);
                 }
             }
             else {
-                System.out.println("no appointments upcoming");
+                System.out.println("no appointments upcoming");                                               //appointments exist, but none within the next 15 minutes.
                 alertBoxInterface alert = () -> {Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
                                                  myAlert.setTitle("Message");
                                                  myAlert.setHeaderText("Appointment Info:");
@@ -229,15 +224,11 @@ public class login_screen implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * This method is called if an appointment is found for the selected user within the next 15 minutes.
+     * It takes the found appointment object and prints out the appointment ID, date, and time in an
+     * alertbox.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param a - Appointment Object of an appointment found within the next 15 minutes
      */
     private void loadAlertUserBox(Appointment a) {
 

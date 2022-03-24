@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.Appointment;
-import Model.DateTimeUtility;
-import Model.JDBC;
-import Model.User;
+import Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,16 +14,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+
 /**
- * Page where user can add a new customer to the database
+ * Controller for the view_user_schedules.fxml page. This page adjusts the tableview depending
+ * on which user is selected by the user in the 'Select User' combobox. The controller also
+ * handles a 'Back Button' as well. This table is not editable.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class view_user_schedules {
 
@@ -41,16 +34,13 @@ public class view_user_schedules {
     public TableColumn userEnd;
     public TableColumn userCustomerID;
 
+
     /**
-     * Page where user can add a new customer to the database
+     * Page is initialized with a tableview. The tableview starts off empty, as no User is yet
+     * selected from the combobox. The combobox is loaded with a list of all available users
+     * listed in the database.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @throws SQLException
      */
     public void initialize() throws SQLException {
 
@@ -66,16 +56,15 @@ public class view_user_schedules {
 
     }
 
+
     /**
-     * Page where user can add a new customer to the database
+     * This action takes the User Object selected by the user, and queries the database for all
+     * appointments matching that user ID. A list of all appointments matching the selected user
+     * is then displayed in the tableview
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a selection/or change of the combobox
+     * @throws SQLException
+     * @see User
      */
     public void comboBoxSelected(ActionEvent actionEvent) throws SQLException {
 
@@ -84,16 +73,12 @@ public class view_user_schedules {
 
     }
 
+
     /**
-     * Page where user can add a new customer to the database
+     * Takes the user back to the main menu.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the 'Back Button'
+     * @throws IOException
      */
     public void backButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));

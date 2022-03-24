@@ -21,15 +21,10 @@ import java.util.ResourceBundle;
 import static Model.JDBC.createCustomerList;
 
 /**
- * Page where user can add a new customer to the database
+ * Controller for the view_customer.fxml page. This controller handles the tableview, 'Create Customer
+ * Button', 'Update Customer Button', 'Delete Customer Button', and the 'Exit Button'. The controller
+ * also initializes the tableview when the page is loaded.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class view_customer implements Initializable {
 
@@ -46,15 +41,11 @@ public class view_customer implements Initializable {
     public Button exitButton;
 
     /**
-     * Page where user can add a new customer to the database
+     * When this page is loaded, a tableview is created. The table is set up to accept Customer Objects,
+     * and is also set to be editable. A method is run that loads all customers from the
+     * database into the table.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @see Customer
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,15 +72,13 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Once clicked, the 'Create Customer Button' will take the user to the add_customer.fxml screen,
+     * where new customers can be added to the database. See add_customer.java for more details.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the 'Create Customer Button'.
+     * @throws IOException
+     * @see Customer
+     * @see add_customer
      */
     public void createCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/add_customer.fxml"));
@@ -101,18 +90,19 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Clicking on the 'Update Customer Button' will first check the table to make sure something
+     * has been selected. If no row has been selected by the user, an alertbox will be generated telling
+     * the user that nothing has been selected yet. If a customer has been selected by the user, it will
+     * call the controller for the edit_customer page and pass that selected object to that controller
+     * to load the object attributes into the edit_customer page. The user will then be taken to the
+     * edit_customer.fxml page.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the 'Update Customer Button'.
+     * @throws IOException
+     * @see edit_customer
      */
     public void updateCustomerButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
-        if (customerTable.getSelectionModel().getSelectedItem() == null) {
+        if (customerTable.getSelectionModel().getSelectedItem() == null) {                              //if the user hasn't selected a row, display an alertbox.
             alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
                                               myAlert.setTitle("Error");
                                               myAlert.setHeaderText("No Customer Selected");
@@ -138,19 +128,22 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Clicking on the 'Delete Customer Button' will first check the table to make sure a row has been
+     * selected. If nothing has been selected yet, an alertbox will notify the user. If a customer
+     * has been selected, an alertbox will ask the customer if he/she is sure he/she wants to delete,
+     * and a reminder will be given that the customer cannot be deleted if he/she has any existing
+     * appointments in the database. If the user wishes to proceed, the database will be queried to see
+     * if that customer selected has any existing appointments - if so, the user will be notified via an
+     * alertbox, and the deletion will not be successful. If the customer does not have any appointments
+     * in the database, the customer will be deleted from the database. In either case, the user will
+     * be notified (via an alertbox) if the deletion was successful or not.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the 'Delete Customer Button'
+     * @throws SQLException
      */
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
         try {
-            if (customerTable.getSelectionModel().getSelectedItem() == null) {
+            if (customerTable.getSelectionModel().getSelectedItem() == null) {                          //if nothing was selected by the user, generate an alertbox.
                 alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
                                                   myAlert.setTitle("Error");
                                                   myAlert.setHeaderText("No customer selected");
@@ -159,7 +152,7 @@ public class view_customer implements Initializable {
                 alert.displayAlertBox();
             }
             else {
-                alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);   //remind user that customer cannot have existing appointments.
                     myAlert.setTitle("Delete Customer");
                     myAlert.setHeaderText("Customer appointment warning");
                     myAlert.setContentText("All customer appointments must be deleted before deleting customer! Do you wish to continue?");
@@ -170,18 +163,18 @@ public class view_customer implements Initializable {
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     Customer c = customerTable.getSelectionModel().getSelectedItem();
 
-                    if (JDBC.checkForCustomerAppointments(c.getCustomerID()))
+                    if (JDBC.checkForCustomerAppointments(c.getCustomerID()))               //check to make sure no existing appointments exist.
                         throw new IllegalStateException("Cannot have appointments");
 
-                    JDBC.deleteCustomer(c.getCustomerID());
+                    JDBC.deleteCustomer(c.getCustomerID());                     //if no appointments, delete the customer
 
-                    customerTable.getSelectionModel().clearSelection();
+                    customerTable.getSelectionModel().clearSelection();         //clear the table and reload to reflect new status of the table.
                     customerTable.getItems().clear();
                     customerTable.setItems(createCustomerList());
                 }
             }
         } catch (IllegalStateException e) {
-            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);
+            alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);               //generate errors
                                               myAlert.setTitle("Deletion Error");
                                               myAlert.setHeaderText("Customer cannot have appointments");
                                               return myAlert.showAndWait();
@@ -200,15 +193,10 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * Takes the user back to the main menu.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the 'Exit Button'
+     * @throws IOException
      */
     public void exitButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
@@ -220,15 +208,12 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * If a cell in the 'Name' Column is edited by the user, the method will run the JDBC.updateCustomer
+     * command with the new value inserted, updating the Customer with the new data. All normal checks
+     * for proper data will be implemented, with an alertbox being generated if the data is not valid.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param customerStringCellEditEvent - the editing of a cell in the name column
+     * @throws SQLException
      */
     public void nameEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) throws SQLException {
 
@@ -247,15 +232,12 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * If a cell in the 'Address' Column is edited by the user, the method will run the JDBC.updateCustomer
+     * command with the new value inserted, updating the Customer with the new data. All normal checks
+     * for proper data will be implemented, with an alertbox being generated if the data is not valid.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param customerStringCellEditEvent - the editing of a cell in the Address column
+     * @throws SQLException
      */
     public void addressEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
 
@@ -274,15 +256,12 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * If a cell in the 'Postal Code' Column is edited by the user, the method will run the JDBC.updateCustomer
+     * command with the new value inserted, updating the Customer with the new data. All normal checks
+     * for proper data will be implemented, with an alertbox being generated if the data is not valid.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param customerStringCellEditEvent - the editing of a cell in the Postal Code column
+     * @throws SQLException
      */
     public void postalEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
 
@@ -301,15 +280,12 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * If a cell in the 'Phone #' Column is edited by the user, the method will run the JDBC.updateCustomer
+     * command with the new value inserted, updating the Customer with the new data. All normal checks
+     * for proper data will be implemented, with an alertbox being generated if the data is not valid.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param customerStringCellEditEvent - the editing of a cell in the Phone# column
+     * @throws SQLException
      */
     public void phoneEditCommit(TableColumn.CellEditEvent<Customer, String> customerStringCellEditEvent) {
 
@@ -328,15 +304,12 @@ public class view_customer implements Initializable {
     }
 
     /**
-     * Page where user can add a new customer to the database
+     * If a cell in the 'DivisionID' Column is edited by the user, the method will run the JDBC.updateCustomer
+     * command with the new value inserted, updating the Customer with the new data. All normal checks
+     * for proper data will be implemented, with an alertbox being generated if the data is not valid.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param customerIntegerCellEditEvent - the editing of a cell in the DivisionID column
+     * @throws SQLException
      */
     public void divisionEditCommit(TableColumn.CellEditEvent<Customer, Integer> customerIntegerCellEditEvent){
 

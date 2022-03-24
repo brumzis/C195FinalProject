@@ -14,20 +14,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
+
 /**
- * Page where user can add a new customer to the database
+ * Controller for the view_contact_schedules.fxml page. This page adjusts the tableview depending
+ * on which contact is selected by the user in the 'Select Contact' combobox. The controller also
+ * handles a 'Back Button' as well. This table is not editable.
  *
- *
- *
- *
- * @param
- * @return
- * @throws
- * @see
  */
 public class view_contact_schedules {
     public ComboBox<Contact> contactComboBox;
@@ -42,19 +37,15 @@ public class view_contact_schedules {
     public TableView contactTable;
 
     /**
-     * Page where user can add a new customer to the database
+     * Page is initialized with a tableview. The tableview starts off empty, as no contact is yet
+     * selected from the combobox. The combobox is loaded with a list of all available contacts
+     * listed in the database.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @throws SQLException
      */
     public void initialize() throws SQLException {
 
-        contactComboBox.setItems(JDBC.getContactObjects());
+        contactComboBox.setItems(JDBC.getContactObjects());     // load combobox with all available contacts
 
         contactApptID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptID"));
         contactTitle.setCellValueFactory(new PropertyValueFactory<Appointment, String>("apptTitle"));
@@ -65,16 +56,15 @@ public class view_contact_schedules {
         contactCustomerID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("apptCustomerID"));
     }
 
+
     /**
-     * Page where user can add a new customer to the database
+     * This action takes the Contact Object selected by the user, and queries the database for all
+     * appointments matching that contact ID. A list of all appointments matching the selected contact
+     * is then displayed in the tableview
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a selection/or change of the combobox
+     * @throws SQLException
+     * @see Contact
      */
     public void contactComboBoxSelected(ActionEvent actionEvent) throws SQLException {
 
@@ -83,16 +73,12 @@ public class view_contact_schedules {
 
     }
 
+
     /**
-     * Page where user can add a new customer to the database
+     * Takes the user back to the main menu.
      *
-     *
-     *
-     *
-     * @param
-     * @return
-     * @throws
-     * @see
+     * @param actionEvent - a mouse click on the 'Back Button'
+     * @throws IOException
      */
     public void contactBackButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
