@@ -18,25 +18,26 @@ public class Customer {
     private String customerPostalCode;
     private String customerPhone;
     private int customerDivision;
+    private String customerCountry;
 
     /**
      * Constructor for the Customer Object
      *
      */
-    public Customer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int customerDivision) {
+    public Customer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int customerDivision, String customerCountry) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerPostalCode = customerPostalCode;
         this.customerPhone = customerPhone;
         this.customerDivision = customerDivision;
+        this.customerCountry = customerCountry;
     }
 
 
     public int getCustomerID() {
         return customerID;
     }
-
 
     public String getCustomerName() {
         return customerName;
@@ -86,6 +87,8 @@ public class Customer {
         return s;
     }
 
+
+
     public void setCustomerDivision(int customerDivision) {
         this.customerDivision = customerDivision;
     }
@@ -94,5 +97,13 @@ public class Customer {
     @Override
     public String toString() {
         return customerName;
+    }
+
+    public String getCustomerCountry() {
+        return customerCountry;
+    }
+
+    public void setCustomerCountry(String customerCountry) {
+        this.customerCountry = customerCountry;
     }
 }

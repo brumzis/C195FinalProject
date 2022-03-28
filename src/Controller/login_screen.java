@@ -162,49 +162,44 @@ public class login_screen implements Initializable {
      * the appointment database to see if that userID has any upcoming appointments within
      * the next 15 minutes. The method will also alert the user if there is an appointment
      * taking place at the current time that has not ended yet. The method will not notify
-     * the user of any appointments missed that have already ended.
+     * the user of any appointments missed that have already ended. A lambda function is
+     * used to generate the alertboxes for the user.
      *
      * @param userID - integer value of user who is logging on.
      * @throws SQLException
      */
     private void checkUserAppointments(int userID) throws SQLException {
         try {
+            int i = 0;
             ObservableList<Appointment> myList = JDBC.createAppointmentList();
             ObservableList<Appointment> newList = FXCollections.observableArrayList();
             LocalDateTime currentDateTime = LocalDateTime.now();
-            for (Appointment a : myList) {                            //retrieves all appointments for that user
+            for (Appointment a : myList) {                                                                      //retrieves all appointments for that user
                     if (a.getApptUserID() == userID)
                         newList.add(a);
             }
 
-            if(newList.isEmpty()) {
-                alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);   //if there are no appointments
-                    myAlert.setTitle("Message");
-                    myAlert.setHeaderText("Appointment Info:");
-                    myAlert.setContentText("You have no scheduled appointments in the next 15 minutes");
-                    return myAlert.showAndWait();
-                };
-                alert.displayAlertBox();
-            }
 
-            if(!newList.isEmpty()) {                                  //appointments exist and one is currently taking place right now
-                for (Appointment a : newList) {
-                    if(currentDateTime.isAfter(a.getApptStart()) && currentDateTime.isBefore(a.getApptEnd())) {
-                        alertBoxInterface alert2 = () -> {Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
-                                                          myAlert.setTitle("Important");
-                                                          myAlert.setHeaderText("Meeting happening now");
-                                                          myAlert.setContentText("You have a scheduled meeting you are supposed to be in right now!");
-                                                          return myAlert.showAndWait();
-                                                         };
-                        alert2.displayAlertBox();
-                    }
-
-                    else if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime))   //appointment within the next 15 minutes
-                        loadAlertUserBox(a);
+            for (Appointment a : newList) {
+                if (currentDateTime.isAfter(a.getApptStart()) && currentDateTime.isBefore(a.getApptEnd())) {
+                    i = 1;
+                    alertBoxInterface alert2 = () -> {
+                        Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                        myAlert.setTitle("Important");
+                        myAlert.setHeaderText("Meeting happening now");
+                        myAlert.setContentText("You have a scheduled meeting you are supposed to be in right now!");
+                        return myAlert.showAndWait();
+                    };
+                    alert2.displayAlertBox();
                 }
+                else if (a.getApptStart().minus(15, ChronoUnit.MINUTES).isBefore(currentDateTime) && a.getApptEnd().isAfter(currentDateTime)) {     //appointment within the next 15 minutes
+                    i = 1;
+                    loadAlertUserBox(a);
+                }
+                else
+                    i = 0;
             }
-            else {
-                System.out.println("no appointments upcoming");                                               //appointments exist, but none within the next 15 minutes.
+            if (i == 0) {                                                      //appointments exist, but none within the next 15 minutes.
                 alertBoxInterface alert = () -> {Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
                                                  myAlert.setTitle("Message");
                                                  myAlert.setHeaderText("Appointment Info:");

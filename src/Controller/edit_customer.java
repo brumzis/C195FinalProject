@@ -38,7 +38,8 @@ public class edit_customer implements Initializable {
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
 
     /**
      * Once the update button is clicked all fields' data are used in a constructor to create/overwrite
@@ -53,11 +54,11 @@ public class edit_customer implements Initializable {
     public void editCustomerUpdateButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         try {
             int i = Integer.parseInt(editCustomerIDTbox.getText());
-            Customer c = new Customer(i, editCustomerNameTbox.getText(), editCustomerAddressTbox.getText(), editPostalCodeTbox.getText(), editPhoneNumberTbox.getText(), JDBC.returnDivisionID((String) editDivisionComboBox.getValue()));
+            Customer c = new Customer(i, editCustomerNameTbox.getText(), editCustomerAddressTbox.getText(), editPostalCodeTbox.getText(), editPhoneNumberTbox.getText(), JDBC.returnDivisionID((String) editDivisionComboBox.getValue()), editCountryComboBox.getValue().toString());
             int j = JDBC.updateCustomer(c);
             if (j > 0) {
                 Parent root = FXMLLoader.load(getClass().getResource("/view/view_customer.fxml"));  //if successful go back to the view customer screen
-                Stage viewCustomerStage = (Stage)editCustomerButton.getScene().getWindow();
+                Stage viewCustomerStage = (Stage) editCustomerButton.getScene().getWindow();
                 Scene viewCustomerScene = new Scene(root, 800, 500);
                 viewCustomerStage.setTitle("View Customers");
                 viewCustomerStage.setScene(viewCustomerScene);
@@ -79,7 +80,7 @@ public class edit_customer implements Initializable {
      */
     public void editCustomerCancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
-        Stage menuStage = (Stage)editCustomerCancelButton.getScene().getWindow();
+        Stage menuStage = (Stage) editCustomerCancelButton.getScene().getWindow();
         Scene menuScene = new Scene(root, 600, 400);
         menuStage.setTitle("Main Menu");
         menuStage.setScene(menuScene);
@@ -106,7 +107,8 @@ public class edit_customer implements Initializable {
         editPhoneNumberTbox.setText(c.getCustomerPhone());
         editPostalCodeTbox.setText(c.getCustomerPostalCode());
         editCountryComboBox.setItems(JDBC.getCountryNames());
-        editDivisionComboBox.setItems(JDBC.getAllDivisionNames());
+        editCountryComboBox.setValue(c.getCustomerCountry());
+        editDivisionComboBox.setItems(JDBC.getCountrySpecificDivisionNames(JDBC.returnCountryID(c.getCustomerDivision())));
         editDivisionComboBox.setValue(c.getCustomerDivisionName());
         return c;
     }
@@ -120,13 +122,23 @@ public class edit_customer implements Initializable {
      * @see Country
      */
     public void countrySelected(ActionEvent actionEvent) throws SQLException {
-        String str = editCountryComboBox.getSelectionModel().getSelectedItem().toString();
+        String str = editCountryComboBox.getValue().toString();
+        System.out.println(str);
         for (Country c : JDBC.getCountryObjects()) {
             if (c.getCountryName().equals(str)) {
                 editDivisionComboBox.setItems(JDBC.getCountrySpecificDivisionNames(c.getCountryID()));   //set the division combobox with the correct divisions
-                editDivisionComboBox.setValue(null);
+
             }
         }
     }
+
+    public void divisionBoxSelect(ActionEvent actionEvent) throws SQLException {
+        System.out.println("division box event triggered");
+
+
+    }
+
+
+
 
 }

@@ -151,6 +151,17 @@ public abstract class JDBC {
         return i;
     }
 
+
+    public static int returnCountryID(int divisonID) throws SQLException {
+        int i = 0;
+        String sql = "SELECT Country_ID FROM First_Level_Divisions WHERE Division_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, divisonID);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next())
+            i = rs.getInt(1);
+        return i;
+    }
     /**
      * Method that takes the name of a contact as input and returns the corresponding contact ID
      *
@@ -181,17 +192,38 @@ public abstract class JDBC {
      * @see view_customer
      */
     public static ObservableList<Customer> createCustomerList() throws SQLException {
+
         ObservableList<Customer> myList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-             Customer c = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(10));
+             Customer c = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(10), JDBC.getCountryName(rs.getInt(10)));
              myList.add(c);
         }
         return myList;
     }
 
+
+    public static String getCountryName (int divisionID) throws SQLException {
+        int i = 0;
+        String s = "";
+        String str = "SELECT Country_ID FROM first_level_divisions WHERE Division_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(str);
+        ps.setInt(1, divisionID);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) {
+            i = rs.getInt(1);
+        }
+        String str2 = "SELECT Country FROM countries WHERE Country_ID = ?";
+        PreparedStatement ps2 = JDBC.connection.prepareStatement((str2));
+        ps2.setInt(1, i);
+        ResultSet rs2 = ps2.executeQuery();
+        while(rs2.next()) {
+            s = rs2.getString(1);
+        }
+        return s;
+    }
     /**
      * Method to delete a customer from the database. The method takes in a customer ID and
      * searches the database for a match. If found, the entry is deleted. The executeUpdate

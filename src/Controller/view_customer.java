@@ -50,6 +50,7 @@ public class view_customer implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         tableIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("customerID"));
         tableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerName"));
         tableNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
