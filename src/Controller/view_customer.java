@@ -318,6 +318,8 @@ public class view_customer implements Initializable {
             Customer c = customerTable.getSelectionModel().getSelectedItem();
             c.setCustomerDivision(customerIntegerCellEditEvent.getNewValue());
             int i = JDBC.updateCustomer(c);
+            c.setCustomerCountry(customerIntegerCellEditEvent.getNewValue());
+
             System.out.println(i);
             if (i < 1) {
                 alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.ERROR);

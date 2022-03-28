@@ -2,6 +2,7 @@ package Controller;
 
 import Model.JDBC;
 import Model.alertBoxInterface;
+import com.sun.scenario.effect.impl.prism.ps.PPSBlend_ADDPeer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -56,7 +58,7 @@ public class delete_appointment {
     public void apptDeleteButtonClick(ActionEvent actionEvent) {
         try {
             int apptID = Integer.parseInt(deleteApptTbox.getText());
-
+            String apptType = "";
             alertBoxInterface alert = () -> { Alert myAlert = new Alert(Alert.AlertType.CONFIRMATION);
                                               myAlert.setTitle("Delete Appointment?");
                                               myAlert.setContentText("Are you sure you wish to delete this appointment?");
@@ -65,17 +67,24 @@ public class delete_appointment {
             Optional<ButtonType> result = alert.displayAlertBox();
 
             if(result.isPresent() && result.get() == ButtonType.OK) {             //If appointment ID exists, delete from the database
+                String sq = "SELECT Type FROM appointments WHERE Appointment_ID = ?";
+                PreparedStatement p = JDBC.connection.prepareStatement(sq);
+                p.setInt(1, apptID);
+                ResultSet r = p.executeQuery();
+                while(r.next())
+                    apptType = r.getString(1);
+
                 String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
                 PreparedStatement ps = JDBC.connection.prepareStatement(sql);
                 ps.setInt(1, apptID);
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
-                    alertBoxInterface alert1 = () -> { Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
-                                                       myAlert.setTitle("Deletion Successful");
-                                                       myAlert.setHeaderText("Appointment deleted");
-                                                       return myAlert.showAndWait();
-                                                     };
-                    alert1.displayAlertBox();
+                    Alert myAlert = new Alert(Alert.AlertType.INFORMATION);
+                    myAlert.setTitle("Deletion Successful");
+                    myAlert.setHeaderText("Appointment deleted" + "\nAppointment ID: " + apptID + "\nAppointment Type: " + apptType);
+                    myAlert.showAndWait();
+
+
 
                     Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));  //once deleted, return to the main menu
                     Stage menuStage = (Stage) cancelButton.getScene().getWindow();

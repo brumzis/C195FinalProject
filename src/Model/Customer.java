@@ -103,7 +103,8 @@ public class Customer {
         return customerCountry;
     }
 
-    public void setCustomerCountry(String customerCountry) {
-        this.customerCountry = customerCountry;
+    public void setCustomerCountry(int divisionID) throws SQLException {
+
+         this.customerCountry = JDBC.getCountryName(divisionID);
     }
 }

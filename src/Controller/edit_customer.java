@@ -133,12 +133,9 @@ public class edit_customer implements Initializable {
     }
 
     public void divisionBoxSelect(ActionEvent actionEvent) throws SQLException {
-        System.out.println("division box event triggered");
-
 
     }
 
-
-
+    
 
 }
