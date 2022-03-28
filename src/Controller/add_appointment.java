@@ -3,6 +3,7 @@ package Controller;
 import Model.DateTimeUtility;
 import Model.JDBC;
 import Model.alertBoxInterface;
+import Model.loadMainMenu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -183,17 +184,20 @@ public class add_appointment {
 
     /**
      * Upon cancel button click, returns user back to the main menu screen
+     * A lamdba function was used to load the Main Menu Screen.
      *
      * @param actionEvent - a mouse click on the cancel button
      * @throws IOException
      */
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {  //return to main menu if clicked
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
-        Stage menuStage = (Stage)cancelButton.getScene().getWindow();
-        Scene menuScene = new Scene(root, 600, 400);
-        menuStage.setTitle("Main Menu");
-        menuStage.setScene(menuScene);
-        menuStage.show();
+        loadMainMenu lamdaFunction = () -> {Parent root = FXMLLoader.load(getClass().getResource("/view/main_menu.fxml"));
+                                            Stage menuStage = (Stage) cancelButton.getScene().getWindow();
+                                            Scene menuScene = new Scene(root, 600, 400);
+                                            menuStage.setTitle("Main Menu");
+                                            menuStage.setScene(menuScene);
+                                            menuStage.show();
+                                           };
+        lamdaFunction.loadMainMenuScene();
     }
 }

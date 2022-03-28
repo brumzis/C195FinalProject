@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 /**
  * Customer class allows for the creation of a Customer object. The Customer object has six attributes,
  * corresponding to the 6 relevant columns in the database. customerID, customerName, customerAddress,
@@ -19,10 +20,10 @@ public class Customer {
     private String customerPhone;
     private int customerDivision;
     private String customerCountry;
+    private Object lambdaInterface;
 
     /**
      * Constructor for the Customer Object
-     *
      */
     public Customer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int customerDivision, String customerCountry) {
         this.customerID = customerID;
@@ -82,11 +83,10 @@ public class Customer {
         PreparedStatement ps = JDBC.connection.prepareStatement(str);
         ps.setInt(1, i);
         ResultSet rs = ps.executeQuery();
-        while(rs.next())
+        while (rs.next())
             s = rs.getString(1);
         return s;
     }
-
 
 
     public void setCustomerDivision(int customerDivision) {
@@ -105,6 +105,7 @@ public class Customer {
 
     public void setCustomerCountry(int divisionID) throws SQLException {
 
-         this.customerCountry = JDBC.getCountryName(divisionID);
+        this.customerCountry = JDBC.getCountryName(divisionID);
+
     }
 }
